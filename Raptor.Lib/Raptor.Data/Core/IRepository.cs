@@ -7,7 +7,7 @@ namespace Raptor.Data.Core
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        TEntity FindById(object id);
+        TEntity GetById(object id);
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 
         IEnumerable<TEntity> GetAll();
@@ -20,6 +20,7 @@ namespace Raptor.Data.Core
         void CreateRange(IEnumerable<TEntity> entities);
         void Update(TEntity entity);
         void Delete(TEntity entity);
+        void DeleteRange(IEnumerable<TEntity> entities);
         bool Any(object id);
 
     }

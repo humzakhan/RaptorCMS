@@ -39,7 +39,7 @@ namespace Raptor.Data.Core
             return orderBy?.Invoke(query).ToList() ?? query.ToList();
         }
 
-        public virtual TEntity FindById(object id)
+        public virtual TEntity GetById(object id)
         {
             return DbSet.Find(id);
         }
@@ -81,7 +81,13 @@ namespace Raptor.Data.Core
             {
                 DbSet.Attach(entityToDelete);
             }
+
             DbSet.Remove(entityToDelete);
+        }
+
+        public void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            DbSet.RemoveRange(entities);
         }
     }
 }

@@ -17,6 +17,6 @@ namespace Raptor.Data.Models
         public string Description { get; set; }
         public int ParentId { get; set; }
 
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<BlogPost> Posts { get; set; }
     }
 }

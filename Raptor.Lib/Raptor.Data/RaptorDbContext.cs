@@ -8,11 +8,16 @@ namespace Raptor.Data
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseNpgsql("Host=localhost;Database=RaptorCMS;Username=root;Password=klmn256;");
+
+            base.OnConfiguring(options);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserRole>().HasKey(c => new { c.UserId, c.RoleId });
+            modelBuilder.Entity<BlogPost>().ToTable("BlogPosts").HasKey(b => b.BlogPostId);
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<User> Users { get; set; }
@@ -22,7 +27,7 @@ namespace Raptor.Data
         public DbSet<Term> Terms { get; set; }
         public DbSet<Taxonomy> Taxonomies { get; set; }
         public DbSet<TermRelationship> TermRelationships { get; set; }
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<BlogPost> Posts { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Customer> Customers { get; set; }

@@ -9,9 +9,10 @@ using Raptor.Data.Models;
 namespace Raptor.Data.Migrations
 {
     [DbContext(typeof(RaptorDbContext))]
-    partial class RaptorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170715211124_RenameBlogPostsTable")]
+    partial class RenameBlogPostsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)

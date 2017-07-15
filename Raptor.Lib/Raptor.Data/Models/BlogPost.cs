@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Raptor.Data.Models
 {
-    public class Post
+    public class BlogPost
     {
         [Key]
-        public int PostId { get; set; }
+        public int BlogPostId { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateCreatedGmt { get; set; }
         public string Content { get; set; }

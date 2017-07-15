@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Raptor.Core">
+      <HintPath>..\Raptor.Core\bin\Debug\netcoreapp1.1\Raptor.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Raptor.Data">
+      <HintPath>..\Raptor.Data\bin\Debug\netcoreapp1.1\Raptor.Data.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
