@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Raptor.Data.Models;
+using Raptor.Data.Models.Logging;
 
 namespace Raptor.Data
 {
@@ -31,5 +32,7 @@ namespace Raptor.Data
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<ActivityLog> ActivityLogs { get; set; }
     }
 }

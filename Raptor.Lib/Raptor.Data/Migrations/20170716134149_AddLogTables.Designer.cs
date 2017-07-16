@@ -10,9 +10,10 @@ using Raptor.Data.Models.Logging;
 namespace Raptor.Data.Migrations
 {
     [DbContext(typeof(RaptorDbContext))]
-    partial class RaptorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170716134149_AddLogTables")]
+    partial class AddLogTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
