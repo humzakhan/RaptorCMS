@@ -1,5 +1,5 @@
-﻿using Raptor.Data.Models;
-using Raptor.Data.Models.Logging;
+﻿using Raptor.Data.Models.Logging;
+using Raptor.Data.Models.Users;
 using System.Collections.Generic;
 
 namespace Raptor.Services.Logging
@@ -40,12 +40,12 @@ namespace Raptor.Services.Logging
         /// <summary>
         /// Inserts an activity log item
         /// </summary>
-        /// <param name="customer">The customer</param>
+        /// <param name="user">The user for which activity is being recored</param>
         /// <param name="systemKeyword">The system keyword</param>
         /// <param name="comment">The activity comment</param>
         /// <param name="commentParams">The activity comment parameters for string.Format() function.</param>
         /// <returns>Activity log item</returns>
-        ActivityLog InsertActivity(Customer customer, string systemKeyword, string comment, string ipAddress, params object[] commentParams);
+        ActivityLog InsertActivity(BusinessEntity user, string systemKeyword, string comment, string ipAddress, params object[] commentParams);
 
         /// <summary>
         /// Gets an activity log item

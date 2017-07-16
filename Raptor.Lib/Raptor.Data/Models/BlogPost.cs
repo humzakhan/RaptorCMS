@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Raptor.Data.Models.Users;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Raptor.Data.Models
 {
@@ -29,9 +31,13 @@ namespace Raptor.Data.Models
         public string Link { get; set; }
         public PostType PostType { get; set; }
         public int CommentsCount { get; set; }
-        public int PostCategoryId { get; set; }
+        public int BlogPostCategoryId { get; set; }
 
-        public virtual PostCategory PostCategory { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        [ForeignKey("BusinessEntity")]
+        public int CreatedById { get; set; }
+
+        public virtual BlogPostCategory BlogPostCategory { get; set; }
+        public virtual ICollection<BlogComment> Comments { get; set; }
+        public virtual BusinessEntity BusinessEntity { get; set; }
     }
 }

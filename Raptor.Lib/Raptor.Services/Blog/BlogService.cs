@@ -8,9 +8,9 @@ namespace Raptor.Services.Blog
     public class BlogService : IBlogService
     {
         private readonly IRepository<BlogPost> _blogPostsRepository;
-        private readonly IRepository<Comment> _blogCommentsRepository;
+        private readonly IRepository<BlogComment> _blogCommentsRepository;
 
-        public BlogService(IRepository<BlogPost> blogPostsRepository, IRepository<Comment> blogCommentsRepository)
+        public BlogService(IRepository<BlogPost> blogPostsRepository, IRepository<BlogComment> blogCommentsRepository)
         {
             _blogPostsRepository = blogPostsRepository;
             _blogCommentsRepository = blogCommentsRepository;
@@ -44,12 +44,12 @@ namespace Raptor.Services.Blog
             _blogPostsRepository.Update(blogPost);
         }
 
-        public IList<Comment> GetBlogCommentsById(int blogPostId)
+        public IList<BlogComment> GetBlogCommentsById(int blogPostId)
         {
             return _blogCommentsRepository.Find(c => c.PostId == blogPostId).ToList();
         }
 
-        public IList<Comment> GetBlogCommentsByIds(int[] blogPostIds)
+        public IList<BlogComment> GetBlogCommentsByIds(int[] blogPostIds)
         {
             return _blogCommentsRepository.Find(c => blogPostIds.Contains(c.PostId)).ToList();
         }
@@ -59,12 +59,12 @@ namespace Raptor.Services.Blog
             return _blogCommentsRepository.Find(c => c.PostId == blogPostId && c.Approved == isApproved).Count();
         }
 
-        public void DeleteBlogComment(Comment comment)
+        public void DeleteBlogComment(BlogComment comment)
         {
             _blogCommentsRepository.Delete(comment);
         }
 
-        public void DeleteBlogComments(IList<Comment> comments)
+        public void DeleteBlogComments(IList<BlogComment> comments)
         {
             _blogCommentsRepository.DeleteRange(comments);
         }

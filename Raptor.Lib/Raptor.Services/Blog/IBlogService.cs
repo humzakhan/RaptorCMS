@@ -17,11 +17,11 @@ namespace Raptor.Services.Blog
 
         #region Blog Comments
 
-        IList<Comment> GetBlogCommentsById(int blogPostId);
-        IList<Comment> GetBlogCommentsByIds(int[] blogPostIds);
+        IList<BlogComment> GetBlogCommentsById(int blogPostId);
+        IList<BlogComment> GetBlogCommentsByIds(int[] blogPostIds);
         int GetBlogCommentsCount(int blogPostId, bool isApproved = true);
-        void DeleteBlogComment(Comment comment);
-        void DeleteBlogComments(IList<Comment> comments);
+        void DeleteBlogComment(BlogComment comment);
+        void DeleteBlogComments(IList<BlogComment> comments);
 
         #endregion
     }

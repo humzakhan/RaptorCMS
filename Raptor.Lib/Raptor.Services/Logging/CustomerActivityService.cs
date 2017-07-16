@@ -1,7 +1,7 @@
 ﻿using Raptor.Core;
 using Raptor.Data.Core;
-using Raptor.Data.Models;
 using Raptor.Data.Models.Logging;
+using Raptor.Data.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,10 +85,10 @@ namespace Raptor.Services.Logging
         /// <param name="comment">The activity comment</param>
         /// <param name="commentParams">The activity comment parameters for string.Format() function.</param>
         /// <returns>Activity log item</returns>
-        public ActivityLog InsertActivity(Customer customer, string systemKeyword, string comment, string ipAddress,
+        public ActivityLog InsertActivity(BusinessEntity user, string systemKeyword, string comment, string ipAddress,
             params object[] commentParams)
         {
-            if (customer == null)
+            if (user == null)
                 return null;
 
             var activityType = _activityLogTypeRepository.SingleOrDefault(a => a.SystemKeyword == systemKeyword);
@@ -102,7 +102,7 @@ namespace Raptor.Services.Logging
             var activityLog = new ActivityLog()
             {
                 ActivityLogTypeId = activityType.ActivityLogTypeId,
-                Customer = customer,
+                BusinessEntity = user,
                 Comment = comment,
                 DateCreatedUtc = DateTime.UtcNow,
                 IpAddress = ipAddress,

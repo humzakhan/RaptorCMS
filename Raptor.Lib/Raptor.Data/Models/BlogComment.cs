@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Raptor.Data.Models
 {
-    public class Comment
+    public class BlogComment
     {
         [Key]
         public int CommentId { get; set; }
@@ -29,9 +29,7 @@ namespace Raptor.Data.Models
 
         [StringLength(255)]
         public string Agent { get; set; }
-        public int UserId { get; set; }
 
-        public User User { get; set; }
         public BlogPost Post { get; set; }
     }
 }

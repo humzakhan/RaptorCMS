@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Raptor.Data.Models
 {
-    public class PostCategory
+    public class BlogPostCategory
     {
         [Key]
         public int PostCategoryId { get; set; }
