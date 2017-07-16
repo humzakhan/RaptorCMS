@@ -32,7 +32,10 @@ namespace Raptor.Data
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Customer> Customers { get; set; }
+
+        // Logging
         public DbSet<Log> Logs { get; set; }
         public DbSet<ActivityLog> ActivityLogs { get; set; }
+        public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
     }
 }
