@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Raptor.Data.Models
+namespace Raptor.Data.Models.Blog
 {
     public class BlogPost
     {

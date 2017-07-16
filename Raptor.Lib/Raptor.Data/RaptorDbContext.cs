@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Raptor.Data.Models;
+using Raptor.Data.Models.Blog;
+using Raptor.Data.Models.Content;
 using Raptor.Data.Models.Logging;
 using Raptor.Data.Models.Users;
 
@@ -27,7 +28,7 @@ namespace Raptor.Data
         public DbSet<Taxonomy> Taxonomies { get; set; }
         public DbSet<TermRelationship> TermRelationships { get; set; }
 
-        //Blogs
+        // Blogs
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<BlogPostCategory> BlogPostCategories { get; set; }
         public DbSet<BlogComment> BlogComments { get; set; }
@@ -37,7 +38,7 @@ namespace Raptor.Data
         public DbSet<ActivityLog> ActivityLogs { get; set; }
         public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
 
-        //Users
+        // Users
         public DbSet<BusinessEntity> BusinessEntities { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Address> Addresses { get; set; }

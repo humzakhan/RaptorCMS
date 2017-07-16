@@ -1,4 +1,4 @@
-﻿using Raptor.Core;
+﻿using Raptor.Core.Helpers;
 using Raptor.Data.Core;
 using Raptor.Data.Models.Logging;
 using Raptor.Data.Models.Users;
@@ -80,9 +80,10 @@ namespace Raptor.Services.Logging
         /// <summary>
         /// Inserts an activity log item
         /// </summary>
-        /// <param name="customer">The customer</param>
+        /// <param name="user">The user who's activity is being logged</param>
         /// <param name="systemKeyword">The system keyword</param>
         /// <param name="comment">The activity comment</param>
+        /// <param name="ipAddress">IP Address of the user</param>
         /// <param name="commentParams">The activity comment parameters for string.Format() function.</param>
         /// <returns>Activity log item</returns>
         public ActivityLog InsertActivity(BusinessEntity user, string systemKeyword, string comment, string ipAddress,

@@ -1,5 +1,5 @@
 ﻿using Raptor.Data.Core;
-using Raptor.Data.Models;
+using Raptor.Data.Models.Blog;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Raptor.Core
+namespace Raptor.Core.Helpers
 {
     public static class CommonHelper
     {

@@ -1,4 +1,4 @@
-﻿using Raptor.Data.Models;
+﻿using Raptor.Data.Models.Blog;
 using System.Collections.Generic;
 
 namespace Raptor.Services.Blog

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Raptor.Data.Models
+namespace Raptor.Data.Models.Blog
 {
     public class BlogComment
     {
