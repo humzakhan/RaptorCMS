@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Raptor.Data;
 using Raptor.Data.Models;
-using Raptor.Data.Models.Logging;
 
 namespace Raptor.Data.Migrations
 {
     [DbContext(typeof(RaptorDbContext))]
-    partial class RaptorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170716135740_RemoveLogsTable")]
+    partial class RemoveLogsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -156,28 +156,6 @@ namespace Raptor.Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("ActivityLogs");
-                });
-
-            modelBuilder.Entity("Raptor.Data.Models.Logging.Log", b =>
-                {
-                    b.Property<int>("LogId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateCreatedUtc");
-
-                    b.Property<string>("FullMessage");
-
-                    b.Property<int>("LogLevel");
-
-                    b.Property<int>("LogLevelId");
-
-                    b.Property<string>("PageUrl");
-
-                    b.Property<string>("ShortMessage");
-
-                    b.HasKey("LogId");
-
-                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("Raptor.Data.Models.PostCategory", b =>
