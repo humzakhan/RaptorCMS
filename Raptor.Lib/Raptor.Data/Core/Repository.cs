@@ -62,17 +62,20 @@ namespace Raptor.Data.Core
         public void Create(TEntity entity)
         {
             DbSet.Add(entity);
+            Context.SaveChanges();
         }
 
         public void CreateRange(IEnumerable<TEntity> entities)
         {
             DbSet.AddRange(entities);
+            Context.SaveChanges();
         }
 
         public void Update(TEntity entity)
         {
             DbSet.Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
+            Context.SaveChanges();
         }
 
         public void Delete(TEntity entityToDelete)
@@ -83,11 +86,13 @@ namespace Raptor.Data.Core
             }
 
             DbSet.Remove(entityToDelete);
+            Context.SaveChanges();
         }
 
         public void DeleteRange(IEnumerable<TEntity> entities)
         {
             DbSet.RemoveRange(entities);
+            Context.SaveChanges();
         }
     }
 }

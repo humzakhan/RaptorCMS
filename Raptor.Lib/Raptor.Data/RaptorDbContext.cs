@@ -8,18 +8,32 @@ namespace Raptor.Data
 {
     public class RaptorDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
+        protected override void OnConfiguring(DbContextOptionsBuilder options) {
             options.UseNpgsql("Host=localhost;Database=RaptorCMS;Username=root;Password=klmn256;");
 
             base.OnConfiguring(options);
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<BlogPost>().ToTable("BlogPosts").HasKey(b => b.BlogPostId);
             modelBuilder.Entity<PersonRole>().HasKey(r => new { r.RoleId, r.BusinessEntityId });
             modelBuilder.Entity<BusinessEntityAddress>().HasKey(e => new { e.BusinessEntityId, e.AddressId });
+
+            modelBuilder.Entity<BlogPost>(b => {
+                b.Property(u => u.Guid).HasDefaultValueSql("uuid_generate_v4()");
+            });
+
+            modelBuilder.Entity<PersonRole>(p => {
+                p.Property(u => u.RowGuid).HasDefaultValueSql("uuid_generate_v4()");
+            });
+
+            modelBuilder.Entity<Password>(p => {
+                p.Property(u => u.RowGuid).HasDefaultValueSql("uuid_generate_v4()");
+            });
+
+            modelBuilder.Entity<BusinessEntity>(p => {
+                p.Property(u => u.RowGuid).HasDefaultValueSql("uuid_generate_v4()");
+            });
 
             base.OnModelCreating(modelBuilder);
         }

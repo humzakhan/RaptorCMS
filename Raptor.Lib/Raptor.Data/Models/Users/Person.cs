@@ -34,6 +34,7 @@ namespace Raptor.Data.Models.Users
         public string Website { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsBlocked { get; set; }
+        public bool IsEmailVerified { get; set; }
         public DateTime DateCreatedUtc { get; set; }
         public DateTime DateModifiedUtc { get; set; }
         public DateTime DateLastLoginUtc { get; set; }
