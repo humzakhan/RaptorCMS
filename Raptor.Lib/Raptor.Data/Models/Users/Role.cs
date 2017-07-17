@@ -6,6 +6,7 @@ namespace Raptor.Data.Models.Users
     {
         [Key]
         public int RoleId { get; set; }
-        public string Name { get; set; }
+        public string SystemKeyword { get; set; }
+        public string DisplayName { get; set; }
     }
 }

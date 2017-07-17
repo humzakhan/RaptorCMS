@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Raptor.Data.Models.Users
 {
@@ -37,5 +39,17 @@ namespace Raptor.Data.Models.Users
         public DateTime DateLastLoginUtc { get; set; }
 
         public virtual BusinessEntity BusinessEntity { get; set; }
+        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
+        public virtual ICollection<PersonRole> UserRoles { get; set; }
+
+        public bool IsInRole(string systemKeyword)
+        {
+            return UserRoles.Any(u => u.Role.SystemKeyword == systemKeyword);
+        }
+
+        public bool IsInRole(int roleId)
+        {
+            return UserRoles.Any(u => u.RoleId == roleId);
+        }
     }
 }
