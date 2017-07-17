@@ -2,9 +2,9 @@
 
 namespace Raptor.Core.Security
 {
-    public class HashGenerator
+    public static class HashGenerator
     {
-        public string GenerateHash(string input, string salt)
+        public static string GenerateHash(string input, string salt)
         {
             var bytes = System.Text.Encoding.UTF8.GetBytes(input + salt);
             var hashAlgoritm = System.Security.Cryptography.MD5.Create();
@@ -12,7 +12,7 @@ namespace Raptor.Core.Security
             return Convert.ToBase64String(bytes);
         }
 
-        public string CreateSalt()
+        public static string CreateSalt()
         {
             var rng = System.Security.Cryptography.RandomNumberGenerator.Create();
             var buff = new byte[25];
