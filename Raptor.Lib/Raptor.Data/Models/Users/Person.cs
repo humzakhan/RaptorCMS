@@ -41,6 +41,7 @@ namespace Raptor.Data.Models.Users
         public virtual BusinessEntity BusinessEntity { get; set; }
         public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
         public virtual ICollection<PersonRole> UserRoles { get; set; }
+        public virtual Password Password { get; set; }
 
         public bool IsInRole(string systemKeyword)
         {
