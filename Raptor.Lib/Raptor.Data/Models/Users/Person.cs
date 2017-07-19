@@ -44,13 +44,11 @@ namespace Raptor.Data.Models.Users
         public virtual ICollection<PersonRole> UserRoles { get; set; }
         public virtual Password Password { get; set; }
 
-        public bool IsInRole(string systemKeyword)
-        {
+        public bool IsInRole(string systemKeyword) {
             return UserRoles.Any(u => u.Role.SystemKeyword == systemKeyword);
         }
 
-        public bool IsInRole(int roleId)
-        {
+        public bool IsInRole(int roleId) {
             return UserRoles.Any(u => u.RoleId == roleId);
         }
     }

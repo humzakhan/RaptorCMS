@@ -11,5 +11,6 @@ namespace Raptor.Data.Models.Users
         public Guid RowGuid { get; set; }
 
         public virtual ICollection<BusinessEntityAddress> BusinessEntityAddresses { get; set; }
+        public virtual Person Person { get; set; }
     }
 }
