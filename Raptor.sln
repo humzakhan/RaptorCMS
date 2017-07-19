@@ -5,15 +5,22 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Raptor.Lib", "Raptor.Lib", "{AA54D2DC-FDC6-49C7-934B-3C7F82E8BF90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raptor.Data", "Raptor.Lib\Raptor.Data\Raptor.Data.csproj", "{4AADF732-58F4-4B72-B855-65F7581232D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raptor.Data", "Raptor.Lib\Raptor.Data\Raptor.Data.csproj", "{4AADF732-58F4-4B72-B855-65F7581232D9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C6E08646-51A1-4D66-8773-6678DCB2F08D} = {C6E08646-51A1-4D66-8773-6678DCB2F08D}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Raptor.Web", "Raptor.Web", "{032CF5CF-634C-44E6-8F75-450FB27141C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Raptor.Tests", "Raptor.Tests", "{991D1006-F1C6-4AB4-BC89-716579D542DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raptor.Core", "Raptor.Lib\Raptor.Core\Raptor.Core.csproj", "{C6E08646-51A1-4D66-8773-6678DCB2F08D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raptor.Core", "Raptor.Lib\Raptor.Core\Raptor.Core.csproj", "{C6E08646-51A1-4D66-8773-6678DCB2F08D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raptor.Services", "Raptor.Lib\Raptor.Services\Raptor.Services.csproj", "{D4DA3596-318B-4400-B4C7-A3724CB45AAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raptor.Services", "Raptor.Lib\Raptor.Services\Raptor.Services.csproj", "{D4DA3596-318B-4400-B4C7-A3724CB45AAF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4AADF732-58F4-4B72-B855-65F7581232D9} = {4AADF732-58F4-4B72-B855-65F7581232D9}
+		{C6E08646-51A1-4D66-8773-6678DCB2F08D} = {C6E08646-51A1-4D66-8773-6678DCB2F08D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
