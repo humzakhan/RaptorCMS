@@ -23,5 +23,8 @@ namespace Raptor.Data.Core
         void DeleteRange(IEnumerable<TEntity> entities);
         bool Any(object id);
 
+        IQueryable<TEntity> Include(Expression<Func<TEntity, object>> include);
+        IQueryable<TEntity> IncludeMultiple(params Expression<Func<TEntity, object>>[] includes);
+        IQueryable<TEntity> IncludeMultiple(IList<Expression<Func<TEntity, object>>> includes);
     }
 }

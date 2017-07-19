@@ -11,26 +11,22 @@ namespace Raptor.Data.Core
         protected RaptorDbContext Context;
         protected readonly DbSet<TEntity> DbSet;
 
-        public Repository(RaptorDbContext context)
-        {
+        public Repository(RaptorDbContext context) {
             Context = context;
             DbSet = Context.Set<TEntity>();
         }
 
-        public bool Any(object id)
-        {
+        public bool Any(object id) {
             return DbSet.Find(id) != null;
         }
 
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
-        {
+            string includeProperties = "") {
             IQueryable<TEntity> query = DbSet;
 
-            if (filter != null)
-            {
+            if (filter != null) {
                 query = query.Where(filter);
             }
 
@@ -39,49 +35,40 @@ namespace Raptor.Data.Core
             return orderBy?.Invoke(query).ToList() ?? query.ToList();
         }
 
-        public virtual TEntity GetById(object id)
-        {
+        public virtual TEntity GetById(object id) {
             return DbSet.Find(id);
         }
 
-        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
-        {
+        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate) {
             return DbSet.SingleOrDefault(predicate);
         }
 
-        public IEnumerable<TEntity> GetAll()
-        {
+        public IEnumerable<TEntity> GetAll() {
             return DbSet.ToList();
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-        {
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate) {
             return DbSet.Where(predicate);
         }
 
-        public void Create(TEntity entity)
-        {
+        public void Create(TEntity entity) {
             DbSet.Add(entity);
             Context.SaveChanges();
         }
 
-        public void CreateRange(IEnumerable<TEntity> entities)
-        {
+        public void CreateRange(IEnumerable<TEntity> entities) {
             DbSet.AddRange(entities);
             Context.SaveChanges();
         }
 
-        public void Update(TEntity entity)
-        {
+        public void Update(TEntity entity) {
             DbSet.Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
             Context.SaveChanges();
         }
 
-        public void Delete(TEntity entityToDelete)
-        {
-            if (Context.Entry(entityToDelete).State == EntityState.Detached)
-            {
+        public void Delete(TEntity entityToDelete) {
+            if (Context.Entry(entityToDelete).State == EntityState.Detached) {
                 DbSet.Attach(entityToDelete);
             }
 
@@ -89,10 +76,33 @@ namespace Raptor.Data.Core
             Context.SaveChanges();
         }
 
-        public void DeleteRange(IEnumerable<TEntity> entities)
-        {
+        public void DeleteRange(IEnumerable<TEntity> entities) {
             DbSet.RemoveRange(entities);
             Context.SaveChanges();
+        }
+
+        public IQueryable<TEntity> Include(Expression<Func<TEntity, object>> include) {
+            return DbSet.Include(include);
+        }
+
+        public IQueryable<TEntity> IncludeMultiple(params Expression<Func<TEntity, object>>[] includes) {
+            IQueryable<TEntity> query = null;
+
+            foreach (var include in includes) {
+                query = DbSet.Include(include);
+            }
+
+            return query == null ? DbSet : query;
+        }
+
+        public IQueryable<TEntity> IncludeMultiple(IList<Expression<Func<TEntity, object>>> includes) {
+            IQueryable<TEntity> query = null;
+
+            foreach (var include in includes) {
+                query = DbSet.Include(include);
+            }
+
+            return query == null ? DbSet : query;
         }
     }
 }
