@@ -18,6 +18,7 @@ namespace Raptor.Data
             modelBuilder.Entity<BlogPost>().ToTable("BlogPosts").HasKey(b => b.BlogPostId);
             modelBuilder.Entity<PersonRole>().HasKey(r => new { r.RoleId, r.BusinessEntityId });
             modelBuilder.Entity<BusinessEntityAddress>().HasKey(e => new { e.BusinessEntityId, e.AddressId });
+            modelBuilder.Entity<TermRelationship>().HasKey(e => new { e.ObjectId, e.TaxonomyId });
 
             modelBuilder.Entity<BlogPost>(b => {
                 b.Property(u => u.Guid).HasDefaultValueSql("uuid_generate_v4()");
@@ -32,6 +33,10 @@ namespace Raptor.Data
             });
 
             modelBuilder.Entity<BusinessEntity>(p => {
+                p.Property(u => u.RowGuid).HasDefaultValueSql("uuid_generate_v4()");
+            });
+
+            modelBuilder.Entity<TermRelationship>(p => {
                 p.Property(u => u.RowGuid).HasDefaultValueSql("uuid_generate_v4()");
             });
 
