@@ -1,4 +1,5 @@
 ﻿using Raptor.Data.Models.Content;
+using System;
 using System.Collections.Generic;
 
 namespace Raptor.Services.Content
@@ -87,6 +88,37 @@ namespace Raptor.Services.Content
         /// </summary>
         /// <param name="taxonomyId">Id of the taxonomy to be deleted</param>
         void DeleteTaxonomy(int taxonomyId);
+
+        #endregion
+
+        #region TermRelationship
+
+        /// <summary>
+        /// Creates a new term relationship
+        /// </summary>
+        /// <param name="termRelationship">Term Relationship object to be created</param>
+        void CreateTermRelationship(TermRelationship termRelationship);
+
+        /// <summary>
+        /// Creates a new term relationship
+        /// </summary>
+        /// <param name="objectId">Id of the object</param>
+        /// <param name="taxonomyId">Id of the taxonomy</param>
+        /// <returns>Newly created TermRelationship object</returns>
+        TermRelationship CreateTermRelationship(int objectId, int taxonomyId);
+
+        /// <summary>
+        /// Gets a TermRelationship
+        /// </summary>
+        /// <param name="guid">Guid of the term relationship</param>
+        /// <returns>TermRelationship associated with the specified guid</returns>
+        TermRelationship GetTermRelationshipByGuid(Guid guid);
+
+        /// <summary>
+        /// Deletes a TermRelationship
+        /// </summary>
+        /// <param name="guid">Guid of the term relationship</param>
+        void DeleteTermRelationship(Guid guid);
 
         #endregion
     }

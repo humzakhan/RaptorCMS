@@ -205,5 +205,62 @@ namespace Raptor.Services.Content
         }
 
         #endregion
+
+        #region TermRelationship
+
+        /// <summary>
+        /// Creates a new term relationship
+        /// </summary>
+        /// <param name="termRelationship">Term Relationship object to be created</param>
+        public void CreateTermRelationship(TermRelationship termRelationship) {
+            _termRelationshipRepository.Create(termRelationship);
+        }
+
+        /// <summary>
+        /// Creates a new term relationship
+        /// </summary>
+        /// <param name="objectId">Id of the object</param>
+        /// <param name="taxonomyId">Id of the taxonomy</param>
+        /// <returns>Newly created TermRelationship object</returns>
+        public TermRelationship CreateTermRelationship(int objectId, int taxonomyId) {
+            var taxonomyExists = _taxonomyRepository.Any(taxonomyId);
+
+            if (!taxonomyExists)
+                throw new ArgumentException($"No taxonomy found for specific id = {taxonomyId}", nameof(taxonomyId));
+
+            var termRelationship = new TermRelationship() {
+                ObjectId = objectId,
+                TaxonomyId = taxonomyId
+            };
+
+            _termRelationshipRepository.Create(termRelationship);
+
+            return termRelationship;
+        }
+
+        /// <summary>
+        /// Gets a TermRelationship
+        /// </summary>
+        /// <param name="guid">Guid of the term relationship</param>
+        /// <returns>TermRelationship associated with the specified guid</returns>
+        public TermRelationship GetTermRelationshipByGuid(Guid guid) {
+            var termRelationship = _termRelationshipRepository.SingleOrDefault(t => t.RowGuid == guid);
+
+            if (termRelationship == null)
+                throw new ArgumentException($"No term relationship found for specified guid = {guid}", nameof(guid));
+
+            return termRelationship;
+        }
+
+        /// <summary>
+        /// Deletes a TermRelationship
+        /// </summary>
+        /// <param name="guid">Guid of the term relationship</param>
+        public void DeleteTermRelationship(Guid guid) {
+            var termRelationship = GetTermRelationshipByGuid(guid);
+            _termRelationshipRepository.Delete(termRelationship);
+        }
+
+        #endregion
     }
 }
