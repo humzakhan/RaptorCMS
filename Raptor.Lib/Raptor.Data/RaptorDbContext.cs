@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Raptor.Data.Configuration;
 using Raptor.Data.Models.Blog;
 using Raptor.Data.Models.Content;
 using Raptor.Data.Models.Logging;
@@ -43,7 +44,7 @@ namespace Raptor.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Role> Roles { get; set; }
+        // Content
         public DbSet<Term> Terms { get; set; }
         public DbSet<Taxonomy> Taxonomies { get; set; }
         public DbSet<TermRelationship> TermRelationships { get; set; }
@@ -60,8 +61,13 @@ namespace Raptor.Data
 
         // Users
         public DbSet<BusinessEntity> BusinessEntities { get; set; }
+        public DbSet<PersonRole> PersonRoles { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<BusinessEntityAddress> BusinessEntityAddresses { get; set; }
+
+        // Configuration
+        public DbSet<Setting> Settings { get; set; }
     }
 }
