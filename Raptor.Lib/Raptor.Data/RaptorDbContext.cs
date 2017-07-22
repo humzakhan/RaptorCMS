@@ -33,6 +33,16 @@ namespace Raptor.Data
                 .WithMany(p => p.RolePermissions)
                 .HasForeignKey(p => p.PermissionRecordId);
 
+            modelBuilder.Entity<PersonRole>()
+                .HasOne(p => p.Person)
+                .WithMany(p => p.UserRoles)
+                .HasForeignKey(p => p.BusinessEntityId);
+
+            modelBuilder.Entity<PersonRole>()
+                .HasOne(p => p.Role)
+                .WithMany(p => p.UserRoles)
+                .HasForeignKey(p => p.RoleId);
+
             modelBuilder.Entity<BlogPost>(b => {
                 b.Property(u => u.Guid).HasDefaultValueSql("uuid_generate_v4()");
             });

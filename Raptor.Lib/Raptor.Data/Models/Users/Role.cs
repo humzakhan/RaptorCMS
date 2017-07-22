@@ -12,5 +12,6 @@ namespace Raptor.Data.Models.Users
         public string DisplayName { get; set; }
 
         public virtual ICollection<RolePermission> RolePermissions { get; set; }
+        public virtual ICollection<PersonRole> UserRoles { get; set; }
     }
 }
