@@ -3,6 +3,7 @@ using Raptor.Data.Configuration;
 using Raptor.Data.Models.Blog;
 using Raptor.Data.Models.Content;
 using Raptor.Data.Models.Logging;
+using Raptor.Data.Models.Security;
 using Raptor.Data.Models.Users;
 
 namespace Raptor.Data
@@ -20,6 +21,17 @@ namespace Raptor.Data
             modelBuilder.Entity<PersonRole>().HasKey(r => new { r.RoleId, r.BusinessEntityId });
             modelBuilder.Entity<BusinessEntityAddress>().HasKey(e => new { e.BusinessEntityId, e.AddressId });
             modelBuilder.Entity<TermRelationship>().HasKey(e => new { e.ObjectId, e.TaxonomyId });
+            modelBuilder.Entity<RolePermission>().HasKey(p => new { p.RoleId, p.PermissionRecordId });
+
+            modelBuilder.Entity<RolePermission>()
+                .HasOne(p => p.Role)
+                .WithMany(p => p.RolePermissions)
+                .HasForeignKey(p => p.RoleId);
+
+            modelBuilder.Entity<RolePermission>()
+                .HasOne(p => p.PermissionRecord)
+                .WithMany(p => p.RolePermissions)
+                .HasForeignKey(p => p.PermissionRecordId);
 
             modelBuilder.Entity<BlogPost>(b => {
                 b.Property(u => u.Guid).HasDefaultValueSql("uuid_generate_v4()");
@@ -69,5 +81,9 @@ namespace Raptor.Data
 
         // Configuration
         public DbSet<Setting> Settings { get; set; }
+
+        // Security 
+        public DbSet<PermissionRecord> PermissionRecords { get; set; }
+        public DbSet<RolePermission> RolePermissions { get; set; }
     }
 }
