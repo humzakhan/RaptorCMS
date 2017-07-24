@@ -14,4 +14,9 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.Dotnet" Version="1.0.1" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Raptor.Core">
+      <HintPath>..\Raptor.Core\bin\Debug\netcoreapp1.1\Raptor.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
