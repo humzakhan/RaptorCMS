@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Raptor.Lib", "Raptor.Lib", "{AA54D2DC-FDC6-49C7-934B-3C7F82E8BF90}"
 EndProject
@@ -22,6 +22,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raptor.Services", "Raptor.L
 		{C6E08646-51A1-4D66-8773-6678DCB2F08D} = {C6E08646-51A1-4D66-8773-6678DCB2F08D}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raptor.Tests.Data", "Raptor.Tests\Raptor.Tests.Data\Raptor.Tests.Data.csproj", "{2E75BED7-3BF6-42CC-813A-98FA94C9C1FC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4AADF732-58F4-4B72-B855-65F7581232D9} = {4AADF732-58F4-4B72-B855-65F7581232D9}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +45,10 @@ Global
 		{D4DA3596-318B-4400-B4C7-A3724CB45AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4DA3596-318B-4400-B4C7-A3724CB45AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4DA3596-318B-4400-B4C7-A3724CB45AAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E75BED7-3BF6-42CC-813A-98FA94C9C1FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E75BED7-3BF6-42CC-813A-98FA94C9C1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E75BED7-3BF6-42CC-813A-98FA94C9C1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E75BED7-3BF6-42CC-813A-98FA94C9C1FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +57,6 @@ Global
 		{4AADF732-58F4-4B72-B855-65F7581232D9} = {AA54D2DC-FDC6-49C7-934B-3C7F82E8BF90}
 		{C6E08646-51A1-4D66-8773-6678DCB2F08D} = {AA54D2DC-FDC6-49C7-934B-3C7F82E8BF90}
 		{D4DA3596-318B-4400-B4C7-A3724CB45AAF} = {AA54D2DC-FDC6-49C7-934B-3C7F82E8BF90}
+		{2E75BED7-3BF6-42CC-813A-98FA94C9C1FC} = {991D1006-F1C6-4AB4-BC89-716579D542DC}
 	EndGlobalSection
 EndGlobal
