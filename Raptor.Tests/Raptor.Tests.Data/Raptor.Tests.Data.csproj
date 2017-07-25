@@ -11,9 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Raptor.Data">
-      <HintPath>..\..\Raptor.Lib\Raptor.Data\bin\Debug\netcoreapp1.1\Raptor.Data.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\Raptor.Lib\Raptor.Core\Raptor.Core.csproj" />
+    <ProjectReference Include="..\..\Raptor.Lib\Raptor.Data\Raptor.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raptor.Tests.Data", "Raptor
 		{4AADF732-58F4-4B72-B855-65F7581232D9} = {4AADF732-58F4-4B72-B855-65F7581232D9}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raptor.Web.Dashboard", "Raptor.Web\Raptor.Web.Dashboard\Raptor.Web.Dashboard.csproj", "{D1F188AA-2704-4066-BC3E-0E098B533917}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raptor.Web.Dashboard", "Raptor.Web\Raptor.Web.Dashboard\Raptor.Web.Dashboard.csproj", "{D1F188AA-2704-4066-BC3E-0E098B533917}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
