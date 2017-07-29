@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Raptor.Services.Users
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IRepository<Person> _peopleRepository;
         private readonly IRepository<BusinessEntity> _businessEntityRepository;

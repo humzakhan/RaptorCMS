@@ -1,0 +1,50 @@
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginPartial.cshtml";
+}
+
+<div class="row" style="width: 100%;">
+    <div class="col">
+        <div id="login" class="mx-auto auth-box">
+            <div class="card">
+                <div class="card-block text-center">
+                    <div class="user-icon">
+                        <i class="fa fa-user-circle"></i>
+                    </div>
+
+                    <h4 class="text-light">Login</h4>
+
+                    <div class="user-details">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">
+                                    <i class="fa fa-user-o"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+
+                    <div class="user-links">
+                        <a href="#" class="pull-left">Forgot Password?</a>
+                        <a href="#" class="pull-right">Register</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

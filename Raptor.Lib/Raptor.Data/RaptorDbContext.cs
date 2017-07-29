@@ -10,12 +10,6 @@ namespace Raptor.Data
 {
     public class RaptorDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder options) {
-            options.UseNpgsql("Host=localhost;Database=RaptorCMS;Username=root;Password=klmn256;");
-
-            base.OnConfiguring(options);
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<BlogPost>().ToTable("BlogPosts").HasKey(b => b.BlogPostId);
             modelBuilder.Entity<PersonRole>().HasKey(r => new { r.RoleId, r.BusinessEntityId });
