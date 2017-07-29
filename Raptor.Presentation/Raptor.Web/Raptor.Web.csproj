@@ -30,4 +30,9 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Raptor.Lib\Raptor.Core\Raptor.Core.csproj" />
+    <ProjectReference Include="..\..\Raptor.Lib\Raptor.Data\Raptor.Data.csproj" />
+    <ProjectReference Include="..\..\Raptor.Lib\Raptor.Services\Raptor.Services.csproj" />
+  </ItemGroup>
 </Project>
