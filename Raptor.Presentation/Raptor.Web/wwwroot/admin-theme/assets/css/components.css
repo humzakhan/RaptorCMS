@@ -140,6 +140,9 @@ body {
       width: 250px; } }
   @media (max-width: 768px) {
     .sidebar {
+      display: none; } }
+  @media (max-width: 768px) {
+    .sidebar {
       width: 100%; } }
   .sidebar-block {
     display: block; }
@@ -282,6 +285,24 @@ body {
         display: block;
         margin-top: 0.312rem;
         width: 250px; }
+
+.sidebar-toggle {
+  background-color: inherit;
+  color: #fff;
+  font-size: 0.875rem;
+  margin: 0;
+  padding: 15px 15px;
+  outline: 0; }
+  @media (max-width: 768px) {
+    .sidebar-toggle {
+      display: none; } }
+  .sidebar-toggle:hover, .sidebar-toggle:active, .sidebar-toggle:visited, .sidebar-toggle:focus {
+    outline: 0;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: none; }
+  .sidebar-toggle:hover {
+    background-color: #1b628b; }
 
 /************************************************************************
 *
@@ -632,6 +653,21 @@ table.dataTable tfoot th,
 table.dataTable tfoot td {
   border-top: 1px solid #eeeeef; }
 
+table.dataTable thead .sorting {
+  background-image: url("../../lib/img/sort_both.png"); }
+
+table.dataTable thead .sorting_asc {
+  background-image: url("../../lib/img/sort_asc.png"); }
+
+table.dataTable thead .sorting_desc {
+  background-image: url("../../lib/img/sort_desc.png"); }
+
+table.dataTable thead .sorting_asc_disabled {
+  background-image: url("../../lib/img/sort_asc_disabled.png"); }
+
+table.dataTable thead .sorting_desc_disabled {
+  background-image: url("../../lib/img/sort_desc_disabled.png"); }
+
 /************************************************************************
 *
 * login.scss 
@@ -667,10 +703,18 @@ table.dataTable tfoot td {
   .auth-box input:focus {
     border-color: rgba(0, 0, 0, 0.15) !important; }
 
-#login > .card {
+.login.card,
+.register.card {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); }
+
+#login.card,
+.login.card {
   max-width: 350px; }
 
-#register > .card {
+#register.card,
+.register.card {
   max-width: 600px; }
 
 /************************************************************************
