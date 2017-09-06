@@ -39,8 +39,17 @@ namespace Raptor.Services.Users
         /// </summary>
         /// <param name="emailAddress">Email Address of the user whos status is to be verified</param>
         /// <returns>True if the user exists, false otherwise</returns>
-        public bool CheckIfUserExists(string emailAddress) {
+        public bool CheckIfUserExistsByEmail(string emailAddress) {
             return _peopleRepository.Find(u => u.EmailAddress == emailAddress).Any();
+        }
+
+        /// <summary>
+        /// Checks if the user exists for the specified email addrsss
+        /// </summary>
+        /// <param name="username">Email Address of the user whos status is to be verified</param>
+        /// <returns>True if the user exists, false otherwise</returns>
+        public bool CheckIfUserExistsByUsername(string username) {
+            return _peopleRepository.Find(u => u.Username == username).Any();
         }
 
         /// <summary>
@@ -105,7 +114,7 @@ namespace Raptor.Services.Users
             if (string.IsNullOrEmpty(emailAddress))
                 throw new ArgumentException("An Email Address is required. String cannot be null/empty.", nameof(emailAddress));
 
-            if (!CheckIfUserExists(emailAddress))
+            if (!CheckIfUserExistsByEmail(emailAddress))
                 throw new ArgumentException("No user found for the specified email address.", nameof(emailAddress));
 
             var user = _peopleRepository

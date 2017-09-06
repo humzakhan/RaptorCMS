@@ -18,7 +18,14 @@ namespace Raptor.Services.Users
         /// </summary>
         /// <param name="emailAddress">Email Address of the user whos status is to be verified</param>
         /// <returns>True if the user exists, false otherwise</returns>
-        bool CheckIfUserExists(string emailAddress);
+        bool CheckIfUserExistsByEmail(string emailAddress);
+
+        /// <summary>
+        /// Checks if the user exists for the specified email addrsss
+        /// </summary>
+        /// <param name="username">Email Address of the user whos status is to be verified</param>
+        /// <returns>True if the user exists, false otherwise</returns>
+        bool CheckIfUserExistsByUsername(string username);
 
         /// <summary>
         /// Returns the users for the specified id.

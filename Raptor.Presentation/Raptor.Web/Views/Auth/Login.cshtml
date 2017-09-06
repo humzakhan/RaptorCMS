@@ -16,38 +16,40 @@
                 <h4 class="text-light">Login</h4>
 
                 @if (!ViewData.ModelState.IsValid) {
-                    <div class="alert alert-danger" role="alert">
-                        <span class="icon"><i class="fa fa-times position-left"></i></span>
-                        @Html.ValidationSummary()
+                    <div class="alert alert-danger auth-box mx-auto my-auto" role="alert">
+                        <span class="small">
+                            @Html.ValidationSummary()
+                        </span>
                     </div>
                 }
 
-                @using (Html.BeginForm("Login", "Auth", FormMethod.Post)) {
+                @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl })) {
                     @Html.AntiForgeryToken()
 
                     <div class="user-details">
+                        @Html.ValidationMessageFor(m => m.UsernameOrEmailAddress, "", new { @class = "text-danger small pull-left" })
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">
                                     <i class="fa fa-user-o"></i>
                                 </span>
-                                @Html.ValidationMessageFor(m => m.UsernameOrEmailAddress)
                                 @Html.TextBoxFor(m => m.UsernameOrEmailAddress, new { @class = "form-control", placeholder = "Username or Email Address" })
                             </div>
                         </div>
 
+
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small pull-left" })
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                @Html.ValidationMessageFor(m => m.Password)
                                 @Html.TextBoxFor(m => m.Password, new { type = "password", @class = "form-control", placeholder = "Password" })
                             </div>
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
 
                     <div class="user-links">
                         <a href="#" class="pull-left">Forgot Password?</a>

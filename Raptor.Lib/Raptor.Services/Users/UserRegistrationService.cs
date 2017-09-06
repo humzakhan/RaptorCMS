@@ -3,6 +3,7 @@ using Raptor.Core.Security;
 using Raptor.Data.Core;
 using Raptor.Data.Models.Users;
 using System;
+using System.Linq;
 
 namespace Raptor.Services.Users
 {
@@ -191,8 +192,8 @@ namespace Raptor.Services.Users
                 throw new ArgumentException("A password is required.", nameof(password));
 
             var user = CommonHelper.IsValidEmail(usernameOrEmail)
-                ? _peopleRepository.SingleOrDefault(p => p.EmailAddress == usernameOrEmail)
-                : _peopleRepository.SingleOrDefault(p => p.Username == usernameOrEmail);
+                ? _peopleRepository.Include(p => p.Password).SingleOrDefault(p => p.EmailAddress == usernameOrEmail)
+                : _peopleRepository.Include(p => p.Password).SingleOrDefault(p => p.Username == usernameOrEmail);
 
             if (user == null)
                 return UserLoginResults.UserNotExists;
