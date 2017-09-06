@@ -37,4 +37,9 @@
     <ProjectReference Include="..\..\Raptor.Lib\Raptor.Data\Raptor.Data.csproj" />
     <ProjectReference Include="..\..\Raptor.Lib\Raptor.Services\Raptor.Services.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="appsettings.dev.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

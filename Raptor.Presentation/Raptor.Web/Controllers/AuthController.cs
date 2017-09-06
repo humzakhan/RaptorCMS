@@ -15,6 +15,7 @@ namespace Raptor.Web.Controllers
             return RedirectToAction("Login");
         }
 
+        [HttpGet]
         public IActionResult Login() {
             return View();
         }
