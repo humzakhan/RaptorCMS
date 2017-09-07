@@ -15,6 +15,7 @@
     <Folder Include="Views\Auth\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Auth\" />
+    <Folder Include="wwwroot\admin-theme\overrides\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="jQuery.Validation" Version="1.16.0" />

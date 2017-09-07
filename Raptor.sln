@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Raptor.Lib", "Raptor.Lib", "{AA54D2DC-FDC6-49C7-934B-3C7F82E8BF90}"
 EndProject
@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raptor.Tests.Data", "Raptor
 		{4AADF732-58F4-4B72-B855-65F7581232D9} = {4AADF732-58F4-4B72-B855-65F7581232D9}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raptor.Web", "Raptor.Presentation\Raptor.Web\Raptor.Web.csproj", "{B2A360B1-644D-4B52-8CA3-AF7B51DD2DAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raptor.Web", "Raptor.Presentation\Raptor.Web\Raptor.Web.csproj", "{B2A360B1-644D-4B52-8CA3-AF7B51DD2DAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,5 +65,8 @@ Global
 		{D4DA3596-318B-4400-B4C7-A3724CB45AAF} = {AA54D2DC-FDC6-49C7-934B-3C7F82E8BF90}
 		{2E75BED7-3BF6-42CC-813A-98FA94C9C1FC} = {991D1006-F1C6-4AB4-BC89-716579D542DC}
 		{B2A360B1-644D-4B52-8CA3-AF7B51DD2DAC} = {032CF5CF-634C-44E6-8F75-450FB27141C8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {25F59942-3D1B-4A5B-890C-1D0D479522D1}
 	EndGlobalSection
 EndGlobal
