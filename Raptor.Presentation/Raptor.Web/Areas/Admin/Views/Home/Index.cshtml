@@ -10,4 +10,96 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-6">
+        <!-- SUMMARY -->
+        <div class="card">
+            <div class="card-header text-bold">Summary</div>
+            <div class="card-body">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <i class="fa fa-file-text position-left text-muted"></i>
+                            25 Posts
+                        </div>
+
+                        <div class="col-sm-4">
+                            <i class="fa fa-users position-left text-muted"></i>
+                            564 Users
+                        </div>
+
+                        <div class="col-sm-4">
+                            <i class="fa fa-comments position-left text-muted"></i>
+                            224 Comments
+                        </div>
+                    </div>
+
+                    <p class="margin-top-20">RaptorCMS v1.0 running.</p>
+                </div>
+            </div>
+        </div>
+        <!-- /SUMMARY -->
+        <!-- ACTIVITY -->
+        <div class="card">
+            <div class="card-header text-bold">Recent Activity</div>
+            <div class="card-body">
+                <div class="card-block">
+                    <div class="row margin-bottom-5">
+                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
+                        <span class="col-sm-8">Something happened.</span>
+                    </div>
+
+                    <div class="row margin-bottom-5">
+                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
+                        <span class="col-sm-8">Something happened.</span>
+                    </div>
+
+                    <div class="row margin-bottom-5">
+                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
+                        <span class="col-sm-8">Something happened.</span>
+                    </div>
+
+                    <div class="row margin-bottom-5">
+                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
+                        <span class="col-sm-8">Something happened.</span>
+                    </div>
+
+                    <div class="row margin-bottom-5">
+                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
+                        <span class="col-sm-8">Something happened.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /ACTIVITY -->
+    </div>
+
+
+    <!-- QUICK DRAFT -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header text-bold">Quick Draft</div>
+            <div class="card-body">
+                <div class="card-block">
+                    @using (Html.BeginForm("QuickDraft", "Home", FormMethod.Post)) {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <input type="text" name="title" id="title" placeholder="Enter post title" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <textarea name="post" id="post" rows="4" class="form-control" placeholder="What's on your mind?'"></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Save Draft</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /QUICK DRAFT -->
+</div>
+
+
 

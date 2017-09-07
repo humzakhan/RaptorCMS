@@ -7,3 +7,19 @@
     height: auto;
     width: auto;
 }
+
+.card-header {
+    padding: 8px 12px;
+}
+
+.btn {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+body,
+input,
+textarea,
+button {
+    font-family: "Lato", sans-serif;
+}
