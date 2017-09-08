@@ -65,5 +65,10 @@ namespace Raptor.Web.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult ForgotPassword() {
+            return View();
+        }
     }
 }
