@@ -42,10 +42,6 @@ namespace Raptor.Web.Controllers
                 return View(model);
             }
 
-            var user = isEmailAddress
-                ? _userService.GetUserByEmail(model.UsernameOrEmailAddress)
-                : _userService.GetUserByUsername(model.UsernameOrEmailAddress);
-
             var loginResult = _userRegisterationService.ValidateUser(model.UsernameOrEmailAddress, model.Password);
             switch (loginResult) {
                 case UserLoginResults.Deleted:
@@ -69,6 +65,11 @@ namespace Raptor.Web.Controllers
         [HttpGet]
         public IActionResult ForgotPassword() {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword() {
+            return View("ResetPassword");
         }
     }
 }
