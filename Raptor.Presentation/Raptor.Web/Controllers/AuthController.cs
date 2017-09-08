@@ -71,5 +71,10 @@ namespace Raptor.Web.Controllers
         public IActionResult ResetPassword() {
             return View("ResetPassword");
         }
+
+        [HttpGet]
+        public IActionResult Register() {
+            return View();
+        }
     }
 }
