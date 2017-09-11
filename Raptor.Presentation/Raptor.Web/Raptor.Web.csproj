@@ -10,6 +10,7 @@
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Views\Home\" />
     <Folder Include="Areas\Admin\Views\Home\" />
+    <Folder Include="Areas\Admin\Views\Users\" />
     <Folder Include="Models\" />
     <Folder Include="Controllers\" />
     <Folder Include="Views\Auth\" />

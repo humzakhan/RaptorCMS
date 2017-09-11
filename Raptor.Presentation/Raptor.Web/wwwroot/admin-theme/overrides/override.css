@@ -23,3 +23,15 @@ textarea,
 button {
     font-family: "Lato", sans-serif;
 }
+
+.btn {
+    position: relative;
+    font-size: 0.8rem;
+    margin: 2px;
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+}
+
+.form-group-sm {
+    margin-bottom: 5px;
+}

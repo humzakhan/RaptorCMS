@@ -7,7 +7,7 @@
             </li>
 
             <li>
-                <a href="index.html"><i class="fa fa-home"></i> <span>Dashboard</span></a>
+                <a href="@Url.Action("index", "home", new { area = "admin" })"><i class="fa fa-home"></i> <span>Dashboard</span></a>
             </li>
 
             <li class="navigation-header">
@@ -26,7 +26,7 @@
             <li>
                 <a href="index.html"><i class="fa fa-user"></i> <span>Users</span></a>
                 <ul>
-                    <li><a href="#">Users</a></li>
+                    <li><a href="@Url.Action("index", "users", new { area = "admin" })">Users</a></li>
                     <li><a href="#">User Roles</a></li>
                 </ul>
             </li>
