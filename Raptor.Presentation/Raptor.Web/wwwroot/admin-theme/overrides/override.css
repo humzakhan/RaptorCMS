@@ -35,3 +35,7 @@ button {
 .form-group-sm {
     margin-bottom: 5px;
 }
+
+.card-title {
+    margin-bottom: 30px !important;
+}
