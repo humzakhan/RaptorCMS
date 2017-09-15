@@ -18,5 +18,9 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        public IActionResult Roles() {
+            return View("Roles");
+        }
     }
 }
