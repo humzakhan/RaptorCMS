@@ -10,6 +10,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Create() {
             var model = new UserViewModel() {
                 Title = "Add Users",
@@ -19,8 +20,20 @@ namespace Raptor.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult Roles() {
             return View("Roles");
+        }
+
+        [Route("admin/users/roles/create")]
+        [HttpGet]
+        public IActionResult CreateRole() {
+            var model = new RoleViewModel() {
+                Title = "Create Role",
+                Action = "CreateRole"
+            };
+
+            return View("CreateRole", model);
         }
     }
 }
