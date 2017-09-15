@@ -9,5 +9,11 @@ namespace Raptor.Web.Areas.Admin.Controllers
         public IActionResult Index() {
             return View();
         }
+
+        [HttpGet]
+        [Route("system")]
+        public IActionResult SystemInformation() {
+            return View();
+        }
     }
 }
