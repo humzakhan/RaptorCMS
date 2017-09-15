@@ -45,4 +45,13 @@ button {
     padding: 15px;
     color: #444;
     border-top: 1px solid #d2d6de;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+@media(min-width: 420px) {
+    .form-horizontal {
+        text-align: left;
+    }
 }
