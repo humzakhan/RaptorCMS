@@ -1,0 +1,101 @@
+@model LogViewModel
+
+@{
+    ViewBag.Title = "Logs";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="card-title text-bold">Logs</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                @using (Html.BeginForm("Logs", "Home", FormMethod.Post, new { @class = "form-horizontal" })) {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group-sm row">
+                        <label class="control-label col-md-2 text-bold">Created From</label>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.DateFrom, "", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group-sm row">
+                        <label class="control-label col-md-2 text-bold">Created To</label>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.DateTo, "", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group-sm row">
+                        <label class="control-label col-md-2 text-bold">Log Type</label>
+                        <div class="col-md-4">
+                            <select class="form-control" asp-for="LogLevel" asp-items="Html.GetEnumSelectList<LogLevel>()"></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="offset-md-2 col-md-4">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search position-left"></i>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                <table class="display datatable table-stripped table-hover">
+                    <thead>
+                        <tr class="row">
+                            <th class="text-center col-md-1">#</th>
+                            <th class="col-md-2">Level</th>
+                            <th class="col-md-5">Message</th>
+                            <th class="col-md-2">Created On</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                    <tfoot>
+                        <tr class="row">
+                            <th class="text-center col-md-1">#</th>
+                            <th class="col-md-2">Level</th>
+                            <th class="col-md-5">Message</th>
+                            <th class="col-md-2">Created On</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <!-- PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/admin-theme/assets/js/pages_datatables.min.js"></script>
+    <!-- /PAGE LEVEL SCRIPTS -->
+}
+
+@section styles {
+    <!-- PAGE LEVEL STYLESHEETS-->
+    <link rel="stylesheet" href="~/admin-theme/lib/css/jquery.dataTables.min.css">
+    <!-- /PAGE LEVEL STYLESHEETS-->
+}
+
+
+
+

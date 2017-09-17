@@ -53,5 +53,7 @@ button {
 @media(min-width: 420px) {
     .form-horizontal {
         text-align: left;
+        display: table-cell;
+        vertical-align: middle;
     }
 }

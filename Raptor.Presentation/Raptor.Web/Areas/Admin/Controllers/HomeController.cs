@@ -15,5 +15,11 @@ namespace Raptor.Web.Areas.Admin.Controllers
         public IActionResult SystemInformation() {
             return View();
         }
+
+        [HttpGet]
+        [Route("logs")]
+        public IActionResult Logs() {
+            return View();
+        }
     }
 }
