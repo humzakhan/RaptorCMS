@@ -1,0 +1,55 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model BlogPostViewModel
+@{
+    ViewBag.Title = Model.PageTitle;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<h4 class="card-title text-bold">@Model.PageTitle</h4>
+
+@if (!ViewData.ModelState.IsValid) {
+    <div class="alert alert-danger auth-box" role="alert">
+        <span class="small">
+            @Html.ValidationSummary()
+        </span>
+    </div>
+}
+
+@if (ViewBag.Status == "OK") {
+    <div class="alert alert-success auth-box" role="alert">
+        <span class="small">
+            @ViewBag.Message
+        </span>
+    </div>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                @using (Html.BeginForm(Model.Action, "blog", FormMethod.Post, new { @class = "form-horizontal" })) {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-3 text-bold">Title</label>
+                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger small" })
+
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(m => m.Title, "", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-3 text-bold">Content</label>
+                        @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger small" })
+
+                        <div class="col-md-9">
+                            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = "8" })
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
