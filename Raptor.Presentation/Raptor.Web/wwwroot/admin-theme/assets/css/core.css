@@ -220,8 +220,13 @@
 *************************************************************************/
 .btn {
   position: relative;
-  font-size: 0.688rem;
-  margin: 2px; }
+  margin: 2px;
+  font-weight: bold;
+  position: relative;
+  font-size: 0.8rem;
+  margin: 2px;
+  font-weight: 600;
+  font-family: 'Raleway', sans-serif; }
   .btn > i {
     font-size: 12px; }
   .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
@@ -237,6 +242,12 @@
 
 .btn-lg {
   padding: 0.8em 0.8em; }
+
+body,
+input,
+textarea,
+button {
+  font-family: "Lato", sans-serif; }
 
 /************************************************************************
 *
@@ -275,7 +286,8 @@
       text-decoration: none; }
   .navbar .nav-link {
     color: #fff;
-    padding: 0.9em 1em; }
+    padding: 1.2em 1em;
+    font-size: 0.875rem; }
     @media (max-width: 992px) {
       .navbar .nav-link {
         text-align: left; }
@@ -288,16 +300,26 @@
     -webkit-box-shadow: none;
     border-radius: 0;
     margin-top: -1px; }
+    @media (min-width: 768px) {
+      .navbar .dropdown-menu {
+        width: 190px; } }
     @media (max-width: 992px) {
       .navbar .dropdown-menu {
         border: 0;
         padding: 0;
         margin: 0;
         width: 100%; } }
+    .navbar .dropdown-menu > .dropdown-item {
+      font-weight: 600;
+      color: #585757; }
+      .navbar .dropdown-menu > .dropdown-item:active {
+        color: #fff; }
+  .navbar .dropdown .dropdown-toggle:not(.dropdown-has-after):after {
+    content: ''; }
   .navbar .navbar-nav .badge {
     position: absolute;
     top: 3px;
-    right: 23px;
+    right: 55%;
     background-color: red;
     border-radius: 50%; }
     @media (max-width: 992px) {
@@ -306,12 +328,20 @@
         float: right;
         margin-top: 1px; } }
   .navbar .navbar-nav .nav-item {
-    margin-right: 7px; }
+    font-weight: 600;
+    font-family: "Raleway", sans-serif; }
     .navbar .navbar-nav .nav-item::last-of-type {
       margin-right: 0; }
     @media (max-width: 992px) {
       .navbar .navbar-nav .nav-item {
         margin-right: 0; } }
+    .navbar .navbar-nav .nav-item > .nav-link {
+      font-weight: 800; }
+      .navbar .navbar-nav .nav-item > .nav-link > i {
+        font-size: 1.2298rem;
+        margin-top: 2px; }
+    .navbar .navbar-nav .nav-item:hover, .navbar .navbar-nav .nav-item:active, .navbar .navbar-nav .nav-item:focus {
+      background-color: rgba(0, 0, 0, 0.15); }
   @media (max-width: 992px) {
     .navbar .navbar-nav > li > a {
       padding-left: 20px;
@@ -324,11 +354,11 @@
         padding-bottom: 15px; } }
   .navbar .user-img {
     float: left;
-    width: 27px;
-    height: 27px;
+    width: auto;
+    height: 38px;
     border-radius: 50%;
     margin-right: 10px;
-    margin-top: -2px; }
+    margin-top: -9px; }
 
 .navbar-toggler {
   margin-top: 15px;
@@ -339,6 +369,10 @@
     cursor: pointer; }
   .navbar-toggler:hover, .navbar-toggler:focus, .navbar-toggler:active {
     outline: none; }
+
+.navbar > .navbar-brand > img {
+  height: auto;
+  width: auto; }
 
 /************************************************************************
 *
@@ -373,7 +407,7 @@
     font-size: 0.875rem; }
     .dropdown-menu .dropdown-item > span {
       position: absolute;
-      left: 36px; }
+      left: 45px; }
     .dropdown-menu .dropdown-item > i,
     .dropdown-menu .dropdown-item > img {
       margin-right: 10px; }
@@ -450,12 +484,13 @@
 *************************************************************************/
 .card {
   margin-bottom: 20px;
+  margin-top: 20px;
   color: #333;
   border-radius: 0; }
 
-.card-title {
-  margin-bottom: 15px; }
-
+/*.card-title {
+    margin-bottom: $content-padding-large + ($content-padding-large * 0.5) !important; 
+}*/
 /************************************************************************
 *
 * alerts.scss 
@@ -476,6 +511,10 @@
     background-color: #F78643; }
   .alert-solid.alert-success {
     background-color: #3C7D30; }
+
+.alert ul {
+  text-align: left;
+  list-style-type: none; }
 
 /************************************************************************
 *
@@ -545,6 +584,11 @@
 @media (max-width: 768px) {
   .input-group {
     margin-bottom: 10px; } }
+
+@media (min-width: 420px) {
+  .form-horizontal {
+    text-align: left;
+    vertical-align: middle; } }
 
 /************************************************************************
 *
