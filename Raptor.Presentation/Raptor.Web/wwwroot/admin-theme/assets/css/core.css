@@ -301,7 +301,7 @@ button {
     border-radius: 0;
     margin-top: -1px; }
     @media (min-width: 768px) {
-      .navbar .dropdown-menu {
+      .navbar .dropdown-menu:not(.list-notifications) {
         width: 190px; } }
     @media (max-width: 992px) {
       .navbar .dropdown-menu {
@@ -373,6 +373,14 @@ button {
 .navbar > .navbar-brand > img {
   height: auto;
   width: auto; }
+
+@media (min-width: 992px) {
+  .navbar-toggleable-md .navbar-nav .nav-link {
+    padding-right: 0.8em;
+    padding-left: 0.8em; } }
+
+.dropdown-profile {
+  padding-right: 0.5rem; }
 
 /************************************************************************
 *
