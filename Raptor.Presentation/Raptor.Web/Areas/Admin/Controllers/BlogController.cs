@@ -1,17 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Raptor.Services.Blog;
 using Raptor.Web.Areas.Admin.ViewModels;
+using System.Linq;
 
 namespace Raptor.Web.Areas.Admin.Controllers
 {
     [Area("admin")]
     public class BlogController : Controller
     {
-        public IActionResult Index()
-        {
+        private readonly IBlogService _blogService;
+
+        public BlogController(IBlogService blogService) {
+            _blogService = blogService;
+        }
+
+        public IActionResult Index() {
             return View();
         }
 
@@ -20,7 +23,8 @@ namespace Raptor.Web.Areas.Admin.Controllers
         public IActionResult Create() {
             var model = new BlogPostViewModel() {
                 PageTitle = "Create Blog Post",
-                Action = "create"
+                Action = "create",
+                BlogPostCategories = _blogService.GetBlogPostCategories().ToList()
             };
 
             return View("BlogPostView", model);

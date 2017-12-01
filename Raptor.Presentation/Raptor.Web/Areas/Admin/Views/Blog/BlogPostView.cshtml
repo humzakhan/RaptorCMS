@@ -45,7 +45,15 @@
                         @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger small" })
 
                         <div class="col-md-9">
-                            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = "8" })
+                            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = "8", id = "editor" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-3 text-bold" asp-for="BlogPostCategoryId"></label>
+                        <span class="text-danger small" asp-validation-for="BlogPostCategoryId"></span>
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(m => m.BlogPostCategoryId, new SelectList(Model.BlogPostCategories, "PostCategoryId", "Name"))
                         </div>
                     </div>
                 }
@@ -53,3 +61,13 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script type="text/javascript" src="~/admin-theme/lib/thirdparty/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            CKEDITOR.replace("editor", { height: "350px", extraPlugins: "forms" });
+        });
+    </script>
+
+}

@@ -1,4 +1,6 @@
 ﻿using Raptor.Data.Models;
+using Raptor.Data.Models.Blog;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Raptor.Web.Areas.Admin.ViewModels
@@ -16,5 +18,7 @@ namespace Raptor.Web.Areas.Admin.ViewModels
 
         [Display(Name = "Status")]
         public PostStatus PostStatus { get; set; }
+
+        public List<BlogPostCategory> BlogPostCategories { get; set; }
     }
 }

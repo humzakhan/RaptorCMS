@@ -12,6 +12,7 @@ namespace Raptor.Services.Blog
         void DeleteBlogPost(BlogPost blogPost);
         void CreateBlogPost(BlogPost blogPost);
         void UpdateBlogPost(BlogPost blogPost);
+        IList<BlogPostCategory> GetBlogPostCategories();
 
         #endregion
 
