@@ -1,18 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>    
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-    <PackageReference Include="xunit" Version="2.2.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Raptor.Lib\Raptor.Core\Raptor.Core.csproj" />
-    <ProjectReference Include="..\..\Raptor.Lib\Raptor.Data\Raptor.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +20,16 @@
 
   <ItemGroup>
     <Folder Include="Services\Users\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Raptor.Data">
+      <HintPath>..\..\Raptor.Lib\Raptor.Data\bin\Debug\netcoreapp2.0\Raptor.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
