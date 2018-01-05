@@ -206,12 +206,10 @@ namespace Raptor.Services.Users
 
             var passwordHash = HashGenerator.GenerateHash(password, user.Password.PasswordSalt);
 
-            if (passwordHash != user.Password.PasswordHash)
-                return UserLoginResults.WrongPassword;
-            else {
-                user.DateLastLoginUtc = DateTime.UtcNow;
-                return UserLoginResults.Successful;
-            }
+            if (passwordHash != user.Password.PasswordHash) return UserLoginResults.WrongPassword;
+
+            user.DateLastLoginUtc = DateTime.UtcNow;
+            return UserLoginResults.Successful;
         }
     }
 }
