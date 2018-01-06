@@ -1,4 +1,4 @@
-
+@model DashboardViewModel
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -20,17 +20,17 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <i class="fa fa-file-text position-left text-muted"></i>
-                            25 Posts
+                            @Model.PostsCount
                         </div>
 
                         <div class="col-sm-4">
                             <i class="fa fa-users position-left text-muted"></i>
-                            564 Users
+                            @Model.UsersCount
                         </div>
 
                         <div class="col-sm-4">
                             <i class="fa fa-comments position-left text-muted"></i>
-                            224 Comments
+                            @Model.CommentsCount
                         </div>
                     </div>
 
@@ -44,30 +44,12 @@
             <div class="card-header text-bold">Recent Activity</div>
             <div class="card-body">
                 <div class="card-block">
-                    <div class="row margin-bottom-5">
-                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
-                        <span class="col-sm-8">Something happened.</span>
-                    </div>
-
-                    <div class="row margin-bottom-5">
-                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
-                        <span class="col-sm-8">Something happened.</span>
-                    </div>
-
-                    <div class="row margin-bottom-5">
-                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
-                        <span class="col-sm-8">Something happened.</span>
-                    </div>
-
-                    <div class="row margin-bottom-5">
-                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
-                        <span class="col-sm-8">Something happened.</span>
-                    </div>
-
-                    <div class="row margin-bottom-5">
-                        <span class="col-sm-4 text-muted">Sept 8, 5:32 PM</span>
-                        <span class="col-sm-8">Something happened.</span>
-                    </div>
+                    @foreach (var log in Model.RecentLogs) {
+                        <div class="row margin-bottom-5">
+                            <span class="col-sm-4 text-muted">@log.DateCreatedUtc.ToString("MMMM dd, hh:mm tt")</span>
+                            <span class="col-sm-8">@log.LogLevel.ToString() - @log.ShortMessage</span>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -101,6 +83,5 @@
     <!-- /QUICK DRAFT -->
 </div>
 
-Is Authenticated: @User.Identity.IsAuthenticated
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -26,5 +27,7 @@ namespace Raptor.Data.Core
         IQueryable<TEntity> Include(Expression<Func<TEntity, object>> include);
         IQueryable<TEntity> IncludeMultiple(params Expression<Func<TEntity, object>>[] includes);
         IQueryable<TEntity> IncludeMultiple(IList<Expression<Func<TEntity, object>>> includes);
+
+        DbSet<TEntity> Table { get; }
     }
 }

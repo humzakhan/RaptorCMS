@@ -180,5 +180,13 @@ namespace Raptor.Services.Users
             person.DateModifiedUtc = DateTime.UtcNow;
             _peopleRepository.Update(person);
         }
+
+        /// <summary>
+        /// Count the number of users
+        /// </summary>
+        /// <returns>Number of registered users</returns>
+        public int CountUsers() {
+            return _peopleRepository.GetAll().Count();
+        }
     }
 }

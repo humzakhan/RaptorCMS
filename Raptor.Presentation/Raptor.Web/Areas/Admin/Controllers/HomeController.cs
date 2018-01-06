@@ -1,5 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Raptor.Services.Blog;
+using Raptor.Services.Logging;
+using Raptor.Services.Users;
+using Raptor.Web.Areas.Admin.ViewModels;
+using System.Linq;
 
 namespace Raptor.Web.Areas.Admin.Controllers
 {
@@ -8,8 +13,24 @@ namespace Raptor.Web.Areas.Admin.Controllers
     [Route("admin")]
     public class HomeController : Controller
     {
+        private readonly IBlogService _blogService;
+        private readonly IUserService _userService;
+        private readonly ILogService _logsService;
+
+        public HomeController(IBlogService blogService, IUserService userService, ILogService logsService) {
+            _blogService = blogService;
+            _userService = userService;
+            _logsService = logsService;
+        }
         public IActionResult Index() {
-            return View();
+            var model = new DashboardViewModel() {
+                PostsCount = _blogService.CountEntities(BlogEntityType.Posts),
+                CommentsCount = _blogService.CountEntities(BlogEntityType.Comments),
+                UsersCount = _userService.CountUsers(),
+                RecentLogs = _logsService.GetAllLogs(recentNo: 5).ToList()
+            };
+
+            return View(model);
         }
 
         [HttpGet]

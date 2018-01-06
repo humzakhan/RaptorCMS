@@ -30,6 +30,12 @@ namespace Raptor.Services.Logging
         IList<Log> GetLogsByIds(int[] logIds);
 
         /// <summary>
+        /// Get all logs
+        /// </summary>
+        /// <returns>List of all logs</returns>
+        IEnumerable<Log> GetAllLogs(int recentNo = 0);
+
+        /// <summary>
         /// Delete a log entry
         /// </summary>
         /// <param name="log">The log entry to delete</param>

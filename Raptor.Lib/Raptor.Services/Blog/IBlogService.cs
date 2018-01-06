@@ -21,9 +21,16 @@ namespace Raptor.Services.Blog
         IList<BlogComment> GetBlogCommentsById(int blogPostId);
         IList<BlogComment> GetBlogCommentsByIds(int[] blogPostIds);
         int GetBlogCommentsCount(int blogPostId, bool isApproved = true);
+        int CountEntities(BlogEntityType entity);
         void DeleteBlogComment(BlogComment comment);
         void DeleteBlogComments(IList<BlogComment> comments);
 
         #endregion
+    }
+
+    public enum BlogEntityType
+    {
+        Posts,
+        Comments
     }
 }

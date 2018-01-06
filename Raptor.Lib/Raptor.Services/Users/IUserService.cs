@@ -86,5 +86,11 @@ namespace Raptor.Services.Users
         /// </summary>
         /// <param name="person">User to be updated</param>
         void UpdateUser(Person person);
+
+        /// <summary>
+        /// Return the number of users
+        /// </summary>
+        /// <returns>Number of users registered</returns>
+        int CountUsers();
     }
 }

@@ -92,7 +92,7 @@ namespace Raptor.Data.Core
                 query = DbSet.Include(include);
             }
 
-            return query == null ? DbSet : query;
+            return query ?? DbSet;
         }
 
         public IQueryable<TEntity> IncludeMultiple(IList<Expression<Func<TEntity, object>>> includes) {
@@ -102,7 +102,9 @@ namespace Raptor.Data.Core
                 query = DbSet.Include(include);
             }
 
-            return query == null ? DbSet : query;
+            return query ?? DbSet;
         }
+
+        public DbSet<TEntity> Table => DbSet;
     }
 }

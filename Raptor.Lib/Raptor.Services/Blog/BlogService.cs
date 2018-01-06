@@ -63,5 +63,21 @@ namespace Raptor.Services.Blog
         public IList<BlogPostCategory> GetBlogPostCategories() {
             return _blogPostCategoriesRepository.GetAll().ToList();
         }
+
+        public int CountEntities(BlogEntityType entity) {
+            var entityCount = 0;
+
+            switch (entity) {
+                case BlogEntityType.Posts:
+                    entityCount = _blogPostsRepository.GetAll().Count();
+                    break;
+
+                case BlogEntityType.Comments:
+                    entityCount = _blogCommentsRepository.GetAll().Count();
+                    break;
+            }
+
+            return entityCount;
+        }
     }
 }
