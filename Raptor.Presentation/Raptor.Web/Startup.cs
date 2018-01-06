@@ -15,6 +15,7 @@ using Raptor.Services.Authentication;
 using Raptor.Services.Blog;
 using Raptor.Services.Configuration;
 using Raptor.Services.Content;
+using Raptor.Services.Helpers;
 using Raptor.Services.Logging;
 using Raptor.Services.Security;
 using Raptor.Services.Users;
@@ -86,6 +87,7 @@ namespace Raptor.Web
             services.AddTransient<IUserRegisterationService, UserRegistrationService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserAuthenticationService, CookieAuthenticationService>();
+            services.AddTransient<IWorkContext, WebWorkContext>();
 
             // Configure AutoMapper
             AutoMapper.Mapper.Initialize(x => {

@@ -75,8 +75,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 currentUser.Username = model.Username;
                 currentUser.About = model.About;
                 currentUser.Website = model.Website;
-
-
+                currentUser.DisplayName = !string.IsNullOrEmpty(model.MiddleName) ? $"{model.FirstName} {model.MiddleName} {model.LastName}" : $"{model.FirstName} {model.LastName}";
 
                 _userService.UpdateUser(currentUser);
 

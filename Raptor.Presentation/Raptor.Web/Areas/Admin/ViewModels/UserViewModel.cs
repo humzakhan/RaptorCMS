@@ -31,6 +31,7 @@ namespace Raptor.Web.Areas.Admin.ViewModels
         [StringLength(50)]
         [Required]
         [Display(Name = "Email Address")]
+        [EmailAddress]
         public string EmailAddress { get; set; }
         public string About { get; set; }
         public string Website { get; set; }
