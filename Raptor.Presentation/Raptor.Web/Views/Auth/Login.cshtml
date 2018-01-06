@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Http
 @model LoginViewModel
 @{
     ViewBag.Title = "Login";
@@ -23,7 +24,7 @@
                     </div>
                 }
 
-                @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { returnUrl = ViewBag.returnUrl })) {
+                @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { returnUrl = ViewBag.ReturnUrl })) {
                     @Html.AntiForgeryToken()
 
                     <div class="user-details">

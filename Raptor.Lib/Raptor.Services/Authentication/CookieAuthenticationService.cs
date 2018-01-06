@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Raptor.Core.Helpers;
 using Raptor.Data.Models.Users;
@@ -30,18 +29,18 @@ namespace Raptor.Services.Authentication
             var user = isValidEmail ? _userAccountService.GetUserByEmail(usernameOrEmailAddress) : _userAccountService.GetUserByUsername(usernameOrEmailAddress);
 
             var claims = new List<Claim> {
-                new Claim(ClaimTypes.Email, user.EmailAddress, ClaimTypes.Email),
-                new Claim(ClaimTypes.Name, user.DisplayName, ClaimValueTypes.String)
+                new Claim(ClaimTypes.Email, user.EmailAddress, ClaimTypes.Email, RaptorCookieAuthenticationDefaults.ClaimsIssuer),
+                new Claim(ClaimTypes.Name, user.DisplayName, ClaimValueTypes.String, RaptorCookieAuthenticationDefaults.ClaimsIssuer)
             };
 
-            var userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var userIdentity = new ClaimsIdentity(claims, RaptorCookieAuthenticationDefaults.AuthenticationScheme);
             var userPrincipal = new ClaimsPrincipal(userIdentity);
 
             var authenticationProperties = new AuthenticationProperties() {
                 IssuedUtc = DateTime.UtcNow
             };
 
-            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authenticationProperties);
+            await _httpContextAccessor.HttpContext.SignInAsync(RaptorCookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authenticationProperties);
 
             _cachedUser = user;
         }
@@ -51,7 +50,7 @@ namespace Raptor.Services.Authentication
         /// </summary>
         public void SignOut() {
             _cachedUser = null;
-            _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            _httpContextAccessor.HttpContext.SignOutAsync(RaptorCookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace Raptor.Services.Authentication
             if (_cachedUser != null)
                 return _cachedUser;
 
-            var authenticationResult = _httpContextAccessor.HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme).Result;
+            var authenticationResult = _httpContextAccessor.HttpContext.AuthenticateAsync(RaptorCookieAuthenticationDefaults.AuthenticationScheme).Result;
 
 
             if (!authenticationResult.Succeeded)

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +35,7 @@ namespace Raptor.Web
         }
 
         public void ConfigureServices(IServiceCollection services) {
+
             // Register our Database context
             services.AddDbContext<RaptorDbContext>();
 
@@ -46,11 +46,13 @@ namespace Raptor.Web
             services.AddMvc();
 
             // Add cookie authentication
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => {
-                    options.LoginPath = "/auth/login";
-                    options.LogoutPath = "/auth/logout";
-                });
+            services.AddAuthentication(RaptorCookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(RaptorCookieAuthenticationDefaults.AuthenticationScheme, options => {
+                options.LoginPath = "/auth/login";
+                options.LogoutPath = "/auth/logout";
+            });
+
+            services.AddAuthorization();
 
             // Register the repositories
             services.AddTransient<IRepository<BlogComment>, Repository<BlogComment>>();
@@ -85,6 +87,10 @@ namespace Raptor.Web
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
+            // Enable Authentication
+            app.UseAuthentication();
+
+            // Enable logger factor
             loggerFactory.AddConsole();
 
             // Register the routes for areas
@@ -104,9 +110,6 @@ namespace Raptor.Web
 
             // Allow to use status code pages
             app.UseStatusCodePages();
-
-            // Enable Authentication
-            app.UseAuthentication();
         }
     }
 }

@@ -25,6 +25,8 @@ namespace Raptor.Web.Controllers
 
         [HttpGet]
         public IActionResult Login(string returnUrl = "") {
+            if (User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -32,6 +34,8 @@ namespace Raptor.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel model, string returnUrl = "") {
+            if (User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
+
             if (!ModelState.IsValid) return View(model);
 
             var isEmailAddress = CommonHelper.IsValidEmail(model.UsernameOrEmailAddress);
@@ -61,9 +65,7 @@ namespace Raptor.Web.Controllers
                     break;
 
                 case UserLoginResults.Successful:
-                    if (!string.IsNullOrEmpty(returnUrl)) return Redirect(returnUrl);
                     _authService.SignIn(model.UsernameOrEmailAddress);
-
                     if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Index", "Home");
                     return Redirect(returnUrl);
             }
