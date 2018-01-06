@@ -177,6 +177,7 @@ namespace Raptor.Services.Users
             if (person == null)
                 throw new ArgumentException("User cannot be null.", nameof(person));
 
+            person.DateModifiedUtc = DateTime.UtcNow;
             _peopleRepository.Update(person);
         }
     }

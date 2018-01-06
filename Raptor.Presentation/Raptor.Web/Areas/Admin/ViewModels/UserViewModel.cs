@@ -47,10 +47,8 @@ namespace Raptor.Web.Areas.Admin.ViewModels
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
-        [Required]
         public string Password { get; set; }
 
-        [Required]
         [Display(Name = "Repeat Password")]
         [Compare(otherProperty: nameof(Password), ErrorMessage = "Passwords do not match")]
         public string RepeatPassword { get; set; }

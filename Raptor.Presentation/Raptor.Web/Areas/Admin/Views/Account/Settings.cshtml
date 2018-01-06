@@ -1,0 +1,123 @@
+﻿@model UserViewModel
+
+@{
+    ViewBag.Title = "Account Settings";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h4 class="card-title">Account Settings</h4>
+    </div>
+</div>
+
+@if (!ViewData.ModelState.IsValid) {
+    <div class="alert alert-danger auth-box mx-auto my-auto" role="alert">
+        @Html.ValidationSummary()
+    </div>
+}
+
+@if (ViewBag.Status == "OK") {
+    <div class="alert alert-success auth-box mx-auto my-auto" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Basic Information
+            </div>
+            <div class="card-block">
+                <form asp-controller="Account" asp-action="Settings" method="post" class="form-horizontal">
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label asp-for="FirstName" class="control-label col-md-4 text-bold"></label>
+                                <div class="col-md-8">
+                                    <span class="text-danger small" asp-validation-for="FirstName"></span>
+                                    <input type="text" asp-for="FirstName" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="MiddleName" class="control-label col-md-4 text-bold"></label>
+                                <div class="col-md-8">
+                                    <span class="text-danger small" asp-validation-for="MiddleName"></span>
+                                    <input type="text" asp-for="MiddleName" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="LastName" class="control-label col-md-4 text-bold"></label>
+                                <div class="col-md-8">
+                                    <span class="text-danger small" asp-validation-for="LastName"></span>
+                                    <input type="text" asp-for="LastName" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Username" class="control-label col-md-4 text-bold"></label>
+                                <div class="col-md-8">
+                                    <span class="text-danger small" asp-validation-for="Username"></span>
+                                    <input type="text" asp-for="Username" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label asp-for="EmailAddress" class="control-label col-md-4 text-bold"></label>
+                                <div class="col-md-8">
+                                    <span class="text-danger small" asp-validation-for="EmailAddress"></span>
+                                    <input type="text" asp-for="EmailAddress" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Website" class="control-label col-md-4 text-bold"></label>
+                                <div class="col-md-8">
+                                    <span class="text-danger small" asp-validation-for="Website"></span>
+                                    <input type="text" asp-for="Website" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="PhoneNumber" class="control-label col-md-4 text-bold"></label>
+                                <div class="col-md-8">
+                                    <span class="text-danger small" asp-validation-for="PhoneNumber"></span>
+                                    <input type="text" asp-for="PhoneNumber" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="About" class="control-label col-md-4 text-bold"></label>
+                                <div class="col-md-8">
+                                    <span class="text-danger small" asp-validation-for="About"></span>
+                                    <textarea asp-for="About" rows="5" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pull-right">
+                        <button class="btn btn-primary">
+                            <i class="fa fa-arrow-right position-left"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.unobtrusive.min.js"></script>
+}
+

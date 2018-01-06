@@ -16,7 +16,7 @@
             </li>
 
             <li>
-                <a href="index.html"><i class="fa fa-pencil"></i> <span>Content</span></a>
+                <a href="#"><i class="fa fa-pencil"></i> <span>Content</span></a>
                 <ul>
                     <li><a href="@Url.Action("index", "blog", new { area = "admin" } )">Blog Posts</a></li>
                     <li><a href="#">Blog Comments</a></li>
@@ -24,7 +24,7 @@
             </li>
 
             <li>
-                <a href="index.html"><i class="fa fa-user"></i> <span>Users</span></a>
+                <a href="#"><i class="fa fa-user"></i> <span>Users</span></a>
                 <ul>
                     <li><a href="@Url.Action("index", "users", new { area = "admin" })">Users</a></li>
                     <li><a href="@Url.Action("roles", "users", new { area = "admin" })">User Roles</a></li>
@@ -32,14 +32,26 @@
             </li>
 
             <li>
-                <a href="index.html"><i class="fa fa-heart"></i> <span>Configuration</span></a>
+                <a href="#"><i class="fa fa-heart"></i> <span>Configuration</span></a>
             </li>
 
             <li>
-                <a href="index.html"><i class="fa fa-table"></i> <span>System</span></a>
+                <a href="#"><i class="fa fa-table"></i> <span>System</span></a>
                 <ul>
-                    <li><a href="@Url.Action("systeminformation", "home", new { area = "admin" })">System Information</a></li>
-                    <li><a href="@Url.Action("logs", "home", new { area = "admin" })">Logs</a></li>
+                    <li><a href="@Url.Action("systeminformation", "home", new { area = "Admin" })">System Information</a></li>
+                    <li><a href="@Url.Action("logs", "home", new { area = "Admin" })">Logs</a></li>
+                </ul>
+            </li>
+
+            <li class="navigation-header">
+                <span>Others</span>
+                <i class="icon-menu"></i>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa fa-user-circle-o"></i> <span>My Account</span></a>
+                <ul>
+                    <li><a href="@Url.Action("Settings", "Account", new { area = "Admin" } )">Account Settings</a></li>
                 </ul>
             </li>
         </ul>

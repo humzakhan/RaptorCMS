@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ using Raptor.Services.Content;
 using Raptor.Services.Logging;
 using Raptor.Services.Security;
 using Raptor.Services.Users;
+using Raptor.Web.Areas.Admin.ViewModels;
 
 namespace Raptor.Web
 {
@@ -84,6 +86,11 @@ namespace Raptor.Web
             services.AddTransient<IUserRegisterationService, UserRegistrationService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserAuthenticationService, CookieAuthenticationService>();
+
+            // Configure AutoMapper
+            AutoMapper.Mapper.Initialize(x => {
+                x.CreateMap<Person, UserViewModel>(MemberList.None);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
