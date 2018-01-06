@@ -76,6 +76,7 @@ namespace Raptor.Web
             services.AddTransient<IRepository<PersonRole>, Repository<PersonRole>>();
             services.AddTransient<IRepository<PhoneNumber>, Repository<PhoneNumber>>();
             services.AddTransient<IRepository<Role>, Repository<Role>>();
+            services.AddTransient<IRepository<ActivityLogType>, Repository<ActivityLogType>>();
 
             // Register our services
             services.AddTransient<IBlogService, BlogService>();

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Raptor.Core.Helpers;
+using Raptor.Data.Models.Logging;
 using Raptor.Data.Models.Users;
+using Raptor.Services.Logging;
 using Raptor.Services.Users;
 using System;
 using System.Collections.Generic;
@@ -13,11 +15,15 @@ namespace Raptor.Services.Authentication
     {
         private readonly IUserService _userAccountService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICustomerActivityService _activityTracker;
+        private readonly ILogService _logFactory;
         private Person _cachedUser;
 
-        public CookieAuthenticationService(IUserService userAccountService, IHttpContextAccessor httpContextAccessor) {
+        public CookieAuthenticationService(IUserService userAccountService, IHttpContextAccessor httpContextAccessor, ICustomerActivityService activityTracker, ILogService logFactory) {
             _userAccountService = userAccountService;
             _httpContextAccessor = httpContextAccessor;
+            _activityTracker = activityTracker;
+            _logFactory = logFactory;
         }
 
         /// <summary>
@@ -28,19 +34,26 @@ namespace Raptor.Services.Authentication
             var isValidEmail = CommonHelper.IsValidEmail(usernameOrEmailAddress);
             var user = isValidEmail ? _userAccountService.GetUserByEmail(usernameOrEmailAddress) : _userAccountService.GetUserByUsername(usernameOrEmailAddress);
 
-            var claims = new List<Claim> {
+            try {
+                var claims = new List<Claim> {
                 new Claim(ClaimTypes.Email, user.EmailAddress, ClaimTypes.Email, RaptorCookieAuthenticationDefaults.ClaimsIssuer),
-                new Claim(ClaimTypes.Name, user.DisplayName, ClaimValueTypes.String, RaptorCookieAuthenticationDefaults.ClaimsIssuer)
-            };
+                    new Claim(ClaimTypes.Name, user.DisplayName, ClaimValueTypes.String, RaptorCookieAuthenticationDefaults.ClaimsIssuer)
+                };
 
-            var userIdentity = new ClaimsIdentity(claims, RaptorCookieAuthenticationDefaults.AuthenticationScheme);
-            var userPrincipal = new ClaimsPrincipal(userIdentity);
+                var userIdentity = new ClaimsIdentity(claims, RaptorCookieAuthenticationDefaults.AuthenticationScheme);
+                var userPrincipal = new ClaimsPrincipal(userIdentity);
 
-            var authenticationProperties = new AuthenticationProperties() {
-                IssuedUtc = DateTime.UtcNow
-            };
+                var authenticationProperties = new AuthenticationProperties() {
+                    IssuedUtc = DateTime.UtcNow
+                };
 
-            await _httpContextAccessor.HttpContext.SignInAsync(RaptorCookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authenticationProperties);
+                _activityTracker.InsertActivity(user.BusinessEntity, ActivityLogDefaults.Login, "User logged in");
+
+                await _httpContextAccessor.HttpContext.SignInAsync(RaptorCookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authenticationProperties);
+            }
+            catch (Exception ex) {
+                _logFactory.InsertLog(LogLevel.Error, ex.Message, ex.ToString());
+            }
 
             _cachedUser = user;
         }
@@ -77,6 +90,9 @@ namespace Raptor.Services.Authentication
                 return null;
 
             _cachedUser = user;
+
+            user.DateLastLoginUtc = DateTime.UtcNow;
+            _userAccountService.UpdateUser(user);
 
             return _cachedUser;
 

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Raptor.Core.Helpers;
 using Raptor.Data.Models.Users;
 using Raptor.Services.Authentication;
+using Raptor.Services.Logging;
 using Raptor.Services.Users;
 using Raptor.Web.ViewModels;
 
@@ -12,11 +13,13 @@ namespace Raptor.Web.Controllers
         private readonly IUserService _userService;
         private readonly IUserRegisterationService _userRegisterationService;
         private readonly IUserAuthenticationService _authService;
+        private readonly ICustomerActivityService _activityService;
 
-        public AuthController(IUserService userService, IUserRegisterationService userRegisterationService, IUserAuthenticationService authService) {
+        public AuthController(IUserService userService, IUserRegisterationService userRegisterationService, IUserAuthenticationService authService, ICustomerActivityService activityService) {
             _userService = userService;
             _userRegisterationService = userRegisterationService;
             _authService = authService;
+            _activityService = activityService;
         }
 
         public IActionResult Index() {
@@ -71,6 +74,12 @@ namespace Raptor.Web.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Logout() {
+            _authService.SignOut();
+            return RedirectToAction("Login");
         }
 
         [HttpGet]
