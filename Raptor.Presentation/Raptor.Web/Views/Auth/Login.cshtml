@@ -23,7 +23,7 @@
                     </div>
                 }
 
-                @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl })) {
+                @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { returnUrl = ViewBag.returnUrl })) {
                     @Html.AntiForgeryToken()
 
                     <div class="user-details">

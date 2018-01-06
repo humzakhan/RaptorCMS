@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Raptor.Services.Blog;
 using Raptor.Web.Areas.Admin.ViewModels;
@@ -5,6 +6,7 @@ using System.Linq;
 
 namespace Raptor.Web.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("admin")]
     public class BlogController : Controller
     {

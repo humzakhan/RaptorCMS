@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Raptor.Web.Areas.Admin.ViewModels;
 
 namespace Raptor.Web.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class UsersController : Controller
     {

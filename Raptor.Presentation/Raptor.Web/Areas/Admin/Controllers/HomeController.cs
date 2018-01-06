@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Raptor.Web.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     [Route("admin")]
     public class HomeController : Controller

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Raptor.Core.Helpers;
 using Raptor.Data.Models.Users;
+using Raptor.Services.Authentication;
 using Raptor.Services.Users;
 using Raptor.Web.ViewModels;
 
@@ -10,10 +11,12 @@ namespace Raptor.Web.Controllers
     {
         private readonly IUserService _userService;
         private readonly IUserRegisterationService _userRegisterationService;
+        private readonly IUserAuthenticationService _authService;
 
-        public AuthController(IUserService userService, IUserRegisterationService userRegisterationService) {
+        public AuthController(IUserService userService, IUserRegisterationService userRegisterationService, IUserAuthenticationService authService) {
             _userService = userService;
             _userRegisterationService = userRegisterationService;
+            _authService = authService;
         }
 
         public IActionResult Index() {
@@ -42,6 +45,9 @@ namespace Raptor.Web.Controllers
                 return View(model);
             }
 
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             var loginResult = _userRegisterationService.ValidateUser(model.UsernameOrEmailAddress, model.Password);
             switch (loginResult) {
                 case UserLoginResults.Deleted:
@@ -56,7 +62,10 @@ namespace Raptor.Web.Controllers
 
                 case UserLoginResults.Successful:
                     if (!string.IsNullOrEmpty(returnUrl)) return Redirect(returnUrl);
-                    return RedirectToAction("Index", "Home");
+                    _authService.SignIn(model.UsernameOrEmailAddress);
+
+                    if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Index", "Home");
+                    return Redirect(returnUrl);
             }
 
             return View(model);
