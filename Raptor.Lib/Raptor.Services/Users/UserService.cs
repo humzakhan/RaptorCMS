@@ -1,4 +1,5 @@
-﻿using Raptor.Data.Core;
+﻿using Raptor.Core.Security;
+using Raptor.Data.Core;
 using Raptor.Data.Models.Users;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,13 @@ namespace Raptor.Services.Users
     {
         private readonly IRepository<Person> _peopleRepository;
         private readonly IRepository<BusinessEntity> _businessEntityRepository;
+        private readonly IRepository<Password> _passwordRepository;
         private readonly IList<Expression<Func<Person, object>>> _userProperties;
 
-        public UserService(IRepository<Person> peopleRepository, IRepository<BusinessEntity> businessEntityRepository) {
+        public UserService(IRepository<Person> peopleRepository, IRepository<BusinessEntity> businessEntityRepository, IRepository<Password> passwordRepository) {
             _peopleRepository = peopleRepository;
             _businessEntityRepository = businessEntityRepository;
+            _passwordRepository = passwordRepository;
 
             _userProperties = new List<Expression<Func<Person, object>>> {
                 u => u.Password,
@@ -187,6 +190,25 @@ namespace Raptor.Services.Users
         /// <returns>Number of registered users</returns>
         public int CountUsers() {
             return _peopleRepository.GetAll().Count();
+        }
+
+        /// <summary>
+        /// Updates a user's password
+        /// </summary>
+        /// <param name="emailAddress">Email Address of the user who's password is to be updated.</param>
+        /// <param name="password">New password of the user</param>
+        public void UpdatePassword(string emailAddress, string password) {
+            var user = GetUserByEmail(emailAddress);
+
+            if (user == null) throw new ArgumentException($"Change Password - no user found for email address specified: {emailAddress}");
+
+            var currentPassword = _passwordRepository.GetById(user.BusinessEntityId);
+            var salt = HashGenerator.CreateSalt();
+
+            currentPassword.PasswordSalt = salt;
+            currentPassword.PasswordHash = HashGenerator.GenerateHash(password, salt);
+
+            _passwordRepository.Update(currentPassword);
         }
     }
 }

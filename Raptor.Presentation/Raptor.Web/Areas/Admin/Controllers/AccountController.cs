@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Raptor.Core.Helpers;
 using Raptor.Data.Models.Users;
+using Raptor.Services.Helpers;
 using Raptor.Services.Users;
 using Raptor.Web.Areas.Admin.ViewModels;
+using Raptor.Web.ViewModels;
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -15,9 +17,11 @@ namespace Raptor.Web.Areas.Admin.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IWorkContext _workContext;
 
-        public AccountController(IUserService userService) {
+        public AccountController(IUserService userService, IWorkContext workContext) {
             _userService = userService;
+            _workContext = workContext;
         }
 
         [HttpGet]
@@ -85,6 +89,34 @@ namespace Raptor.Web.Areas.Admin.Controllers
             catch (Exception ex) {
                 ModelState.AddModelError("", ex.ToString());
             }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword() {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangePassword(ResetPasswordViewModel model) {
+            if (!ModelState.IsValid) return View(model);
+
+            if (model.Password != model.RepeatPassword) {
+                ModelState.AddModelError("", "The passwords do not match.");
+                return View(model);
+            }
+
+            if (model.Password.Length < 8) {
+                ModelState.AddModelError("", "Password must be at least 8 characters long.");
+                return View(model);
+            }
+
+            _userService.UpdatePassword(_workContext.CurrentUser.EmailAddress, model.Password);
+
+            ViewBag.Status = "OK";
+            ViewBag.Message = "Your password has been changed successfully";
 
             return View(model);
         }

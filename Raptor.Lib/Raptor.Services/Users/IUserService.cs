@@ -92,5 +92,12 @@ namespace Raptor.Services.Users
         /// </summary>
         /// <returns>Number of users registered</returns>
         int CountUsers();
+
+        /// <summary>
+        /// Updates a user password
+        /// </summary>
+        /// <param name="emailAddress">Email Address of the user who's password is to be updated.</param>
+        /// <param name="password">New password</param>
+        void UpdatePassword(string emailAddress, string password);
     }
 }
