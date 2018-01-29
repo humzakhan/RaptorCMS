@@ -89,6 +89,7 @@ namespace Raptor.Data
         public DbSet<Address> Addresses { get; set; }
         public DbSet<BusinessEntityAddress> BusinessEntityAddresses { get; set; }
         public DbSet<Password> Passwords { get; set; }
+        public DbSet<ForgotPasswordRequest> ForgotPassqwordRequests { get; set; }
 
         // Configuration
         public DbSet<Setting> Settings { get; set; }
