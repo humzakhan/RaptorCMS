@@ -12,13 +12,15 @@ namespace Raptor.Services.Users
         private readonly IRepository<Person> _peopleRepository;
         private readonly IRepository<BusinessEntity> _businessEntityRepository;
         private readonly IRepository<Password> _passwordRepository;
+        private readonly IUserService _userService;
 
         public UserRegistrationService(IRepository<Person> peopleRepository,
             IRepository<BusinessEntity> businessEntityRepository,
-            IRepository<Password> passwordRepository) {
+            IRepository<Password> passwordRepository, IUserService userService) {
             _peopleRepository = peopleRepository;
             _businessEntityRepository = businessEntityRepository;
             _passwordRepository = passwordRepository;
+            _userService = userService;
         }
 
         /// <summary>
@@ -33,40 +35,35 @@ namespace Raptor.Services.Users
 
             var result = new UserRegistrationResult();
 
-            if (_peopleRepository.Find(p => p.EmailAddress == person.EmailAddress) != null) {
+            if (_userService.CheckIfUserExistsByEmail(person.EmailAddress))
                 result.AddError("A user already exists with the specified email address.");
-                return result;
-            }
 
-            if (string.IsNullOrEmpty(person.EmailAddress)) {
+            if (person.Username.Length < 4)
+                result.AddError("Username must be at least 4 characters long.");
+
+            var usernameNumber = 0;
+            if (int.TryParse(person.Username, out usernameNumber))
+                result.AddError("Username cannot be numeric.");
+
+            if (string.IsNullOrEmpty(person.EmailAddress))
                 result.AddError("Email Address is not provided.");
-                return result;
-            }
 
-            if (!CommonHelper.IsValidEmail(person.EmailAddress)) {
+            if (!CommonHelper.IsValidEmail(person.EmailAddress))
                 result.AddError("Invalid Email Address specfied.");
-                return result;
-            }
 
-            if (string.IsNullOrEmpty(password)) {
+            if (string.IsNullOrEmpty(password))
                 result.AddError("A password is required.");
-                return result;
-            }
 
-            if (string.IsNullOrEmpty(person.Username)) {
+            if (string.IsNullOrEmpty(person.Username))
                 result.AddError("Please enter a username.");
-                return result;
-            }
 
-            if (_peopleRepository.Find(p => p.Username == person.Username) != null) {
+            if (_userService.CheckIfUserExistsByUsername(person.Username))
                 result.AddError("The username is not available.");
-                return result;
-            }
 
-            if (person.Username.Length > 50) {
+            if (person.Username.Length > 50)
                 result.AddError("The username cannot exceed 50 characters.");
-                return result;
-            }
+
+            if (!result.Success) return result;
 
             // If we made it this far, then the information provided is valid. We can proceed now.
 
@@ -95,7 +92,7 @@ namespace Raptor.Services.Users
 
             var salt = HashGenerator.CreateSalt();
             var passwordSet = new Password() {
-                BusinessEntityId = person.BusinessEntityId,
+                BusinessEntityId = businessEntity.BusinessEntityId,
                 PasswordSalt = salt,
                 PasswordHash = HashGenerator.GenerateHash(password, salt)
             };

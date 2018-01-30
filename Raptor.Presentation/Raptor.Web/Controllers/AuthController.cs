@@ -146,5 +146,31 @@ namespace Raptor.Web.Controllers
         public IActionResult Register() {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(RegisterViewModel model) {
+            if (!ModelState.IsValid) return View(model);
+
+            try {
+                var userRegistrationResult = _userRegisterationService.Register(model.FirstName, model.LastName, model.EmailAddress, model.Username, model.Password);
+
+                if (userRegistrationResult.Success) {
+                    ViewBag.Status = "OK";
+                    ViewBag.Message = "Your account has been successfully created!";
+                }
+                else {
+                    foreach (var error in userRegistrationResult.Errors) {
+                        ModelState.AddModelError("", error);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                ModelState.AddModelError("", ex.Message);
+                _logService.InsertLog(LogLevel.Error, ex.Message, ex.ToString());
+            }
+
+            return View(model);
+        }
     }
 }

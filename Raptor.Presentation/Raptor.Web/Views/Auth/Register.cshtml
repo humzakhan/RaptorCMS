@@ -13,51 +13,55 @@
                 </div>
 
                 <h4 class="text-light">Register</h4>
-                
+
                 @if (!ViewData.ModelState.IsValid) {
                     <div class="alert alert-danger auth-box mx-auto my-auto" role="alert">
+                        <div asp-validation-summary="ModelOnly" class="small"></div>
+                    </div>
+                }
+
+                @if (ViewBag.Status == "OK") {
+                    <div class="alert alert-success auth-box mx-auto my-auto" role="alert">
                         <span class="small">
-                            @Html.ValidationSummary()
+                            @ViewBag.Message
                         </span>
                     </div>
                 }
 
-                @using(Html.BeginForm("Register", "Auth", FormMethod.Post)) {
-                    @Html.AntiForgeryToken()
-
+                <form asp-controller="Auth" asp-action="Register" method="post">
                     <div class="user-details">
-                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger small" })
+                        <span asp-validation-for="Username" class="text-danger small"></span>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">
                                     <i class="fa fa-user-o"></i>
                                 </span>
 
-                                @Html.TextBoxFor(m => m.Username, "", new {@class = "form-control", placeholder = "Username"})
+                                <input type="text" asp-for="Username" class="form-control" placeholder="Username" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger small" })
+                                <span asp-validation-for="FirstName" class="text-danger small"></span>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="fa fa-user-md"></i>
                                         </span>
 
-                                        @Html.TextBoxFor(m => m.FirstName, "", new {@class = "form-control", placeholder = "First Name"})
+                                        <input type="text" asp-for="FirstName" class="form-control" placeholder="First Name" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger small" })
+                                <span asp-validation-for="LastName" class="text-danger small"></span>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1">
                                         <i class="fa fa-user-md"></i>
                                     </span>
 
-                                    @Html.TextBoxFor(m => m.LastName, "", new {@class = "form-control", placeholder = "Last Name"})
+                                    <input type="text" asp-for="LastName" class="form-control" placeholder="Last Name" />
                                 </div>
                             </div>
                         </div>
@@ -65,24 +69,24 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                                    <span asp-validation-for="Password" class="text-danger small"></span>
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="fa fa-key"></i>
                                         </span>
 
-                                        @Html.TextBoxFor(m => m.Password, "", new { type = "password", @class = "form-control", placeholder = "Enter Password" })
+                                        <input type="password" asp-for="Password" class="form-control" placeholder="Enter Password" />
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    @Html.ValidationMessageFor(m => m.RepeatPassword, "", new { @class = "text-danger small" })
+                                    <span asp-validation-for="RepeatPassword" class="text-danger small"></span>
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="fa fa-key"></i>
                                         </span>
 
-                                        @Html.TextBoxFor(m => m.RepeatPassword, "", new { type = "password", @class = "form-control", placeholder = "Repeat Password" })
+                                        <input type="password" asp-for="RepeatPassword" class="form-control" placeholder="Repeat Password" />
                                     </div>
                                 </div>
                             </div>
@@ -91,23 +95,23 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    @Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "text-danger small" })
+                                    <span asp-validation-for="EmailAddress" class="text-danger small"></span>
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="fa fa-envelope-o"></i>
                                         </span>
 
-                                        @Html.TextBoxFor(m => m.EmailAddress, "", new { @class = "form-control", placeholder = "Enter Email Address" })
+                                        <input type="text" asp-for="EmailAddress" class="form-control" placeholder="Enter Email Address" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    @Html.ValidationMessageFor(m => m.RepeatEmailAddress, "", new { @class = "text-danger small" })
+                                    <span asp-validation-for="RepeatEmailAddress" class="text-danger small"></span>
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="fa fa-envelope-o"></i>
                                         </span>
 
-                                        @Html.TextBoxFor(m => m.RepeatEmailAddress, "", new { @class = "form-control", placeholder = "Repeat Email Address" })
+                                        <input type="text" asp-for="RepeatEmailAddress" class="form-control" placeholder="Repeat Email Address" />
                                     </div>
                                 </div>
                             </div>
@@ -119,10 +123,14 @@
                     <div class="user-links">
                         <a href="@Url.Action("login", "auth")" class="pull-left">Back To Login</a>
                     </div>
-                }
+                </form>
 
             </div>
         </div>
     </div>
 </div>
 
+@section scripts {
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.unobtrusive.min.js"></script>
+}
