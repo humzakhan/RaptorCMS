@@ -11,5 +11,7 @@ namespace Raptor.Web.ViewModels
         [Display(Name = "Repeat Password")]
         [Compare(otherProperty: nameof(Password), ErrorMessage = "Passwords do not match")]
         public string RepeatPassword { get; set; }
+
+        public string Link { get; set; }
     }
 }

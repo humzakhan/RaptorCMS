@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Raptor.Core.Helpers
@@ -10,8 +11,7 @@ namespace Raptor.Core.Helpers
         /// </summary>
         /// <param name="email">Email to verify</param>
         /// <returns>true if the string is a valid e-mail address and false if it's not</returns>
-        public static bool IsValidEmail(string email)
-        {
+        public static bool IsValidEmail(string email) {
             if (string.IsNullOrEmpty(email))
                 return false;
 
@@ -25,8 +25,7 @@ namespace Raptor.Core.Helpers
         /// </summary>
         /// <param name="stringToCheck">The string to verify</param>
         /// <returns>Whether string is null or not</returns>
-        public static string EnsureNotNull(string stringToCheck)
-        {
+        public static string EnsureNotNull(string stringToCheck) {
             return stringToCheck ?? string.Empty;
         }
 
@@ -37,8 +36,7 @@ namespace Raptor.Core.Helpers
         /// <param name="maxLength">Maximum length</param>
         /// <param name="postfix">A string to add to the end if the original string was shorten</param>
         /// <returns>Input string if its lengh is OK; otherwise, truncated input string</returns>
-        public static string EnsureMaximumLength(string str, int maxLength, string postfix = null)
-        {
+        public static string EnsureMaximumLength(string str, int maxLength, string postfix = null) {
             if (string.IsNullOrEmpty(str))
                 return str;
 
@@ -46,8 +44,7 @@ namespace Raptor.Core.Helpers
             var pLen = postfix?.Length ?? 0;
 
             var result = str.Substring(0, maxLength - pLen);
-            if (!string.IsNullOrEmpty(postfix))
-            {
+            if (!string.IsNullOrEmpty(postfix)) {
                 result += postfix;
             }
             return result;
@@ -58,8 +55,7 @@ namespace Raptor.Core.Helpers
         /// </summary>
         /// <param name="length">Length</param>
         /// <returns>Result string</returns>
-        public static string GenerateRandomDigitCode(int length)
-        {
+        public static string GenerateRandomDigitCode(int length) {
             var random = new Random();
             var str = string.Empty;
             for (var i = 0; i < length; i++)
@@ -67,5 +63,16 @@ namespace Raptor.Core.Helpers
             return str;
         }
 
+        /// <summary>
+        /// Generates a random string
+        /// </summary>
+        /// <param name="length">Length of the string</param>
+        /// <returns>Random string</returns>
+        public static string RandomString(int length) {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
     }
 }

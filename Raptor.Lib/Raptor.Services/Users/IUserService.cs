@@ -99,5 +99,25 @@ namespace Raptor.Services.Users
         /// <param name="emailAddress">Email Address of the user who's password is to be updated.</param>
         /// <param name="password">New password</param>
         void UpdatePassword(string emailAddress, string password);
+
+        /// <summary>
+        /// Creates a forgot password request
+        /// </summary>
+        /// <param name="userId">Id of the user for whom the request is to be created</param>
+        void CreateForgotPasswordRequest(int userId);
+
+        /// <summary>
+        /// Validate a forgot password request
+        /// </summary>
+        /// <param name="link">Link of the request</param>
+        /// <returns>Whether link is valid</returns>
+        bool ValidateForgotPasswordRequest(string link);
+
+        /// <summary>
+        /// Get forgot password request
+        /// </summary>
+        /// <param name="link">Link for which the request is to be fetched</param>
+        /// <returns>Forgot Password Request</returns>
+        ForgotPasswordRequest GetForgotPasswordRequest(string link);
     }
 }

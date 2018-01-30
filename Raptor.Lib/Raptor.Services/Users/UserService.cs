@@ -1,4 +1,5 @@
-﻿using Raptor.Core.Security;
+﻿using Raptor.Core.Helpers;
+using Raptor.Core.Security;
 using Raptor.Data.Core;
 using Raptor.Data.Models.Users;
 using System;
@@ -13,12 +14,14 @@ namespace Raptor.Services.Users
         private readonly IRepository<Person> _peopleRepository;
         private readonly IRepository<BusinessEntity> _businessEntityRepository;
         private readonly IRepository<Password> _passwordRepository;
+        private readonly IRepository<ForgotPasswordRequest> _forgotPasswordRequestsRepository;
         private readonly IList<Expression<Func<Person, object>>> _userProperties;
 
-        public UserService(IRepository<Person> peopleRepository, IRepository<BusinessEntity> businessEntityRepository, IRepository<Password> passwordRepository) {
+        public UserService(IRepository<Person> peopleRepository, IRepository<BusinessEntity> businessEntityRepository, IRepository<Password> passwordRepository, IRepository<ForgotPasswordRequest> forgotPasswordRequestsRepository) {
             _peopleRepository = peopleRepository;
             _businessEntityRepository = businessEntityRepository;
             _passwordRepository = passwordRepository;
+            _forgotPasswordRequestsRepository = forgotPasswordRequestsRepository;
 
             _userProperties = new List<Expression<Func<Person, object>>> {
                 u => u.Password,
@@ -209,6 +212,40 @@ namespace Raptor.Services.Users
             currentPassword.PasswordHash = HashGenerator.GenerateHash(password, salt);
 
             _passwordRepository.Update(currentPassword);
+        }
+
+        /// <summary>
+        /// Creates a forgot password request
+        /// </summary>
+        /// <param name="userId">Id of the user for whom the request is to be created</param>
+        public void CreateForgotPasswordRequest(int userId) {
+            var forgotPasswordRequest = new ForgotPasswordRequest() {
+                BusinessEntityId = userId,
+                Link = CommonHelper.RandomString(32),
+                DateCreatedUtc = DateTime.UtcNow
+            };
+
+            _forgotPasswordRequestsRepository.Create(forgotPasswordRequest);
+        }
+
+        /// <summary>
+        /// Validate a forgot password request
+        /// </summary>
+        /// <param name="link">Link of the request</param>
+        /// <returns>Email Address if request is valid, otherwise nothing.</returns>
+        public bool ValidateForgotPasswordRequest(string link) {
+            var forgotPasswordRequest = _forgotPasswordRequestsRepository.SingleOrDefault(s => s.Link == link);
+            var datesDifference = DateTime.UtcNow - forgotPasswordRequest.DateCreatedUtc;
+            return datesDifference.TotalHours <= 24;
+        }
+
+        /// <summary>
+        /// Get forgot password request
+        /// </summary>
+        /// <param name="link">Link for which the request is to be fetched</param>
+        /// <returns>Forgot Password Request</returns>
+        public ForgotPasswordRequest GetForgotPasswordRequest(string link) {
+            return _forgotPasswordRequestsRepository.SingleOrDefault(s => s.Link == link);
         }
     }
 }

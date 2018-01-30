@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Raptor.Core.Helpers;
+using Raptor.Data.Models.Logging;
 using Raptor.Data.Models.Users;
 using Raptor.Services.Authentication;
 using Raptor.Services.Logging;
 using Raptor.Services.Users;
 using Raptor.Web.ViewModels;
+using System;
 
 namespace Raptor.Web.Controllers
 {
@@ -14,12 +16,14 @@ namespace Raptor.Web.Controllers
         private readonly IUserRegisterationService _userRegisterationService;
         private readonly IUserAuthenticationService _authService;
         private readonly ICustomerActivityService _activityService;
+        private readonly ILogService _logService;
 
-        public AuthController(IUserService userService, IUserRegisterationService userRegisterationService, IUserAuthenticationService authService, ICustomerActivityService activityService) {
+        public AuthController(IUserService userService, IUserRegisterationService userRegisterationService, IUserAuthenticationService authService, ICustomerActivityService activityService, ILogService logService) {
             _userService = userService;
             _userRegisterationService = userRegisterationService;
             _authService = authService;
             _activityService = activityService;
+            _logService = logService;
         }
 
         public IActionResult Index() {
@@ -87,9 +91,55 @@ namespace Raptor.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult ForgotPassword(ForgotPasswordViewModel model) {
+            if (!ModelState.IsValid) return View(model);
+
+            try {
+                var user = _userService.GetUserByEmail(model.EmailAddress);
+                if (user != null) {
+                    _userService.CreateForgotPasswordRequest(user.BusinessEntityId);
+                    ViewBag.Status = "OK";
+                    ViewBag.Message = "Please check your email for instructions on how to reset your password";
+                }
+            }
+            catch (Exception ex) {
+                ModelState.AddModelError("", ex.Message);
+                _logService.InsertLog(LogLevel.Error, ex.Message, ex.ToString());
+            }
+
+            return View(model);
+        }
+
         [HttpGet]
-        public IActionResult ResetPassword() {
+        public IActionResult ResetPassword(string link) {
+            var forgotPasswordRequest = _userService.ValidateForgotPasswordRequest(link);
+            if (string.IsNullOrEmpty(link) || !forgotPasswordRequest) return RedirectToAction("Login");
+
+            ViewBag.Link = link;
             return View("ResetPassword");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ResetPassword(ResetPasswordViewModel model) {
+            if (!ModelState.IsValid) return View(model);
+
+            try {
+                var forgotPasswordRequest = _userService.GetForgotPasswordRequest(model.Link);
+                var user = _userService.GetUserById(forgotPasswordRequest.BusinessEntityId);
+
+                _userService.UpdatePassword(user.EmailAddress, model.Password);
+
+                ViewBag.Status = "OK";
+                ViewBag.Message = "Your password has been updated";
+            }
+            catch (Exception ex) {
+                ModelState.AddModelError("", ex.Message);
+                _logService.InsertLog(LogLevel.Error, ex.Message, ex.ToString());
+            }
+
+            return View(model);
         }
 
         [HttpGet]
