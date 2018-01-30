@@ -26,6 +26,14 @@ namespace Raptor.Services.Blog
         void DeleteBlogComments(IList<BlogComment> comments);
 
         #endregion
+
+        #region Blog Post Categories
+
+        void CreateBlogPostCategory(BlogPostCategory category);
+        void CreateBlogPostCategory(string name, string slug, string description);
+        void UpdateBlogPostCategory(BlogPostCategory category);
+
+        #endregion
     }
 
     public enum BlogEntityType

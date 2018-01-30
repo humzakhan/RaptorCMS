@@ -1,0 +1,94 @@
+﻿@model BlogPostCategoryViewModel
+@{
+    ViewBag.Title = "Blog Post Categories";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h4 class="card-title text-bold">Blog Post Categories</h4>
+    </div>
+</div>
+
+@if (!ViewData.ModelState.IsValid) {
+    <div class="alert alert-danger auth-box mx-auto my-auto" role="alert">
+        <div asp-validation-summary="ModelOnly" class="small"></div>
+    </div>
+}
+
+@if (ViewBag.Status == "OK") {
+    <div class="alert alert-success auth-box mx-auto my-auto" role="alert">
+        <span class="small">
+            @ViewBag.Message
+        </span>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header">
+                Add New Category
+            </div>
+            <div class="card-block">
+                <form asp-controller="Blog" asp-action="categories" method="post">
+                    <div class="form-group">
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                        <label asp-for="Name" class="text-bold small"></label>
+                        <input type="text" asp-for="Name" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <span asp-validation-for="Slug" class="text-danger small"></span>
+                        <label asp-for="Slug" class="text-bold small"></label>
+                        <input type="text" asp-for="Slug" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                        <label asp-for="Description" class="text-bold small"></label>
+                        <textarea asp-for="Description" rows="5" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-plus position-left"></i>
+                                Add Category
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                All Categories
+            </div>
+            <div class="card-block">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Slug</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model.BlogPostCategories) {
+                            <tr>
+                                <td>@category.PostCategoryId</td>
+                                <td>@category.Name</td>
+                                <td>@category.Slug</td>
+                                <td>@category.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

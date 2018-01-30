@@ -1,5 +1,6 @@
 ﻿using Raptor.Data.Core;
 using Raptor.Data.Models.Blog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -78,6 +79,27 @@ namespace Raptor.Services.Blog
             }
 
             return entityCount;
+        }
+
+        public void CreateBlogPostCategory(BlogPostCategory category) {
+            var checkCategory = _blogPostCategoriesRepository.SingleOrDefault(c => c.Slug == category.Slug);
+            if (checkCategory != null) throw new ArgumentException("A blog post category already exists for the specified slug");
+
+            _blogPostCategoriesRepository.Create(category);
+        }
+
+        public void UpdateBlogPostCategory(BlogPostCategory category) {
+            _blogPostCategoriesRepository.Update(category);
+        }
+
+        public void CreateBlogPostCategory(string name, string slug, string description) {
+            var category = new BlogPostCategory() {
+                Name = name,
+                Slug = slug,
+                Description = description
+            };
+
+            CreateBlogPostCategory(category);
         }
     }
 }
