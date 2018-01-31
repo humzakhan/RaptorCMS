@@ -32,7 +32,8 @@ namespace Raptor.Services.Blog
         void CreateBlogPostCategory(BlogPostCategory category);
         void CreateBlogPostCategory(string name, string slug, string description);
         void UpdateBlogPostCategory(BlogPostCategory category);
-
+        BlogPostCategory GetBlogPostCategoryById(int id);
+        BlogPostCategory GetBlogPostCategoryBySlug(string slug);
         #endregion
     }
 

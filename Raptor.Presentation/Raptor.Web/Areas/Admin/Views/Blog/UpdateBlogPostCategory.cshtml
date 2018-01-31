@@ -1,0 +1,37 @@
+﻿@model BlogPostCategoryViewModel
+@{
+    ViewBag.Title = "Update Blog Post Category";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h4 class="card-title text-bold">@ViewBag.Title</h4>
+    </div>
+</div>
+
+@if (!ViewData.ModelState.IsValid) {
+    <div class="alert alert-danger auth-box mx-auto my-auto" role="alert">
+        <div asp-validation-summary="ModelOnly" class="small"></div>
+    </div>
+}
+
+@if (ViewBag.Status == "OK") {
+    <div class="alert alert-success auth-box mx-auto my-auto" role="alert">
+        <span class="small">
+            @ViewBag.Message
+        </span>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">@ViewBag.Title</div>
+            <div class="card-block">
+                @Html.Partial("_BlogPostCategoryView", Model)
+            </div>
+        </div>
+    </div>
+</div>
+

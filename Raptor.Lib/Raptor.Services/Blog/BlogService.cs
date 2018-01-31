@@ -101,5 +101,13 @@ namespace Raptor.Services.Blog
 
             CreateBlogPostCategory(category);
         }
+
+        public BlogPostCategory GetBlogPostCategoryById(int id) {
+            return _blogPostCategoriesRepository.GetById(id);
+        }
+
+        public BlogPostCategory GetBlogPostCategoryBySlug(string slug) {
+            return _blogPostCategoriesRepository.SingleOrDefault(c => c.Slug == slug);
+        }
     }
 }

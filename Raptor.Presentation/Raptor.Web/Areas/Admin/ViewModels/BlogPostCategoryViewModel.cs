@@ -17,6 +17,10 @@ namespace Raptor.Web.Areas.Admin.ViewModels
 
         public string Description { get; set; }
 
+        public string PostAction { get; set; }
+
+        public int CategoryId { get; set; }
+
         public IEnumerable<BlogPostCategory> BlogPostCategories { get; set; }
     }
 }

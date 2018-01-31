@@ -1,4 +1,5 @@
-﻿@model BlogPostCategoryViewModel
+﻿@using Microsoft.Data.OData.Atom
+@model BlogPostCategoryViewModel
 @{
     ViewBag.Title = "Blog Post Categories";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -31,34 +32,7 @@
                 Add New Category
             </div>
             <div class="card-block">
-                <form asp-controller="Blog" asp-action="categories" method="post">
-                    <div class="form-group">
-                        <span asp-validation-for="Name" class="text-danger small"></span>
-                        <label asp-for="Name" class="text-bold small"></label>
-                        <input type="text" asp-for="Name" class="form-control" />
-                    </div>
-
-                    <div class="form-group">
-                        <span asp-validation-for="Slug" class="text-danger small"></span>
-                        <label asp-for="Slug" class="text-bold small"></label>
-                        <input type="text" asp-for="Slug" class="form-control" />
-                    </div>
-
-                    <div class="form-group">
-                        <span asp-validation-for="Description" class="text-danger small"></span>
-                        <label asp-for="Description" class="text-bold small"></label>
-                        <textarea asp-for="Description" rows="5" class="form-control"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="pull-right">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-plus position-left"></i>
-                                Add Category
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                @Html.Partial("_BlogPostCategoryView", Model)
             </div>
         </div>
     </div>
@@ -75,6 +49,7 @@
                             <th>Name</th>
                             <th>Slug</th>
                             <th>Description</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,6 +59,9 @@
                                 <td>@category.Name</td>
                                 <td>@category.Slug</td>
                                 <td>@category.Description</td>
+                                <td>
+                                    <a href="@Url.Action("UpdateBlogPostCategory", "Blog", new { id = category.PostCategoryId })" class="small">Edit</a>
+                                </td>
                             </tr>
                         }
                     </tbody>
