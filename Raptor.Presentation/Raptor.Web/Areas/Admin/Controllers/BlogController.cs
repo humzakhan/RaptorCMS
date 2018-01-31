@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Raptor.Core.Helpers;
+using Raptor.Data.Models;
+using Raptor.Data.Models.Blog;
 using Raptor.Data.Models.Logging;
 using Raptor.Services.Blog;
 using Raptor.Services.Helpers;
@@ -40,6 +43,41 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 Action = "create",
                 BlogPostCategories = new SelectList(_blogService.GetBlogPostCategories().ToList(), "PostCategoryId", "Name")
             };
+
+            return View("BlogPostView", model);
+        }
+
+        [HttpPost]
+        [Route("admin/blog/posts/create")]
+        public IActionResult Create(BlogPostViewModel model) {
+            if (!ModelState.IsValid) return View("BlogPostView", model);
+
+            try {
+                var blogPost = new BlogPost() {
+                    DateCreatedUtc = DateTime.UtcNow,
+                    Content = model.Content,
+                    Title = model.Title,
+                    Excerpt = model.Content.Substring(0, 150),
+                    Status = PostStatus.Published,
+                    IsCommentsAllowed = model.IsCommentsAllowed,
+                    Password = model.Password,
+                    DateModifiedUtc = DateTime.UtcNow,
+                    Guid = Guid.NewGuid(),
+                    Link = CommonHelper.GenerateLinkForBlogPost(model.Title),
+                    PostType = PostType.Post,
+                    CommentsCount = 0,
+                    PostCategoryId = model.BlogPostCategoryId,
+                    CreatedById = _workContext.CurrentUser.BusinessEntityId
+
+                };
+
+                _blogService.CreateBlogPost(blogPost);
+                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateBlogPost, "Created blog post: {0}", model.Title);
+            }
+            catch (Exception ex) {
+                ModelState.AddModelError("", $"Unable to add new blog post: {ex.Message}");
+                _logService.InsertLog(LogLevel.Error, $"Unable to add new blog post: {ex.Message}", ex.ToString());
+            }
 
             return View("BlogPostView", model);
         }

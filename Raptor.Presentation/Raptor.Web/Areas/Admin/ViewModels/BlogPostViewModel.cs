@@ -18,6 +18,11 @@ namespace Raptor.Web.Areas.Admin.ViewModels
         [Display(Name = "Status")]
         public PostStatus PostStatus { get; set; }
 
+        [Display(Name = "Allow Comments?")]
+        public bool IsCommentsAllowed { get; set; }
+
+        public string Password { get; set; }
+
         public SelectList BlogPostCategories { get; set; }
     }
 }

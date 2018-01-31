@@ -23,7 +23,7 @@ namespace Raptor.Data.Migrations
                 newName: "IX_BlogPosts_CreatedById");
 
             migrationBuilder.AddColumn<int>(
-                name: "BlogPostCategoryId",
+                name: "PostCategoryId",
                 table: "BlogPosts",
                 nullable: false,
                 defaultValue: 0);
@@ -31,12 +31,12 @@ namespace Raptor.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_BlogPosts_BlogPostCategoryId",
                 table: "BlogPosts",
-                column: "BlogPostCategoryId");
+                column: "PostCategoryId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_BlogPosts_BlogPostCategories_BlogPostCategoryId",
                 table: "BlogPosts",
-                column: "BlogPostCategoryId",
+                column: "PostCategoryId",
                 principalTable: "BlogPostCategories",
                 principalColumn: "PostCategoryId",
                 onDelete: ReferentialAction.Cascade);
@@ -65,7 +65,7 @@ namespace Raptor.Data.Migrations
                 table: "BlogPosts");
 
             migrationBuilder.DropColumn(
-                name: "BlogPostCategoryId",
+                name: "PostCategoryId",
                 table: "BlogPosts");
 
             migrationBuilder.RenameColumn(

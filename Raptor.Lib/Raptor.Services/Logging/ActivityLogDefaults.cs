@@ -20,16 +20,26 @@
         /// <summary>
         /// Add blog post category
         /// </summary>
-        public static readonly string AddBlogPostCategory = "user.blog.category.add";
+        public static readonly string AddBlogPostCategory = "ublog.category.add";
 
         /// <summary>
         /// View blog post categories
         /// </summary>
-        public static readonly string ViewBlogPostCategories = "user.blog.category.view";
+        public static readonly string ViewBlogPostCategories = "blog.category.view";
 
         /// <summary>
         /// Edit a blog post category
         /// </summary>
-        public static readonly string EditBlogPostCategory = "user.blog.category.edit";
+        public static readonly string EditBlogPostCategory = "ublog.category.edit";
+
+        /// <summary>
+        /// Add blog post
+        /// </summary>
+        public static readonly string AddBlogPost = "blog.post.add";
+
+        /// <summary>
+        /// Update blog post
+        /// </summary>
+        public static readonly string UpdateBlogPost = "blog.post.update";
     }
 }

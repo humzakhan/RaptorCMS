@@ -2,6 +2,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20180131144404_RenameCategoryColumnInBlogPosts.cs" />
+    <Compile Remove="Migrations\20180131145126_BlogPostModelCategoryIdFix.cs" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />

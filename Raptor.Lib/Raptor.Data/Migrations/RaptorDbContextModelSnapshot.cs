@@ -3,12 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Raptor.Data;
-using Raptor.Data.Models;
-using Raptor.Data.Models.Logging;
-using Raptor.Data.Models.Users;
 using System;
 
 namespace Raptor.Data.Migrations
@@ -85,6 +80,8 @@ namespace Raptor.Data.Migrations
 
                     b.Property<int>("BlogPostCategoryId");
 
+                    b.Property<int?>("BusinessEntityId");
+
                     b.Property<int>("CommentsCount");
 
                     b.Property<string>("Content");
@@ -121,6 +118,8 @@ namespace Raptor.Data.Migrations
                     b.HasKey("BlogPostId");
 
                     b.HasIndex("BlogPostCategoryId");
+
+                    b.HasIndex("BusinessEntityId");
 
                     b.HasIndex("CreatedById");
 
@@ -495,6 +494,10 @@ namespace Raptor.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Raptor.Data.Models.Users.BusinessEntity", "BusinessEntity")
+                        .WithMany()
+                        .HasForeignKey("BusinessEntityId");
+
+                    b.HasOne("Raptor.Data.Models.Users.Person", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -31,6 +31,7 @@
                             <th>Status</th>
                             <th>Date</th>
                             <th>Actions</th>
+                            <th class="d-none"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,11 +41,13 @@
                                 <td>
                                     <a href="@post.Link">@post.Title</a>
                                 </td>
+                                <td>@post.CreatedBy.DisplayName</td>
                                 <td>@post.BlogPostCategory.Name</td>
                                 <td>@post.CommentsCount</td>
                                 <td>@post.Status.ToString()</td>
-                                <td>@post.DateCreated.ToString("MMMM dd, YYYY hh:mm tt")</td>
+                                <td class="small">@post.DateCreatedUtc.ToString("MM/dd/yy hh:mm tt")</td>
                                 <td>none</td>
+                                <td class="d-none"></td>
                             </tr>
                         }
                     </tbody>
@@ -58,6 +61,7 @@
                             <th>Status</th>
                             <th>Date</th>
                             <th>Actions</th>
+                            <th class="d-none"></th>
                         </tr>
                     </tfoot>
                 </table>

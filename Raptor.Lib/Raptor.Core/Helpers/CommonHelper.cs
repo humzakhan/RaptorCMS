@@ -21,6 +21,21 @@ namespace Raptor.Core.Helpers
         }
 
         /// <summary>
+        /// Generates link for the blog post
+        /// </summary>
+        /// <param name="postTitle">Title of the blog post</param>
+        /// <returns>Link for the blog post</returns>
+        public static string GenerateLinkForBlogPost(string postTitle) {
+            var link = postTitle.Replace(".", " ").ToLower();
+            link = Regex.Replace(link, @"\s+", "-");
+
+            if (link[link.Length - 1] == '-')
+                link = link.Remove(link.Length - 1, 1);
+
+            return link;
+        }
+
+        /// <summary>
         /// Checks if a string is null
         /// </summary>
         /// <param name="stringToCheck">The string to verify</param>

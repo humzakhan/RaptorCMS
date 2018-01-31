@@ -64,7 +64,7 @@ namespace Raptor.Data.Migrations
                     b.Property<int>("BlogPostId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BlogPostCategoryId");
+                    b.Property<int>("PostCategoryId");
 
                     b.Property<int>("CommentsCount");
 
@@ -103,7 +103,7 @@ namespace Raptor.Data.Migrations
 
                     b.HasKey("BlogPostId");
 
-                    b.HasIndex("BlogPostCategoryId");
+                    b.HasIndex("PostCategoryId");
 
                     b.HasIndex("CreatedById");
 
@@ -416,7 +416,7 @@ namespace Raptor.Data.Migrations
                 {
                     b.HasOne("Raptor.Data.Models.Blog.BlogPostCategory", "BlogPostCategory")
                         .WithMany("Posts")
-                        .HasForeignKey("BlogPostCategoryId")
+                        .HasForeignKey("PostCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Raptor.Data.Models.Users.BusinessEntity", "BusinessEntity")

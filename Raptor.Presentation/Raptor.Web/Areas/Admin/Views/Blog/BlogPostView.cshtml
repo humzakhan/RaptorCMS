@@ -56,6 +56,25 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="control-label col-md-3 text-bold" asp-for="IsCommentsAllowed"></label>
+                        <span class="text-danger small" asp-validation-for="IsCommentsAllowed"></span>
+                        <div class="col-md-2">
+                            <input type="checkbox" asp-for="IsCommentsAllowed" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-3 text-bold" asp-for="Password"></label>
+                        <span class="text-danger small" asp-validation-for="Password"></span>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" asp-for="Password" />
+                            <span class="small">
+                                You can set a password for your blog post, leave blank for no password.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <div class="col-md-9 offset-md-3">
                             <div class="pull-right">
                                 <button type="submit" class="btn btn-default">
