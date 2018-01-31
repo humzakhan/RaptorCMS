@@ -1,4 +1,4 @@
-
+@model IEnumerable<BlogPost>
 @{
     ViewBag.Title = "Blog Posts";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -30,10 +30,23 @@
                             <th>Comments</th>
                             <th>Status</th>
                             <th>Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                       
+                        @foreach (var post in Model) {
+                            <tr>
+                                <td>@post.BlogPostId</td>
+                                <td>
+                                    <a href="@post.Link">@post.Title</a>
+                                </td>
+                                <td>@post.BlogPostCategory.Name</td>
+                                <td>@post.CommentsCount</td>
+                                <td>@post.Status.ToString()</td>
+                                <td>@post.DateCreated.ToString("MMMM dd, YYYY hh:mm tt")</td>
+                                <td>none</td>
+                            </tr>
+                        }
                     </tbody>
                     <tfoot>
                         <tr>
@@ -44,6 +57,7 @@
                             <th>Comments</th>
                             <th>Status</th>
                             <th>Date</th>
+                            <th>Actions</th>
                         </tr>
                     </tfoot>
                 </table>

@@ -28,7 +28,8 @@ namespace Raptor.Web.Areas.Admin.Controllers
         }
 
         public IActionResult Index() {
-            return View();
+            var blogPosts = _blogService.GetBlogPosts();
+            return View(blogPosts);
         }
 
         [HttpGet]

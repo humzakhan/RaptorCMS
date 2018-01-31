@@ -113,5 +113,13 @@ namespace Raptor.Services.Blog
         public IEnumerable<BlogComment> GetAllBlogComments() {
             return _blogCommentsRepository.Include(c => c.Post).Select(c => c);
         }
+
+        public IEnumerable<BlogPost> GetBlogPosts(int categoryId = 0) {
+            var blogPosts = categoryId == 0 ?
+                _blogPostsRepository.GetAll().ToList() :
+                _blogPostsRepository.Find(b => b.BlogPostCategoryId == categoryId).ToList();
+
+            return blogPosts;
+        }
     }
 }

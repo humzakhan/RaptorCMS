@@ -12,7 +12,7 @@ namespace Raptor.Services.Blog
         void DeleteBlogPost(BlogPost blogPost);
         void CreateBlogPost(BlogPost blogPost);
         void UpdateBlogPost(BlogPost blogPost);
-        IList<BlogPostCategory> GetBlogPostCategories();
+        IEnumerable<BlogPost> GetBlogPosts(int categoryId = 0);
 
         #endregion
 
@@ -35,6 +35,7 @@ namespace Raptor.Services.Blog
         void UpdateBlogPostCategory(BlogPostCategory category);
         BlogPostCategory GetBlogPostCategoryById(int id);
         BlogPostCategory GetBlogPostCategoryBySlug(string slug);
+        IList<BlogPostCategory> GetBlogPostCategories();
         #endregion
     }
 
