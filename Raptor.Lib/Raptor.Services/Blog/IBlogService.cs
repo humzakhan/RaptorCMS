@@ -20,6 +20,7 @@ namespace Raptor.Services.Blog
 
         IList<BlogComment> GetBlogCommentsById(int blogPostId);
         IList<BlogComment> GetBlogCommentsByIds(int[] blogPostIds);
+        IEnumerable<BlogComment> GetAllBlogComments();
         int GetBlogCommentsCount(int blogPostId, bool isApproved = true);
         int CountEntities(BlogEntityType entity);
         void DeleteBlogComment(BlogComment comment);

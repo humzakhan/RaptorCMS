@@ -109,5 +109,9 @@ namespace Raptor.Services.Blog
         public BlogPostCategory GetBlogPostCategoryBySlug(string slug) {
             return _blogPostCategoriesRepository.SingleOrDefault(c => c.Slug == slug);
         }
+
+        public IEnumerable<BlogComment> GetAllBlogComments() {
+            return _blogCommentsRepository.Include(c => c.Post).Select(c => c);
+        }
     }
 }

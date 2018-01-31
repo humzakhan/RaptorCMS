@@ -124,5 +124,11 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Comments() {
+            var comments = _blogService.GetAllBlogComments();
+            return View(comments);
+        }
     }
 }
