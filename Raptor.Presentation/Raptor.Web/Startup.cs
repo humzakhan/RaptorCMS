@@ -118,9 +118,6 @@ namespace Raptor.Web
 
             // Allow to serve static files
             app.UseStaticFiles();
-
-            // Allow to use status code pages
-            app.UseStatusCodePages();
         }
     }
 }

@@ -116,8 +116,8 @@ namespace Raptor.Services.Blog
 
         public IEnumerable<BlogPost> GetBlogPosts(int categoryId = 0) {
             var blogPosts = categoryId == 0 ?
-                _blogPostsRepository.IncludeMultiple(b => b.BlogPostCategory, b => b.CreatedBy).AsEnumerable().Select(b => b).ToList() :
-                _blogPostsRepository.IncludeMultiple(b => b.BlogPostCategory, b => b.CreatedBy).Where(b => b.PostCategoryId == categoryId).ToList();
+                _blogPostsRepository.IncludeMultiple(b => b.PostCategory, b => b.CreatedBy).AsEnumerable().Select(b => b).ToList() :
+                _blogPostsRepository.IncludeMultiple(b => b.PostCategory, b => b.CreatedBy).Where(b => b.PostCategoryId == categoryId).ToList();
 
             return blogPosts;
         }

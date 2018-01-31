@@ -73,6 +73,9 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
                 _blogService.CreateBlogPost(blogPost);
                 _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateBlogPost, "Created blog post: {0}", model.Title);
+
+                ViewBag.Status = "OK";
+                ViewBag.Message = $"Blog post published: {model.Title}";
             }
             catch (Exception ex) {
                 ModelState.AddModelError("", $"Unable to add new blog post: {ex.Message}");

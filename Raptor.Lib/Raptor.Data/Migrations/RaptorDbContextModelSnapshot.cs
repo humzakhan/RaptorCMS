@@ -3,7 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Raptor.Data;
+using Raptor.Data.Models;
+using Raptor.Data.Models.Logging;
+using Raptor.Data.Models.Users;
 using System;
 
 namespace Raptor.Data.Migrations
@@ -78,8 +83,6 @@ namespace Raptor.Data.Migrations
                     b.Property<int>("BlogPostId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BlogPostCategoryId");
-
                     b.Property<int?>("BusinessEntityId");
 
                     b.Property<int>("CommentsCount");
@@ -109,6 +112,8 @@ namespace Raptor.Data.Migrations
                     b.Property<string>("Password")
                         .HasMaxLength(20);
 
+                    b.Property<int>("PostCategoryId");
+
                     b.Property<int>("PostType");
 
                     b.Property<int>("Status");
@@ -117,11 +122,11 @@ namespace Raptor.Data.Migrations
 
                     b.HasKey("BlogPostId");
 
-                    b.HasIndex("BlogPostCategoryId");
-
                     b.HasIndex("BusinessEntityId");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("PostCategoryId");
 
                     b.ToTable("BlogPosts");
                 });
@@ -488,11 +493,6 @@ namespace Raptor.Data.Migrations
 
             modelBuilder.Entity("Raptor.Data.Models.Blog.BlogPost", b =>
                 {
-                    b.HasOne("Raptor.Data.Models.Blog.BlogPostCategory", "BlogPostCategory")
-                        .WithMany("Posts")
-                        .HasForeignKey("BlogPostCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Raptor.Data.Models.Users.BusinessEntity", "BusinessEntity")
                         .WithMany()
                         .HasForeignKey("BusinessEntityId");
@@ -500,6 +500,11 @@ namespace Raptor.Data.Migrations
                     b.HasOne("Raptor.Data.Models.Users.Person", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Raptor.Data.Models.Blog.BlogPostCategory", "PostCategory")
+                        .WithMany("Posts")
+                        .HasForeignKey("PostCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

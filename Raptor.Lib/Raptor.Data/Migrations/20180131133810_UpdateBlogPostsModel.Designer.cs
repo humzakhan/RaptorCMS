@@ -128,7 +128,7 @@ namespace Raptor.Data.Migrations
                     b.ToTable("BlogPosts");
                 });
 
-            modelBuilder.Entity("Raptor.Data.Models.Blog.BlogPostCategory", b =>
+            modelBuilder.Entity("Raptor.Data.Models.Blog.PostCategory", b =>
                 {
                     b.Property<int>("PostCategoryId")
                         .ValueGeneratedOnAdd();
@@ -490,7 +490,7 @@ namespace Raptor.Data.Migrations
 
             modelBuilder.Entity("Raptor.Data.Models.Blog.BlogPost", b =>
                 {
-                    b.HasOne("Raptor.Data.Models.Blog.BlogPostCategory", "BlogPostCategory")
+                    b.HasOne("Raptor.Data.Models.Blog.PostCategory", "PostCategory")
                         .WithMany("Posts")
                         .HasForeignKey("PostCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
