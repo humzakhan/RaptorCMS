@@ -60,7 +60,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                     Content = model.Content,
                     Title = model.Title,
                     Excerpt = model.Content.Substring(0, 150),
-                    Status = PostStatus.Published,
+                    Status = model.PostStatus,
                     IsCommentsAllowed = model.IsCommentsAllowed,
                     Password = model.Password,
                     DateModifiedUtc = DateTime.UtcNow,
@@ -70,7 +70,6 @@ namespace Raptor.Web.Areas.Admin.Controllers
                     CommentsCount = 0,
                     PostCategoryId = model.BlogPostCategoryId,
                     CreatedById = _workContext.CurrentUser.BusinessEntityId
-
                 };
 
                 _blogService.CreateBlogPost(blogPost);
@@ -132,7 +131,6 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 Slug = blogPostCategory.Slug,
                 Description = blogPostCategory.Description,
                 CategoryId = id
-
             };
 
             return View(model);
@@ -190,7 +188,8 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 IsCommentsAllowed = blogPost.IsCommentsAllowed,
                 Action = "Edit",
                 PageTitle = "Edit blog post",
-                BlogPostCategories = new SelectList(_blogService.GetBlogPostCategories().ToList(), "PostCategoryId", "Name")
+                BlogPostCategories = new SelectList(_blogService.GetBlogPostCategories().ToList(), "PostCategoryId", "Name"),
+                PostStatus = blogPost.Status
             };
 
             return View(_blogPostView, model);
@@ -214,6 +213,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 blogPost.PostCategoryId = model.BlogPostCategoryId;
                 blogPost.IsCommentsAllowed = model.IsCommentsAllowed;
                 blogPost.Password = model.Password;
+                blogPost.Status = model.PostStatus;
 
                 _blogService.UpdateBlogPost(blogPost);
                 _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateBlogPost, "Updated blog post, id: {0}, title: {1}", model.BlogPostId, model.Title);
