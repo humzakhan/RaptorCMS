@@ -46,7 +46,9 @@
                                 <td>@post.CommentsCount</td>
                                 <td>@post.Status.ToString()</td>
                                 <td>@post.DateCreatedUtc.ToString("MM/dd/yy hh:mm tt")</td>
-                                <td>none</td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Blog", new { id = post.BlogPostId })">Edit</a>
+                                </td>
                                 <td class="d-none"></td>
                             </tr>
                         }

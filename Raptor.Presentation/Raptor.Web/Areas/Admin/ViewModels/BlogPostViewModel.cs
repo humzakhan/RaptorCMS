@@ -6,10 +6,14 @@ namespace Raptor.Web.Areas.Admin.ViewModels
 {
     public class BlogPostViewModel
     {
+        public int BlogPostId { get; set; }
+
         public string PageTitle { get; set; }
+
         public string Action { get; set; }
 
         public string Title { get; set; }
+
         public string Content { get; set; }
 
         [Display(Name = "Category")]

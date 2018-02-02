@@ -22,12 +22,14 @@ namespace Raptor.Web.Areas.Admin.Controllers
         private readonly ILogService _logService;
         private readonly ICustomerActivityService _activityService;
         private readonly IWorkContext _workContext;
+        private readonly string _blogPostView;
 
         public BlogController(IBlogService blogService, ILogService logService, ICustomerActivityService activityService, IWorkContext workContext) {
             _blogService = blogService;
             _logService = logService;
             _activityService = activityService;
             _workContext = workContext;
+            _blogPostView = "BlogPostView";
         }
 
         public IActionResult Index() {
@@ -44,13 +46,13 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 BlogPostCategories = new SelectList(_blogService.GetBlogPostCategories().ToList(), "PostCategoryId", "Name")
             };
 
-            return View("BlogPostView", model);
+            return View(_blogPostView, model);
         }
 
         [HttpPost]
         [Route("admin/blog/posts/create")]
         public IActionResult Create(BlogPostViewModel model) {
-            if (!ModelState.IsValid) return View("BlogPostView", model);
+            if (!ModelState.IsValid) return View(_blogPostView, model);
 
             try {
                 var blogPost = new BlogPost() {
@@ -82,7 +84,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 _logService.InsertLog(LogLevel.Error, $"Unable to add new blog post: {ex.Message}", ex.ToString());
             }
 
-            return View("BlogPostView", model);
+            return View(_blogPostView, model);
         }
 
         [HttpGet]
@@ -171,6 +173,60 @@ namespace Raptor.Web.Areas.Admin.Controllers
         public IActionResult Comments() {
             var comments = _blogService.GetAllBlogComments();
             return View(comments);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id) {
+            var blogPost = _blogService.GetBlogPostById(id);
+
+            if (blogPost == null) return RedirectToAction("Index");
+
+            var model = new BlogPostViewModel() {
+                BlogPostId = blogPost.BlogPostId,
+                Title = blogPost.Title,
+                Content = blogPost.Content,
+                BlogPostCategoryId = blogPost.PostCategoryId,
+                Password = blogPost.Password,
+                IsCommentsAllowed = blogPost.IsCommentsAllowed,
+                Action = "Edit",
+                PageTitle = "Edit blog post",
+                BlogPostCategories = new SelectList(_blogService.GetBlogPostCategories().ToList(), "PostCategoryId", "Name")
+            };
+
+            return View(_blogPostView, model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(BlogPostViewModel model) {
+            if (!ModelState.IsValid) return View(_blogPostView, model);
+
+            var blogPost = _blogService.GetBlogPostById(model.BlogPostId);
+
+            if (blogPost == null) {
+                ModelState.AddModelError("", "Invalid blog post id, cannot update.");
+                return View(_blogPostView, model);
+            }
+
+            try {
+                blogPost.Title = model.Title;
+                blogPost.Content = model.Content;
+                blogPost.PostCategoryId = model.BlogPostCategoryId;
+                blogPost.IsCommentsAllowed = model.IsCommentsAllowed;
+                blogPost.Password = model.Password;
+
+                _blogService.UpdateBlogPost(blogPost);
+                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateBlogPost, "Updated blog post, id: {0}, title: {1}", model.BlogPostId, model.Title);
+
+                ViewBag.Status = "OK";
+                ViewBag.Message = "Your changes have been saved successfully.";
+            }
+            catch (Exception ex) {
+                _logService.InsertLog(LogLevel.Error, $"Unable to attend blog post: {ex.Message}", ex.ToString());
+                ModelState.AddModelError("", $"Unable to update blog: {ex.Message}");
+            }
+
+            return View(_blogPostView, model);
         }
     }
 }
