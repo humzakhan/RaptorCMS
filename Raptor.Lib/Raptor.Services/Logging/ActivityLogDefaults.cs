@@ -5,7 +5,12 @@
         /// <summary>
         /// Login Activity 
         /// </summary>
-        public static readonly string Login = "user.login";
+        public static readonly string LoggedIn = "user.login";
+
+        /// <summary>
+        /// User logout
+        /// </summary>
+        public static readonly string LoggedOut = "user.logout";
 
         /// <summary>
         /// Update Profie Activity
@@ -20,7 +25,7 @@
         /// <summary>
         /// Add blog post category
         /// </summary>
-        public static readonly string AddBlogPostCategory = "ublog.category.add";
+        public static readonly string AddBlogPostCategory = "blog.category.add";
 
         /// <summary>
         /// View blog post categories
@@ -30,7 +35,7 @@
         /// <summary>
         /// Edit a blog post category
         /// </summary>
-        public static readonly string EditBlogPostCategory = "ublog.category.edit";
+        public static readonly string EditBlogPostCategory = "blog.category.edit";
 
         /// <summary>
         /// Add blog post
@@ -40,6 +45,11 @@
         /// <summary>
         /// Update blog post
         /// </summary>
-        public static readonly string UpdateBlogPost = "blog.post.update";
+        public static readonly string UpdateBlogPost = "blog.post.edit";
+
+        /// <summary>
+        /// View logs
+        /// </summary>
+        public static readonly string ViewLogs = "logs.view";
     }
 }

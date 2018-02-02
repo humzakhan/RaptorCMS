@@ -47,7 +47,7 @@ namespace Raptor.Services.Authentication
                     IssuedUtc = DateTime.UtcNow
                 };
 
-                _activityTracker.InsertActivity(user.BusinessEntity, ActivityLogDefaults.Login, "User logged in");
+                _activityTracker.InsertActivity(user.BusinessEntity, ActivityLogDefaults.LoggedIn, "User logged in");
 
                 await _httpContextAccessor.HttpContext.SignInAsync(RaptorCookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authenticationProperties);
             }

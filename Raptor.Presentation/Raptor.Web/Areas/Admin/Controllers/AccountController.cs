@@ -85,6 +85,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 currentUser.DisplayName = !string.IsNullOrEmpty(model.MiddleName) ? $"{model.FirstName} {model.MiddleName} {model.LastName}" : $"{model.FirstName} {model.LastName}";
 
                 _userService.UpdateUser(currentUser);
+                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateProfile, "Updated profile information.");
 
                 ViewBag.Status = "OK";
                 ViewBag.Message = "Your changes have been saved successfully.";
@@ -117,6 +118,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
             }
 
             _userService.UpdatePassword(_workContext.CurrentUser.EmailAddress, model.Password);
+            _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdatePassword, "Updated password.");
 
             ViewBag.Status = "OK";
             ViewBag.Message = "Your password has been changed successfully";
@@ -127,6 +129,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Activity() {
             var activityLog = _activityService.GetActivityForUser(_workContext.CurrentUser.BusinessEntityId);
+            _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.ViewLogs, "Viewed activity logs");
             return View(activityLog);
         }
     }

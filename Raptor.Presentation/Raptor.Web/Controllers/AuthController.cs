@@ -3,6 +3,7 @@ using Raptor.Core.Helpers;
 using Raptor.Data.Models.Logging;
 using Raptor.Data.Models.Users;
 using Raptor.Services.Authentication;
+using Raptor.Services.Helpers;
 using Raptor.Services.Logging;
 using Raptor.Services.Users;
 using Raptor.Web.ViewModels;
@@ -17,13 +18,15 @@ namespace Raptor.Web.Controllers
         private readonly IUserAuthenticationService _authService;
         private readonly ICustomerActivityService _activityService;
         private readonly ILogService _logService;
+        private readonly IWorkContext _workContext;
 
-        public AuthController(IUserService userService, IUserRegisterationService userRegisterationService, IUserAuthenticationService authService, ICustomerActivityService activityService, ILogService logService) {
+        public AuthController(IUserService userService, IUserRegisterationService userRegisterationService, IUserAuthenticationService authService, ICustomerActivityService activityService, ILogService logService, IWorkContext workContext) {
             _userService = userService;
             _userRegisterationService = userRegisterationService;
             _authService = authService;
             _activityService = activityService;
             _logService = logService;
+            _workContext = workContext;
         }
 
         public IActionResult Index() {
@@ -83,6 +86,7 @@ namespace Raptor.Web.Controllers
         [HttpGet]
         public IActionResult Logout() {
             _authService.SignOut();
+            _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.LoggedOut, "Logged out");
             return RedirectToAction("Login");
         }
 
