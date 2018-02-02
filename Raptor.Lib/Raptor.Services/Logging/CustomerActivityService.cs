@@ -127,5 +127,22 @@ namespace Raptor.Services.Logging
             var activityLogs = _customerActivityRepository.GetAll().ToList();
             _customerActivityRepository.DeleteRange(activityLogs);
         }
+
+        /// <summary>
+        /// Returns activity for the specified user
+        /// </summary>
+        /// <param name="userId">Id of the user for whom activity is to be returned</param>
+        /// <param name="recentLogsCount">Nummber of most recent log items to return, if specified. Otherwise all log items are returned.</param>
+        /// <returns>Recent ActivityLog List for the specified user</returns>
+        public IEnumerable<ActivityLog> GetActivityForUser(int userId, int recentLogsCount = 0) {
+            var recentActivity = recentLogsCount != 0 ?
+                _customerActivityRepository
+                .Find(a => a.BusinessEntityId == userId)
+                .OrderByDescending(a => a.DateCreatedUtc)
+                .Take(recentLogsCount) :
+                _customerActivityRepository.Find(a => a.BusinessEntityId == userId);
+
+            return recentActivity;
+        }
     }
 }

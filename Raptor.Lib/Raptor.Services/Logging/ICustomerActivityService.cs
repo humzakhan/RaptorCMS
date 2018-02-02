@@ -58,5 +58,13 @@ namespace Raptor.Services.Logging
         /// Clears activity log
         /// </summary>
         void ClearAllActivities();
+
+        /// <summary>
+        /// Returns activity for the specified user
+        /// </summary>
+        /// <param name="userId">Id of the user for whom activity is to be returned</param>
+        /// <param name="recentLogsCount">Nummber of most recent log items to return, if specified. Otherwise all log items are returned.</param>
+        /// <returns>Recent ActivityLog List for the specified user</returns>
+        IEnumerable<ActivityLog> GetActivityForUser(int userId, int recentLogsCount = 0);
     }
 }

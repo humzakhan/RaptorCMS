@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Raptor.Core.Helpers;
 using Raptor.Data.Models.Users;
 using Raptor.Services.Helpers;
+using Raptor.Services.Logging;
 using Raptor.Services.Users;
 using Raptor.Web.Areas.Admin.ViewModels;
 using Raptor.Web.ViewModels;
@@ -18,10 +19,12 @@ namespace Raptor.Web.Areas.Admin.Controllers
     {
         private readonly IUserService _userService;
         private readonly IWorkContext _workContext;
+        private readonly ICustomerActivityService _activityService;
 
-        public AccountController(IUserService userService, IWorkContext workContext) {
+        public AccountController(IUserService userService, IWorkContext workContext, ICustomerActivityService activityService) {
             _userService = userService;
             _workContext = workContext;
+            _activityService = activityService;
         }
 
         [HttpGet]
@@ -119,6 +122,12 @@ namespace Raptor.Web.Areas.Admin.Controllers
             ViewBag.Message = "Your password has been changed successfully";
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Activity() {
+            var activityLog = _activityService.GetActivityForUser(_workContext.CurrentUser.BusinessEntityId);
+            return View(activityLog);
         }
     }
 }
