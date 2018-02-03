@@ -47,7 +47,10 @@
                                 <td>@post.Status.ToString()</td>
                                 <td>@post.DateCreatedUtc.ToString("MM/dd/yy hh:mm tt")</td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Blog", new { id = post.BlogPostId })">Edit</a>
+                                    <a href="@Url.Action("Edit", "Blog", new {id = post.BlogPostId})" class="btn btn-secondary">
+                                        <i class="fa fa-pencil position-left"></i>
+                                        Edit
+                                    </a>
                                 </td>
                                 <td class="d-none"></td>
                             </tr>
