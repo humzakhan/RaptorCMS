@@ -94,6 +94,8 @@ namespace Raptor.Web
             // Configure AutoMapper
             AutoMapper.Mapper.Initialize(x => {
                 x.CreateMap<Person, UserViewModel>(MemberList.None);
+                x.CreateMap<UserViewModel, Person>(MemberList.None)
+                .ForMember(entity => entity.Password, password => password.Ignore());
             });
         }
 

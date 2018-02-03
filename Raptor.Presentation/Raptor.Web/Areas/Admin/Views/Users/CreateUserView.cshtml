@@ -1,0 +1,154 @@
+@model UserViewModel
+@{
+    ViewBag.Title = "Add User";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h4 class="card-title text-bold">@Model.Title</h4>
+
+@if (!ViewData.ModelState.IsValid) {
+    <div class="alert alert-danger auth-box" role="alert">
+        <span class="small">
+            <div asp-validation-summary="ModelOnly"></div>
+        </span>
+    </div>
+}
+
+@if (ViewBag.Status == "OK") {
+    <div class="alert alert-success auth-box" role="alert">
+        <span class="small">
+            @ViewBag.Message
+        </span>
+    </div>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+
+                @using (Html.BeginForm(Model.Action, "Users", FormMethod.Post, new { @class = "form-horizontal" })) {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <span class="text-danger small" asp-validation-for="FirstName"></span>
+                            <div class="form-group row">
+                                <label asp-for="FirstName" class="control-label col-md-4"></label>
+                                <div class="col-md-8">
+                                    <input asp-for="FirstName" type="text" class="form-control" />
+                                </div>
+                            </div>
+
+                            <span class="text-danger small" asp-validation-for="MiddleName"></span>
+                            <div class="form-group row">
+                                <label asp-for="MiddleName" class="control-label col-md-4"></label>
+                                <div class="col-md-8">
+                                    <input asp-for="MiddleName" type="text" class="form-control" />
+                                </div>
+                            </div>
+
+                            <span class="text-danger small" asp-validation-for="LastName"></span>
+                            <div class="form-group row">
+                                <label asp-for="LastName" class="control-label col-md-4"></label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="LastName" />
+                                </div>
+                            </div>
+
+                            <span class="text-danger small" asp-validation-for="EmailAddress"></span>
+                            <div class="form-group row">
+                                <label asp-for="EmailAddress" class="control-label col-md-4"></label>
+                                <div class="col-md-8">
+                                    <input asp-for="EmailAddress" type="text" class="form-control" />
+                                </div>
+                            </div>
+
+                            <span class="text-danger small" asp-validation-for="Password"></span>
+                            <div class="form-group row">
+                                <label asp-for="Password" class="control-label col-md-4"></label>
+                                <div class="col-md-8">
+                                    <input type="password" asp-for="Password" class="form-control" />
+                                </div>
+                            </div>
+
+                            <span class="text-danger small" asp-validation-for="RepeatPassword"></span>
+                            <div class="form-group row">
+                                <label asp-for="RepeatPassword" class="control-label col-md-4"></label>
+                                <div class="col-md-8">
+                                    <input type="text" asp-for="RepeatPassword" class="form-control" />
+                                </div>
+                            </div>
+
+                            <span asp-validation-for="IsBlocked" class="text-danger small"></span>
+                            <div class="form-group row">
+                                <label class="control-label col-md-4" asp-for="IsBlocked"></label>
+                                <div class="col-md-8">
+                                    <input type="checkbox" asp-for="IsBlocked" />
+                                </div>
+                            </div>
+
+                            <span class="text-danger small" asp-validation-for="IsDeleted"></span>
+                            <div class="form-group row">
+                                <label asp-for="IsDeleted" class="control-label col-md-4"></label>
+                                <div class="col-md-8">
+                                    <input type="checkbox" asp-for="IsDeleted" />
+                                </div>
+                            </div>
+
+                            <span class="text-danger small" asp-validation-for="IsEmailVerified"></span>
+                            <div class="form-group row">
+                                <label class="control-label col-md-4" asp-for="IsEmailVerified"></label>
+                                <div class="col-md-8">
+                                    <input type="checkbox" asp-for="IsEmailVerified" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <span class="text-danger small" asp-validation-for="Username"></span>
+                            <div class="form-group row">
+                                <label class="control-label col-md-4" asp-for="Username"></label>
+                                <div class="col-md-8">
+                                    <input type="text" asp-for="Username" class="form-control" />
+                                </div>
+                            </div>
+
+                            <span class="text-danger small" asp-validation-for="PhoneNumber"></span>
+                            <div class="form-group row">
+                                <label class="control-label col-md-4" asp-for="PhoneNumber"></label>
+                                <div class="col-md-8">
+                                    <input type="text" asp-for="PhoneNumber" class="form-control" />
+                                </div>
+                            </div>
+
+                            <span class="text-danger small" asp-validation-for="About"></span>
+                            <div class="form-group row">
+                                <label class="control-label col-md-4" asp-for="About"></label>
+                                <div class="col-md-8">
+                                    <textarea asp-for="About" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="margin-top-20 ml-auto">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-arrow-right position-left"></i>
+                                Add User
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fa fa-refresh position-left"></i>
+                                Reset All Fields
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.unobtrusive.min.js"></script>
+}
