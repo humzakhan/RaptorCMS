@@ -4,7 +4,10 @@ namespace Raptor.Web.Areas.Admin.ViewModels
 {
     public class UserViewModel
     {
+        public int BusinessEntityId { get; set; }
+
         public string Title { get; set; }
+
         public string Action { get; set; }
 
         [StringLength(50)]

@@ -47,8 +47,8 @@
                     @if (Model.RecentLogs != null) {
                         foreach (var log in Model.RecentLogs) {
                             <div class="row margin-bottom-5">
-                                <span class="col-sm-4 text-muted">@log.DateCreatedUtc.ToString("MMMM dd, hh:mm tt")</span>
-                                <span class="col-sm-8">@log.LogLevel.ToString() - @log.ShortMessage</span>
+                                <span class="col-sm-4 text-muted">@log.DateCreatedUtc.ToString("MMM dd, hh:mm tt")</span>
+                                <span class="col-sm-8">@log.LogLevel.ToString() - @(log.ShortMessage.Length < 50 ? log.ShortMessage : log.ShortMessage.Substring(0, 50))</span>
                             </div>
                         }
                     }
