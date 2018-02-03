@@ -247,5 +247,13 @@ namespace Raptor.Services.Users
         public ForgotPasswordRequest GetForgotPasswordRequest(string link) {
             return _forgotPasswordRequestsRepository.SingleOrDefault(s => s.Link == link);
         }
+
+        /// <summary>
+        /// Returns all users
+        /// </summary>
+        /// <returns>List of Person Object</returns>
+        public IEnumerable<Person> GetAllUsers() {
+            return _peopleRepository.GetAll();
+        }
     }
 }

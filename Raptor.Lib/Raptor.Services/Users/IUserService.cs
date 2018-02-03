@@ -42,6 +42,12 @@ namespace Raptor.Services.Users
         IList<Person> GetUserByIds(int[] ids);
 
         /// <summary>
+        /// Returns all users
+        /// </summary>
+        /// <returns>List of Person Object</returns>
+        IEnumerable<Person> GetAllUsers();
+
+        /// <summary>
         /// Gets a user with GUID
         /// </summary>
         /// <param name="guid">GUID for who's user is to be found</param>

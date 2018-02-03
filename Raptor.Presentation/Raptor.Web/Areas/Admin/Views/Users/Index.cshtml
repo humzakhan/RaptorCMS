@@ -1,4 +1,4 @@
-
+@model IEnumerable<Person>
 @{
     ViewBag.Title = "View Users";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -26,6 +26,7 @@
                 <table class="display datatable table table-stripped">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email Address</th>
@@ -36,89 +37,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>tigernixon569</td>
-                            <td>tiger@nixon.com</td>
-                            <td>Jan 20, 2015 11:15</td>
-                            <td>Sept 8, 2017 09:45</td>
-                            <td class="text-center text-primary-3">
-                                <i class="fa fa-check"></i>
-                            </td>
-                            <td>
-                                <button class="btn btn-secondary">
-                                    <i class="fa fa-pencil position-left"></i>
-                                    Edit
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>tigernixon569</td>
-                            <td>tiger@nixon.com</td>
-                            <td>Jan 20, 2015 11:15</td>
-                            <td>Sept 8, 2017 09:45</td>
-                            <td class="text-center text-primary-3">
-                                <i class="fa fa-check"></i>
-                            </td>
-                            <td>
-                                <button class="btn btn-secondary">
-                                    <i class="fa fa-pencil position-left"></i>
-                                    Edit
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>tigernixon569</td>
-                            <td>tiger@nixon.com</td>
-                            <td>Jan 20, 2015 11:15</td>
-                            <td>Sept 8, 2017 09:45</td>
-                            <td class="text-center text-primary-3">
-                                <i class="fa fa-check"></i>
-                            </td>
-                            <td>
-                                <button class="btn btn-secondary">
-                                    <i class="fa fa-pencil position-left"></i>
-                                    Edit
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>tigernixon569</td>
-                            <td>tiger@nixon.com</td>
-                            <td>Jan 20, 2015 11:15</td>
-                            <td>Sept 8, 2017 09:45</td>
-                            <td class="text-center text-primary-3">
-                                <i class="fa fa-check"></i>
-                            </td>
-                            <td>
-                                <button class="btn btn-secondary">
-                                    <i class="fa fa-pencil position-left"></i>
-                                    Edit
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>tigernixon569</td>
-                            <td>tiger@nixon.com</td>
-                            <td>Jan 20, 2015 11:15</td>
-                            <td>Sept 8, 2017 09:45</td>
-                            <td class="text-center text-primary-3">
-                                <i class="fa fa-check"></i>
-                            </td>
-                            <td>
-                                <button class="btn btn-secondary">
-                                    <i class="fa fa-pencil position-left"></i>
-                                    Edit
-                                </button>
-                            </td>
-                        </tr>
+                        @foreach (var user in Model) {
+                            <tr>
+                                <td>@user.BusinessEntityId</td>
+                                <td>@user.DisplayName</td>
+                                <td>@user.Username</td>
+                                <td>@user.EmailAddress</td>
+                                <td>@user.DateCreatedUtc.ToString("MMM dd, yyyy")</td>
+                                <td>@user.DateLastLoginUtc.ToString("MMM dd, yyyy hh:mm tt")</td>
+                                <td class="text-center">
+                                    @if (!user.IsBlocked) {
+                                        <span class="text-primary">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                    }
+                                    else {
+                                        <span class="text-danger">
+                                            <i class="fa fa-times"></i>
+                                        </span>
+                                    }
+                                </td>
+                                <td>
+                                    <a class="btn btn-secondary" href="@Url.Action("Edit", "User", new { id = @user.BusinessEntityId })">
+                                        <i class="fa fa-pencil position-left"></i>
+                                        Edit
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email Address</th>
