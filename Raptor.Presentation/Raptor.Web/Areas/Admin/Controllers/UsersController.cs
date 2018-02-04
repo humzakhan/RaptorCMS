@@ -19,14 +19,16 @@ namespace Raptor.Web.Areas.Admin.Controllers
         private readonly ICustomerActivityService _activityService;
         private readonly ILogService _logFactory;
         private readonly IUserRegisterationService _userRegisterationService;
+        private readonly IUserRolesService _userRolesService;
         private readonly string _userAccountView;
 
-        public UsersController(IUserService userService, IWorkContext workContext, ICustomerActivityService activityService, ILogService logFactory, IUserRegisterationService userRegisterationService) {
+        public UsersController(IUserService userService, IWorkContext workContext, ICustomerActivityService activityService, ILogService logFactory, IUserRegisterationService userRegisterationService, IUserRolesService userRolesService) {
             _userService = userService;
             _workContext = workContext;
             _activityService = activityService;
             _logFactory = logFactory;
             _userRegisterationService = userRegisterationService;
+            _userRolesService = userRolesService;
             _userAccountView = "CreateUserView";
         }
 
@@ -151,7 +153,8 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
         [HttpGet]
         public IActionResult Roles() {
-            return View("Roles");
+            var roles = _userRolesService.GetAllUserRoles();
+            return View("Roles", roles);
         }
 
         [Route("admin/users/roles/create")]

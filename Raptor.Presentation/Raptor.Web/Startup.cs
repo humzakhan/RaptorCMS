@@ -90,6 +90,7 @@ namespace Raptor.Web
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserAuthenticationService, CookieAuthenticationService>();
             services.AddTransient<IWorkContext, WebWorkContext>();
+            services.AddTransient<IUserRolesService, UserRolesService>();
 
             // Configure AutoMapper
             AutoMapper.Mapper.Initialize(x => {
