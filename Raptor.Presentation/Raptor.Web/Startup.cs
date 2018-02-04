@@ -97,6 +97,8 @@ namespace Raptor.Web
                 x.CreateMap<Person, UserViewModel>(MemberList.None);
                 x.CreateMap<UserViewModel, Person>(MemberList.None)
                 .ForMember(entity => entity.Password, password => password.Ignore());
+                x.CreateMap<Role, RoleViewModel>(MemberList.None);
+                x.CreateMap<RoleViewModel, Role>(MemberList.None);
             });
         }
 

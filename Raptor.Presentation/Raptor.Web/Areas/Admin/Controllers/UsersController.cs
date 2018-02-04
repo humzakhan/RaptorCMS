@@ -21,6 +21,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
         private readonly IUserRegisterationService _userRegisterationService;
         private readonly IUserRolesService _userRolesService;
         private readonly string _userAccountView;
+        private readonly string _userRoleView;
 
         public UsersController(IUserService userService, IWorkContext workContext, ICustomerActivityService activityService, ILogService logFactory, IUserRegisterationService userRegisterationService, IUserRolesService userRolesService) {
             _userService = userService;
@@ -30,6 +31,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
             _userRegisterationService = userRegisterationService;
             _userRolesService = userRolesService;
             _userAccountView = "CreateUserView";
+            _userRoleView = "RoleView";
         }
 
         public IActionResult Index() {
@@ -157,6 +159,55 @@ namespace Raptor.Web.Areas.Admin.Controllers
             return View("Roles", roles);
         }
 
+        [HttpGet]
+        [Route("admin/users/roles/edit")]
+        public IActionResult EditRole(int id) {
+            var role = _userRolesService.GetUserRoleById(id);
+            if (role == null) return RedirectToAction("Roles");
+
+            var model = AutoMapper.Mapper.Map<Role, RoleViewModel>(role);
+
+            model.Title = "Edit Role";
+            model.Action = "EditRole";
+
+            return View(_userRoleView, model);
+        }
+
+        [HttpPost]
+        [Route("admin/users/roles/edit")]
+        public IActionResult EditRole(RoleViewModel model) {
+            if (!ModelState.IsValid) return View(_userRoleView, model);
+
+            try {
+                var role = _userRolesService.GetUserRoleById(model.RoleId);
+
+                if (role.SystemKeyword != model.SystemKeyword) {
+                    // User attempted to change system keyword for the role. Run necessary verifications
+                    var existingRole = _userRolesService.GetUserRoleByKeyword(model.SystemKeyword);
+                    if (existingRole != null) {
+                        model.Title = "Edit Role";
+                        ModelState.AddModelError("", "System Keyword is not available, please try something else.");
+                        return View(_userRoleView, model);
+                    }
+
+                    role.DisplayName = model.DisplayName;
+                    role.SystemKeyword = model.SystemKeyword;
+
+                    model.Title = "Edit Role";
+                    ViewBag.Status = "OK";
+                    ViewBag.Message = "Your changes have been saved successfully.";
+
+                    _userRolesService.UpdateUserRole(role);
+                }
+            }
+            catch (Exception ex) {
+                ModelState.AddModelError("", $"Unable to save changes to role: {model.SystemKeyword}");
+                _logFactory.InsertLog(LogLevel.Error, $"Unable to save changes to role: {model.SystemKeyword} because {ex.Message}", ex.ToString());
+            }
+
+            return View(_userRoleView, model);
+        }
+
         [Route("admin/users/roles/create")]
         [HttpGet]
         public IActionResult CreateRole() {
@@ -165,7 +216,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 Action = "CreateRole"
             };
 
-            return View("CreateRole", model);
+            return View(_userRoleView, model);
         }
     }
 }
