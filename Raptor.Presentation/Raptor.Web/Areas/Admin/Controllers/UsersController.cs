@@ -198,6 +198,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                     ViewBag.Message = "Your changes have been saved successfully.";
 
                     _userRolesService.UpdateUserRole(role);
+                    _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.EditRoles, $"Edited user role: {role.SystemKeyword}");
                 }
             }
             catch (Exception ex) {
@@ -215,6 +216,37 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 Title = "Create Role",
                 Action = "CreateRole"
             };
+
+            return View(_userRoleView, model);
+        }
+
+        [Route("admin/users/roles/create")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateRole(RoleViewModel model) {
+            if (!ModelState.IsValid) return View(_userRoleView, model);
+
+            try {
+                var existingRole = _userRolesService.GetUserRoleByKeyword(model.SystemKeyword);
+                if (existingRole != null) {
+                    ModelState.AddModelError("", $"Unable to create user role with system keyword: {model.SystemKeyword} because the system keyword is not available. Try something else");
+                    return View(_userRoleView, model);
+                }
+
+                var role = AutoMapper.Mapper.Map<RoleViewModel, Role>(model);
+
+                _userRolesService.CreateUserRole(role);
+                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.CreateRole, $"Created user role: {role.SystemKeyword}");
+
+
+                model.Title = "Create Role";
+                ViewBag.Status = "OK";
+                ViewBag.Message = "New role has been created successfully.";
+            }
+            catch (Exception ex) {
+                ModelState.AddModelError("", $"Unable to create user role: {ex.Message}");
+                _logFactory.InsertLog(LogLevel.Error, $"Unable to create user role: {ex.Message}", ex.ToString());
+            }
 
             return View(_userRoleView, model);
         }

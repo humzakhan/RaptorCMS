@@ -51,5 +51,25 @@
         /// View logs
         /// </summary>
         public static readonly string ViewLogs = "logs.view";
+
+        /// <summary>
+        /// Create user roles
+        /// </summary>
+        public static readonly string CreateRole = "roles.create";
+
+        /// <summary>
+        /// View user roles
+        /// </summary>
+        public static readonly string ViewRoles = "roles.view";
+
+        /// <summary>
+        /// Edit user roles
+        /// </summary>
+        public static readonly string EditRoles = "roles.edit";
+
+        /// <summary>
+        /// Delete user roles
+        /// </summary>
+        public static readonly string DeleteRoles = "roles.delete";
     }
 }
