@@ -1,4 +1,5 @@
 ﻿using Raptor.Data.Models.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace Raptor.Services.Logging
@@ -58,5 +59,15 @@ namespace Raptor.Services.Logging
         /// </summary>
         /// <param name="logIds">IDs of the log entries to delete</param>
         void DeleteLogsByIds(int[] logIds);
+
+        /// <summary>
+        /// Search logs for the given criteria
+        /// </summary>
+        /// <param name="dateFrom">Date from which the search is to begin</param>
+        /// <param name="dateTo">Date to which search is to limit</param>
+        /// <param name="logLevel">Log Level to search</param>
+        /// <param name="includeAllLogLevels">Boolean value indicating whether to include all log levels</param>
+        /// <returns>List of logs matchig the criteria</returns>
+        IEnumerable<Log> SearchLogs(DateTime dateFrom, DateTime dateTo, LogLevel logLevel, bool includeAllLogLevels = false);
     }
 }

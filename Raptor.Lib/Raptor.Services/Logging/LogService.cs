@@ -97,5 +97,19 @@ namespace Raptor.Services.Logging
         public IEnumerable<Log> GetAllLogs(int recentNo = 0) {
             return recentNo == 0 ? _logsRepository.GetAll() : _logsRepository.Table.Select(t => t).OrderByDescending(t => t.DateCreatedUtc).Take(5);
         }
+
+        /// <summary>
+        /// Search logs for the given criteria
+        /// </summary>
+        /// <param name="dateFrom">Date from which the search is to begin</param>
+        /// <param name="dateTo">Date to which search is to limit</param>
+        /// <param name="logLevel">Log Level to search</param>
+        /// <param name="includeAllLogLevels">Boolean value indicating whether to include all log levels</param>
+        /// <returns>List of logs matchig the criteria</returns>
+        public IEnumerable<Log> SearchLogs(DateTime dateFrom, DateTime dateTo, LogLevel logLevel, bool includeAllLogLevels = false) {
+            return includeAllLogLevels ?
+                _logsRepository.Find(log => log.DateCreatedUtc >= dateFrom && log.DateCreatedUtc <= dateTo).ToList() :
+                _logsRepository.Find(log => log.DateCreatedUtc >= dateFrom && log.DateCreatedUtc <= dateTo && log.LogLevel == logLevel).ToList();
+        }
     }
 }

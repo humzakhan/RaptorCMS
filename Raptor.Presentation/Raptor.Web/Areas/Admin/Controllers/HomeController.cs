@@ -61,7 +61,29 @@ namespace Raptor.Web.Areas.Admin.Controllers
         [HttpGet]
         [Route("logs")]
         public IActionResult Logs() {
-            return View();
+            var model = new LogViewModel() {
+                Logs = _logsFactory.GetAllLogs().ToList()
+            };
+
+            return View(model);
+        }
+
+        [Route("logs")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logs(LogViewModel model) {
+            if (!ModelState.IsValid) return View(model);
+
+            try {
+                model.Logs = _logsFactory.SearchLogs(DateTime.Parse(model.DateFrom), DateTime.Parse(model.DateTo), model.LogLevel).ToList();
+                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.ViewLogs, $"Viewed logs from {model.DateFrom} to {model.DateTo} for level {model.LogLevel}");
+            }
+            catch (Exception ex) {
+                ModelState.AddModelError("", $"An error occurred when searching for logs. {ex.Message}");
+                _logsFactory.InsertLog(LogLevel.Error, $"An error occurred when searching for logs. {ex.Message}", ex.ToString());
+            }
+
+            return View(model);
         }
 
         [HttpPost]

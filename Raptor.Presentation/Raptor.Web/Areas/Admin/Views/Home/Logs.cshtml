@@ -11,28 +11,34 @@
     </div>
 </div>
 
+@if (!ViewData.ModelState.IsValid) {
+    <div class="alert alert-danger auth-box" role="alert">
+        <span class="small">
+            <div asp-validation-summary="ModelOnly"></div>
+        </span>
+    </div>
+}
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-block">
-                @using (Html.BeginForm("Logs", "Home", FormMethod.Post, new { @class = "form-horizontal" })) {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-group-sm row">
+                <form method="post" class="form-horizontal" asp-controller="Home" asp-action="Logs">
+                    <div class="form-group row">
                         <label class="control-label col-md-2 text-bold">Created From</label>
                         <div class="col-md-4">
-                            @Html.TextBoxFor(m => m.DateFrom, "", new { @class = "form-control" })
+                            <input type="text" asp-for="DateFrom" class="form-control pickadate" />
                         </div>
                     </div>
 
-                    <div class="form-group-sm row">
+                    <div class="form-group row">
                         <label class="control-label col-md-2 text-bold">Created To</label>
                         <div class="col-md-4">
-                            @Html.TextBoxFor(m => m.DateTo, "", new { @class = "form-control" })
+                            <input type="text" asp-for="DateTo" class="form-control pickadate" />
                         </div>
                     </div>
 
-                    <div class="form-group-sm row">
+                    <div class="form-group row">
                         <label class="control-label col-md-2 text-bold">Log Type</label>
                         <div class="col-md-4">
                             <select class="form-control" asp-for="LogLevel" asp-items="Html.GetEnumSelectList<LogLevel>()"></select>
@@ -47,7 +53,7 @@
                             </button>
                         </div>
                     </div>
-                }
+                </form>
             </div>
         </div>
     </div>
@@ -57,24 +63,39 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-block">
-                <table class="display datatable table-stripped table-hover">
+                <table class="table datatable table-striped table-hover table-bordered">
                     <thead>
-                        <tr class="row">
-                            <th class="text-center col-md-1">#</th>
-                            <th class="col-md-2">Level</th>
-                            <th class="col-md-5">Message</th>
-                            <th class="col-md-2">Created On</th>
+                        <tr>
+                            <th>#</th>
+                            <th>Level</th>
+                            <th class="w-50">Message</th>
+                            <th>Date Created</th>
+                            <th class="d-none"></th>
+                            <th class="d-none"></th>
                         </tr>
                     </thead>
 
-                    <tbody></tbody>
+                    <tbody>
+                        @foreach (var log in Model.Logs) {
+                            <tr>
+                                <td>@log.LogId</td>
+                                <td>@log.LogLevel.ToString()</td>
+                                <td class="w-50">@log.ShortMessage</td>
+                                <td>@log.DateCreatedUtc.ToString("MMM dd, yyyy hh:mm tt")</td>
+                                <td class="d-none"></td>
+                                <td class="d-none"></td>
+                            </tr>
+                        }
+                    </tbody>
 
                     <tfoot>
-                        <tr class="row">
-                            <th class="text-center col-md-1">#</th>
-                            <th class="col-md-2">Level</th>
-                            <th class="col-md-5">Message</th>
-                            <th class="col-md-2">Created On</th>
+                        <tr>
+                            <th>#</th>
+                            <th>Level</th>
+                            <th class="w-50">Message</th>
+                            <th>Date Created</th>
+                            <th class="d-none"></th>
+                            <th class="d-none"></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -87,13 +108,39 @@
     <!-- PAGE LEVEL SCRIPTS -->
     <script type="text/javascript" src="~/admin-theme/lib/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="~/admin-theme/assets/js/pages_datatables.min.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/legacy.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/picker.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/picker.date.js"></script>
+    <script type="text/javascript" src="~/admin-theme/assets/js/pickers_date.min.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.unobtrusive.min.js"></script>
     <!-- /PAGE LEVEL SCRIPTS -->
 }
 
 @section styles {
     <!-- PAGE LEVEL STYLESHEETS-->
     <link rel="stylesheet" href="~/admin-theme/lib/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="~/admin-theme/lib/css/classic.css">
+    <link rel="stylesheet" href="~/admin-theme/lib/css/classic.date.css">
     <!-- /PAGE LEVEL STYLESHEETS-->
+    <script type="text/javascript">
+        $('.table').each(function (i) {
+
+            var worktable = $(this);
+            var num_head_columns = worktable.find('thead tr th').length;
+            var rows_to_validate = worktable.find('tbody tr');
+
+            rows_to_validate.each(function (i) {
+
+                var row_columns = $(this).find('td').length;
+                for (i = $(this).find('td').length; i < num_head_columns; i++) {
+                    $(this).append('<td class="d-none"></td>');
+                }
+
+            });
+
+        });
+    </script>
 }
 
 
