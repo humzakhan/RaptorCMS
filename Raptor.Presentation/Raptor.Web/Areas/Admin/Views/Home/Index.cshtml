@@ -61,29 +61,58 @@
 
     <!-- QUICK DRAFT -->
     <div class="col-md-6">
+        <div id="draft-response-box" class="alert alert-success auth-box d-none" role="alert">
+            <span class="small" id="#draft-response-message"></span>
+        </div>
         <div class="card">
             <div class="card-header text-bold">Quick Draft</div>
             <div class="card-body">
                 <div class="card-block">
-                    @using (Html.BeginForm("QuickDraft", "Home", FormMethod.Post)) {
-                        @Html.AntiForgeryToken()
-
+                    <form method="post" id="form-quick-draft" asp-controller="Home" asp-action="QuickDraft" data-ajax="true" data-ajax-method="POST">
                         <div class="form-group">
-                            <input type="text" name="title" id="title" placeholder="Enter post title" class="form-control" />
+                            <input type="text" asp-for="DraftTitle" placeholder="Enter post title" class="form-control" />
                         </div>
 
                         <div class="form-group">
-                            <textarea name="post" id="post" rows="4" class="form-control" placeholder="What's on your mind?'"></textarea>
+                            <textarea asp-for="DraftContent" rows="4" class="form-control" placeholder="What's on your mind?'"></textarea>
                         </div>
 
                         <button class="btn btn-primary" type="submit">Save Draft</button>
-                    }
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- /QUICK DRAFT -->
 </div>
+
+@section scripts {
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $('#form-quick-draft').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                cache: false,
+                url: '@Url.Action("QuickDraft", "Home")',
+                data: $(this).serialize(),
+                contentType: 'application/json; charset=utf-8'
+            })
+                .done(function (data) {
+                    if (data.response == 'success') {
+                        $('#draft-response-message').text(data.message);
+                        $('#draft-response-box').slideDown();
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                });
+        });
+    </script>
+}
 
 
 

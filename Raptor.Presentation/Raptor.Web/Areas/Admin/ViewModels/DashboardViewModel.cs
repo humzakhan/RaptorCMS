@@ -24,5 +24,15 @@ namespace Raptor.Web.Areas.Admin.ViewModels
         /// Recent logs
         /// </summary>
         public List<Log> RecentLogs { get; set; }
+
+        /// <summary>
+        /// Quick Draft Title
+        /// </summary>
+        public string DraftTitle { get; set; }
+
+        /// <summary>
+        /// Quick Draft Content
+        /// </summary>
+        public string DraftContent { get; set; }
     }
 }
