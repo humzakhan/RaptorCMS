@@ -1,0 +1,120 @@
+﻿@model SettingsViewModel
+@{
+    ViewBag.Title = "General Settings";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h4 class="card-title text-bolf">General Settings</h4>
+    </div>
+</div>
+
+@if (!ViewData.ModelState.IsValid) {
+    <div class="alert alert-danger auth-box" role="alert">
+        <div asp-validation-summary="ModelOnly" class="small"></div>
+    </div>
+}
+
+@if (ViewBag.Status == "OK") {
+    <div class="alert alert-success auth-box" role="alert">
+        <span class="small">
+            @ViewBag.Message
+        </span>
+    </div>
+}
+
+<form method="post" asp-controller="Settings" asp-action="General">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Site</div>
+                <div class="card-block">
+                    <div class="form-group row">
+                        <label asp-for="SiteName" class="col-md-3 control-label"></label>
+                        <div class="col-md-5">
+                            <input asp-for="SiteName" type="text" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="SiteDescription" class="col-md-3 control-label"></label>
+                        <div class="col-md-5">
+                            <input asp-for="SiteDescription" type="text" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="IsRegistrationEnabled" class="col-md-3 control-label"></label>
+                        <div class="col-md-5">
+                            <input asp-for="IsRegistrationEnabled" type="checkbox" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="IsCommentsEnabled" class="col-md-3 control-label"></label>
+                        <div class="col-md-5">
+                            <input asp-for="IsCommentsEnabled" type="checkbox" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Social</div>
+                <div class="card-block">
+                    <div class="form-group row">
+                        <label asp-for="FacebookUrl" class="control-label col-md-3"></label>
+                        <div class="col-md-5">
+                            <input asp-for="FacebookUrl" type="text" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="TwitterUrl" class="control-label col-md-3"></label>
+                        <div class="col-md-5">
+                            <input asp-for="TwitterUrl" type="text" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="YoutubeUrl" class="control-label col-md-3"></label>
+                        <div class="col-md-5">
+                            <input asp-for="YoutubeUrl" type="text" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="InstagramUrl" class="control-label col-md-3"></label>
+                        <div class="col-md-5">
+                            <input asp-for="InstagramUrl" type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="pull-right">
+                        <button class="btn btn-primary">
+                            <i class="fa fa-arrow-right position-left"></i>
+                            Update Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
