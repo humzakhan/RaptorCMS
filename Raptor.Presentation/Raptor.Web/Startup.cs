@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Raptor.Data;
 using Raptor.Data.Core;
 using Raptor.Data.Models.Blog;
+using Raptor.Data.Models.Configuration;
 using Raptor.Data.Models.Content;
 using Raptor.Data.Models.Logging;
 using Raptor.Data.Models.Security;
@@ -78,6 +79,7 @@ namespace Raptor.Web
             services.AddTransient<IRepository<Role>, Repository<Role>>();
             services.AddTransient<IRepository<ActivityLogType>, Repository<ActivityLogType>>();
             services.AddTransient<IRepository<ForgotPasswordRequest>, Repository<ForgotPasswordRequest>>();
+            services.AddTransient<IRepository<Setting>, Repository<Setting>>();
 
             // Register our services
             services.AddTransient<IBlogService, BlogService>();

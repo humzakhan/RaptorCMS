@@ -1,4 +1,4 @@
-﻿using Raptor.Data.Configuration;
+﻿using Raptor.Data.Models.Configuration;
 using System.Collections.Generic;
 
 namespace Raptor.Services.Configuration

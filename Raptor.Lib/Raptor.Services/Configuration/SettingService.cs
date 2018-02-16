@@ -1,5 +1,5 @@
-﻿using Raptor.Data.Configuration;
-using Raptor.Data.Core;
+﻿using Raptor.Data.Core;
+using Raptor.Data.Models.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
