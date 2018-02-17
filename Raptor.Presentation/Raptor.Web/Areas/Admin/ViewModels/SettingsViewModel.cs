@@ -4,7 +4,6 @@ namespace Raptor.Web.Areas.Admin.ViewModels
 {
     public class SettingsViewModel
     {
-        [Required]
         [Display(Name = "Site Name")]
         public string SiteName { get; set; }
 

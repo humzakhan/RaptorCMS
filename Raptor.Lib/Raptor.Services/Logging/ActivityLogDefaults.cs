@@ -71,5 +71,10 @@
         /// Delete user roles
         /// </summary>
         public static readonly string DeleteRoles = "roles.delete";
+
+        /// <summary>
+        /// Update settings
+        /// </summary>
+        public static readonly string UpdateSettings = "settings.update";
     }
 }

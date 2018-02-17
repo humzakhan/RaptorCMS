@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Raptor.Data.Models.Configuration;
 using Raptor.Data.Models.Logging;
 using Raptor.Services.Configuration;
+using Raptor.Services.Helpers;
 using Raptor.Services.Logging;
 using Raptor.Web.Areas.Admin.ViewModels;
 using System;
@@ -17,11 +18,13 @@ namespace Raptor.Web.Areas.Admin.Controllers
         private readonly ILogService _logService;
         private readonly ISettingService _settingsService;
         private readonly ICustomerActivityService _activityService;
+        private readonly IWorkContext _workContext;
 
-        public SettingsController(ISettingService settingsService, ILogService logService, ICustomerActivityService activityService) {
+        public SettingsController(ISettingService settingsService, ILogService logService, ICustomerActivityService activityService, IWorkContext workContext) {
             _settingsService = settingsService;
             _logService = logService;
             _activityService = activityService;
+            _workContext = workContext;
         }
 
         public IActionResult Index() {
@@ -48,7 +51,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult General(SettingsViewModel model) {
-            if (ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View(model);
 
             try {
                 _settingsService.SetSetting(SettingsConstants.SiteName, model.SiteName);
@@ -59,6 +62,8 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 _settingsService.SetSetting(SettingsConstants.TwitterUrl, model.TwitterUrl);
                 _settingsService.SetSetting(SettingsConstants.InstagramUrl, model.InstagramUrl);
                 _settingsService.SetSetting(SettingsConstants.YoutubeUrl, model.YoutubeUrl);
+
+                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateSettings, "Updated the settings");
 
                 ViewBag.Status = "OK";
                 ViewBag.Message = "Your changes have been saved.";

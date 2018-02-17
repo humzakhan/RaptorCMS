@@ -107,7 +107,7 @@ namespace Raptor.Services.Configuration
             if (string.IsNullOrEmpty(key))
                 throw new ArgumentException("Setting key cannot be null or empty.", nameof(key));
 
-            var setting = _settingRepository.SingleOrDefault(s => s.Name == key);
+            var setting = _settingRepository.SingleOrDefault(s => s.Name == key.ToLower());
 
             if (setting == null)
                 throw new ArgumentException($"No setting found for specified key = {key}", nameof(key));
