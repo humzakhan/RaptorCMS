@@ -26,7 +26,8 @@ namespace Raptor.Services.Users
             _userProperties = new List<Expression<Func<Person, object>>> {
                 u => u.Password,
                 u => u.PhoneNumbers,
-                u => u.UserRoles
+                u => u.UserRoles,
+                u => u.BusinessEntity
             };
 
         }

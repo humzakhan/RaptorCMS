@@ -1,7 +1,9 @@
-﻿using Raptor.Core.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using Raptor.Core.Helpers;
 using Raptor.Core.Security;
 using Raptor.Data.Core;
 using Raptor.Data.Models.Users;
+using Raptor.Services.Helpers;
 using System;
 using System.Linq;
 
@@ -13,14 +15,18 @@ namespace Raptor.Services.Users
         private readonly IRepository<BusinessEntity> _businessEntityRepository;
         private readonly IRepository<Password> _passwordRepository;
         private readonly IUserService _userService;
+        private readonly IWorkContext _workContext;
 
         public UserRegistrationService(IRepository<Person> peopleRepository,
             IRepository<BusinessEntity> businessEntityRepository,
-            IRepository<Password> passwordRepository, IUserService userService) {
+            IRepository<Password> passwordRepository,
+            IUserService userService,
+            IWorkContext workContext) {
             _peopleRepository = peopleRepository;
             _businessEntityRepository = businessEntityRepository;
             _passwordRepository = passwordRepository;
             _userService = userService;
+            _workContext = workContext;
         }
 
         /// <summary>
@@ -189,8 +195,8 @@ namespace Raptor.Services.Users
                 throw new ArgumentException("A password is required.", nameof(password));
 
             var user = CommonHelper.IsValidEmail(usernameOrEmail)
-                ? _peopleRepository.Include(p => p.Password).SingleOrDefault(p => p.EmailAddress == usernameOrEmail)
-                : _peopleRepository.Include(p => p.Password).SingleOrDefault(p => p.Username == usernameOrEmail);
+                ? _peopleRepository.Include(p => p.Password).Include(p => p.BusinessEntity).SingleOrDefault(p => p.EmailAddress == usernameOrEmail)
+                : _peopleRepository.Include(p => p.Password).Include(p => p.BusinessEntity).SingleOrDefault(p => p.Username == usernameOrEmail);
 
             if (user == null)
                 return UserLoginResults.UserNotExists;
@@ -206,6 +212,8 @@ namespace Raptor.Services.Users
             if (passwordHash != user.Password.PasswordHash) return UserLoginResults.WrongPassword;
 
             user.DateLastLoginUtc = DateTime.UtcNow;
+            _userService.UpdateUser(user);
+
             return UserLoginResults.Successful;
         }
     }

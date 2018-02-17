@@ -97,7 +97,7 @@ namespace Raptor.Services.Logging
 
             var activityLog = new ActivityLog() {
                 ActivityLogTypeId = activityType.ActivityLogTypeId,
-                BusinessEntity = user,
+                BusinessEntityId = user.BusinessEntityId,
                 Comment = comment,
                 DateCreatedUtc = DateTime.UtcNow,
                 IpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString(),

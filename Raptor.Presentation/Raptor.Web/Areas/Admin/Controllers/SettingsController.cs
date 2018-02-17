@@ -69,8 +69,8 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 ViewBag.Message = "Your changes have been saved.";
             }
             catch (Exception ex) {
-                _logService.InsertLog(LogLevel.Error, "Unable to update site settings", ex.ToString());
-                ModelState.AddModelError("", "Unable to update site settings.");
+                _logService.InsertLog(LogLevel.Error, $"Unable to update site settings: {ex.Message}", ex.ToString());
+                ModelState.AddModelError("", $"Unable to update site settings: {ex}");
             }
 
             return View(model);

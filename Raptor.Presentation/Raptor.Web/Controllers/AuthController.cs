@@ -86,7 +86,6 @@ namespace Raptor.Web.Controllers
         [HttpGet]
         public IActionResult Logout() {
             _authService.SignOut();
-            _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.LoggedOut, "Logged out");
             return RedirectToAction("Login");
         }
 

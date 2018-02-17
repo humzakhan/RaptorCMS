@@ -1,18 +1,15 @@
 ﻿using Raptor.Data.Models.Users;
 using Raptor.Services.Authentication;
-using Raptor.Services.Users;
 
 namespace Raptor.Services.Helpers
 {
     public class WebWorkContext : IWorkContext
     {
-        private readonly IUserService _userService;
         private readonly IUserAuthenticationService _authService;
 
         private Person _cachedUser;
 
-        public WebWorkContext(IUserService userService, IUserAuthenticationService authService) {
-            _userService = userService;
+        public WebWorkContext(IUserAuthenticationService authService) {
             _authService = authService;
         }
 
