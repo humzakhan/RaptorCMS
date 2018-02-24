@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Raptor.Data.Models.Users;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Raptor.Web.Areas.Admin.ViewModels
 {
@@ -19,15 +22,18 @@ namespace Raptor.Web.Areas.Admin.ViewModels
         [Display(Name = "Facebook Page Url")]
         public string FacebookUrl { get; set; }
 
-
         [Display(Name = "Twitter Handle")]
         public string TwitterUrl { get; set; }
 
         [Display(Name = "Instagtam Page Url")]
         public string InstagramUrl { get; set; }
 
-
         [Display(Name = "Youtube Page Url")]
         public string YoutubeUrl { get; set; }
+
+        [Display(Name = "Default User Role")]
+        public int DefaultUserRoleId { get; set; }
+
+        public SelectList UserRolesList { get; set; }
     }
 }

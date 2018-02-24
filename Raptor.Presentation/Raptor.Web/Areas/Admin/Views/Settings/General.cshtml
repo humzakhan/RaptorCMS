@@ -58,6 +58,13 @@
                             <input asp-for="IsCommentsEnabled" type="checkbox" />
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label asp-for="DefaultUserRoleId" class="col-md-3 control-label"></label>
+                        <div class="col-md-5">
+                            <select asp-for="DefaultUserRoleId" asp-items="Model.UserRolesList" class="form-control"></select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -46,5 +46,10 @@
         /// Youtube Url
         /// </summary>
         public static readonly string YoutubeUrl = "youtube_url";
+
+        /// <summary>
+        /// Default user role for newly registered users
+        /// </summary>
+        public static readonly string DefaultUserRole = "default_user_role";
     }
 }

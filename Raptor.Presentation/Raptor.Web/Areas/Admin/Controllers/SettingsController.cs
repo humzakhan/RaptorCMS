@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Raptor.Data.Models.Configuration;
 using Raptor.Data.Models.Logging;
 using Raptor.Services.Configuration;
 using Raptor.Services.Helpers;
 using Raptor.Services.Logging;
+using Raptor.Services.Users;
 using Raptor.Web.Areas.Admin.ViewModels;
 using System;
 using System.Linq;
@@ -19,12 +21,14 @@ namespace Raptor.Web.Areas.Admin.Controllers
         private readonly ISettingService _settingsService;
         private readonly ICustomerActivityService _activityService;
         private readonly IWorkContext _workContext;
+        private readonly IUserRolesService _userRolesService;
 
-        public SettingsController(ISettingService settingsService, ILogService logService, ICustomerActivityService activityService, IWorkContext workContext) {
+        public SettingsController(ISettingService settingsService, ILogService logService, ICustomerActivityService activityService, IWorkContext workContext, IUserRolesService userRolesService) {
             _settingsService = settingsService;
             _logService = logService;
             _activityService = activityService;
             _workContext = workContext;
+            _userRolesService = userRolesService;
         }
 
         public IActionResult Index() {
@@ -34,6 +38,8 @@ namespace Raptor.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult General() {
             var settings = _settingsService.GetAllSettings();
+            var roles = _userRolesService.GetAllUserRoles();
+
             var model = new SettingsViewModel() {
                 SiteName = settings.First(s => s.Name == SettingsConstants.SiteName).Value,
                 SiteDescription = settings.First(s => s.Name == SettingsConstants.SiteDescription).Value,
@@ -42,7 +48,9 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 FacebookUrl = settings.First(s => s.Name == SettingsConstants.FacebookUrl).Value,
                 TwitterUrl = settings.First(s => s.Name == SettingsConstants.TwitterUrl).Value,
                 InstagramUrl = settings.First(s => s.Name == SettingsConstants.InstagramUrl).Value,
-                YoutubeUrl = settings.First(s => s.Name == SettingsConstants.YoutubeUrl).Value
+                YoutubeUrl = settings.First(s => s.Name == SettingsConstants.YoutubeUrl).Value,
+                DefaultUserRoleId = int.Parse(settings.First(s => s.Name == SettingsConstants.DefaultUserRole).Value),
+                UserRolesList = new SelectList(roles, "RoleId", "DisplayName")
             };
 
             return View(model);
@@ -62,6 +70,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 _settingsService.SetSetting(SettingsConstants.TwitterUrl, model.TwitterUrl);
                 _settingsService.SetSetting(SettingsConstants.InstagramUrl, model.InstagramUrl);
                 _settingsService.SetSetting(SettingsConstants.YoutubeUrl, model.YoutubeUrl);
+                _settingsService.SetSetting(SettingsConstants.DefaultUserRole, model.DefaultUserRoleId.ToString());
 
                 _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateSettings, "Updated the settings");
 
