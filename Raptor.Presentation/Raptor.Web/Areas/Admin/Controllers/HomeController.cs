@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Raptor.Core.Helpers;
 using Raptor.Data.Models;
 using Raptor.Data.Models.Blog;
+using Raptor.Data.Models.Configuration;
 using Raptor.Data.Models.Logging;
 using Raptor.Services.Blog;
+using Raptor.Services.Configuration;
 using Raptor.Services.Helpers;
 using Raptor.Services.Logging;
 using Raptor.Services.Users;
@@ -24,13 +26,15 @@ namespace Raptor.Web.Areas.Admin.Controllers
         private readonly ILogService _logsFactory;
         private readonly IWorkContext _workContext;
         private readonly ICustomerActivityService _activityService;
+        private readonly ISettingService _settingsService;
 
-        public HomeController(IBlogService blogService, IUserService userService, ILogService logFactory, IWorkContext workContext, ICustomerActivityService activityService) {
+        public HomeController(IBlogService blogService, IUserService userService, ILogService logFactory, IWorkContext workContext, ICustomerActivityService activityService, ISettingService settingsService) {
             _blogService = blogService;
             _userService = userService;
             _logsFactory = logFactory;
             _workContext = workContext;
             _activityService = activityService;
+            _settingsService = settingsService;
         }
 
         public IActionResult Index() {
@@ -55,7 +59,16 @@ namespace Raptor.Web.Areas.Admin.Controllers
         [HttpGet]
         [Route("system")]
         public IActionResult SystemInformation() {
-            return View();
+            var model = new SystemInfoViewModel() {
+                Version = _settingsService.GetSettingByKey(SettingsConstants.RaptorVersion).Value,
+                AspNetVersion = Environment.Version.ToString(),
+                ServerTimeZone = TimeZoneInfo.Utc.ToString(),
+                LocalTimeZone = TimeZoneInfo.Local.ToString(),
+                OperatingSystem = Environment.OSVersion.ToString(),
+                Host = HttpContext.Request.Host.ToString()
+            };
+
+            return View(model);
         }
 
         [HttpGet]
