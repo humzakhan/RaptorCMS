@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Raptor.Lib\Raptor.Core\Raptor.Core.csproj" />
+    <ProjectReference Include="..\..\Raptor.Lib\Raptor.Data\Raptor.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,12 +25,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Raptor.Data">
-      <HintPath>..\..\Raptor.Lib\Raptor.Data\bin\Debug\netcoreapp2.0\Raptor.Data.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

@@ -33,7 +33,7 @@ namespace Raptor.Web
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile("appsettings.dev.json", optional: false)
+                .AddJsonFile("appsettings.dev.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }

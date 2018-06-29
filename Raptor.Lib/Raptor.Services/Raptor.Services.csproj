@@ -9,12 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Raptor.Core">
-      <HintPath>..\Raptor.Core\bin\Debug\netcoreapp2.0\Raptor.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Raptor.Data">
-      <HintPath>..\Raptor.Data\bin\Debug\netcoreapp2.0\Raptor.Data.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Raptor.Core\Raptor.Core.csproj" />
+    <ProjectReference Include="..\Raptor.Data\Raptor.Data.csproj" />
   </ItemGroup>
 
 </Project>
