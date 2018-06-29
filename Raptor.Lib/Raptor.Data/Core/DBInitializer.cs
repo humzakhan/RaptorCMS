@@ -3,6 +3,7 @@ using Raptor.Data.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Raptor.Data.Models.Configuration;
 
 namespace Raptor.Data.Core
 {
@@ -23,6 +24,9 @@ namespace Raptor.Data.Core
 
             // Assign default user some roles
             AssignRolesToDefaultUser();
+
+            // Insert default settings 
+            InsertDefaultSettings();
         }
 
         private static void InsertUser() {
@@ -95,6 +99,25 @@ namespace Raptor.Data.Core
             };
 
             DbContext.PersonRoles.AddRange(userRoles);
+            DbContext.SaveChanges();
+        }
+
+        private static void InsertDefaultSettings()
+        {
+            var settings = new List<Setting>()
+            {
+                new Setting() {DateModifiedUtc = DateTime.UtcNow, Name = "site_name", Value = "RaptorCMS" },
+                new Setting() {DateModifiedUtc = DateTime.UtcNow, Name = "site_description", Value = "A lightweight CMS built with ASP.NET Core 2.0 and PostgreSQL" },
+                new Setting() {DateModifiedUtc = DateTime.UtcNow, Name = "site_registration_enabled", Value = "true" },
+                new Setting() {DateModifiedUtc = DateTime.UtcNow, Name = "site_comments_enabled", Value = "true" },
+                new Setting() {DateModifiedUtc = DateTime.UtcNow, Name = "default_user_role", Value = "1" },
+                new Setting() {DateModifiedUtc = DateTime.UtcNow, Name = "facebook_url", Value = "https://facebook.com/" },
+                new Setting() {DateModifiedUtc = DateTime.UtcNow, Name = "instagram_url", Value = "https://instagram.com/" },
+                new Setting() {DateModifiedUtc = DateTime.UtcNow, Name = "twitter_url", Value = "https://twitter.com/" },
+                new Setting() {DateModifiedUtc = DateTime.UtcNow, Name = "youtube_url", Value = "https://yuotube.com/" },
+            };
+
+            DbContext.Settings.AddRange(settings);
             DbContext.SaveChanges();
         }
     }
