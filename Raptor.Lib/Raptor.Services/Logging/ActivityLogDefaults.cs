@@ -75,6 +75,6 @@
         /// <summary>
         /// Update settings
         /// </summary>
-        public static readonly string UpdateSettings = "settings.update";
+        public static readonly string UpdateSettings = "settings.edit";
     }
 }

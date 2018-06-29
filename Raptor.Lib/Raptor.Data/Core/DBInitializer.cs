@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Raptor.Data.Models.Configuration;
+using Raptor.Data.Models.Logging;
 
 namespace Raptor.Data.Core
 {
@@ -27,6 +28,9 @@ namespace Raptor.Data.Core
 
             // Insert default settings 
             InsertDefaultSettings();
+
+            // Insert default activity log types
+            InsertDefaultActivityLogTypes();
         }
 
         private static void InsertUser() {
@@ -118,6 +122,33 @@ namespace Raptor.Data.Core
             };
 
             DbContext.Settings.AddRange(settings);
+            DbContext.SaveChanges();
+        }
+
+        private static void InsertDefaultActivityLogTypes()
+        {
+            var activityLogTypes = new List<ActivityLogType>()
+            {
+                new ActivityLogType() { DisplayName = "User Login", Enabled = true, SystemKeyword = "user.login" },
+                new ActivityLogType() { DisplayName = "User Logout", Enabled = true, SystemKeyword = "user.logout" },
+                new ActivityLogType() { DisplayName = "Profile Updated", Enabled = true, SystemKeyword = "user.update.profile" },
+                new ActivityLogType() { DisplayName = "Password Changed", Enabled = true, SystemKeyword = "user.update.password" },
+                new ActivityLogType() { DisplayName = "Password Changed", Enabled = true, SystemKeyword = "user.update.password" },
+                new ActivityLogType() { DisplayName = "Add blog category", Enabled = true, SystemKeyword = "blog.category.add" },
+                new ActivityLogType() { DisplayName = "Edit blog category", Enabled = true, SystemKeyword = "blog.category.edit" },
+                new ActivityLogType() { DisplayName = "View blog category", Enabled = true, SystemKeyword = "blog.category.view" },
+                new ActivityLogType() { DisplayName = "Add blog post", Enabled = true, SystemKeyword = "blog.post.add" },
+                new ActivityLogType() { DisplayName = "View blog post", Enabled = true, SystemKeyword = "blog.post.view" },
+                new ActivityLogType() { DisplayName = "Edit blog post", Enabled = true, SystemKeyword = "blog.post.edit" },
+                new ActivityLogType() { DisplayName = "View logs", Enabled = true, SystemKeyword = "logs.view" },
+                new ActivityLogType() { DisplayName = "Create Roles", Enabled = true, SystemKeyword = "roles.create" },
+                new ActivityLogType() { DisplayName = "View Roles", Enabled = true, SystemKeyword = "roles.view" },
+                new ActivityLogType() { DisplayName = "Edit Roles", Enabled = true, SystemKeyword = "roles.edit" },
+                new ActivityLogType() { DisplayName = "Delete Roles", Enabled = true, SystemKeyword = "roles.delete" },
+                new ActivityLogType() { DisplayName = "Update Settings", Enabled = true, SystemKeyword = "settings.update" }
+            };
+
+            DbContext.ActivityLogTypes.AddRange(activityLogTypes);
             DbContext.SaveChanges();
         }
     }
