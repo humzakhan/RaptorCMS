@@ -16,7 +16,7 @@
                         <div class="text">
                             <div class="post-meta">
                                 <span class="category">@BlogService.GetBlogPostCategoryById(post.BlogPostId).Name</span>
-                                <span class="mr-2">@post.DateCreatedUtc.ToShortDateString() </span> &bullet;
+                                <span class="mr-2">@post.DateCreatedUtc.ToString("MMM dd, yyyy") </span> &bullet;
                                 <span class="ml-2"><span class="fa fa-comments"></span> @post.CommentsCount</span>
                             </div>
                             <h3>@post.Title</h3>
