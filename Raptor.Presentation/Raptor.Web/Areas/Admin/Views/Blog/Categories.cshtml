@@ -11,13 +11,15 @@
     </div>
 </div>
 
-@if (!ViewData.ModelState.IsValid) {
+@if (!ViewData.ModelState.IsValid)
+{
     <div class="alert alert-danger auth-box mx-auto my-auto" role="alert">
         <div asp-validation-summary="ModelOnly" class="small"></div>
     </div>
 }
 
-@if (ViewBag.Status == "OK") {
+@if (ViewBag.Status == "OK")
+{
     <div class="alert alert-success auth-box mx-auto my-auto" role="alert">
         <span class="small">
             @ViewBag.Message
@@ -53,7 +55,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var category in Model.BlogPostCategories) {
+                        @foreach (var category in Model.BlogPostCategories)
+                        {
                             <tr>
                                 <td>@category.PostCategoryId</td>
                                 <td>@category.Name</td>
@@ -70,3 +73,12 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function() {
+            var action = '@Model.PostAction';
+            if (action == 'categories') $('#categoryForm')[0].reset();
+        });
+    </script>
+}

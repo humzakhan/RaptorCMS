@@ -110,11 +110,11 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 ViewBag.Message = "New blog post category successfully added";
 
                 model.BlogPostCategories = _blogService.GetBlogPostCategories();
+                model.PostAction = "categories";
             }
             catch (Exception ex) {
                 ModelState.AddModelError("", $"Unable to create new blog post category: {ex.Message}");
                 _logService.InsertLog(LogLevel.Error, ex.Message, ex.ToString());
-
             }
 
             return View(model);

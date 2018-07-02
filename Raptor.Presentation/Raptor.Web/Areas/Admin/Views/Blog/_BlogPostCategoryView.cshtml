@@ -1,6 +1,6 @@
 ﻿@model BlogPostCategoryViewModel
 
-<form asp-controller="Blog" asp-action="@Model.PostAction" method="post">
+<form asp-controller="Blog" asp-action="@Model.PostAction" method="post" id="categoryForm">
     <div class="form-group">
         <span asp-validation-for="Name" class="text-danger small"></span>
         <label asp-for="Name" class="text-bold small"></label>
