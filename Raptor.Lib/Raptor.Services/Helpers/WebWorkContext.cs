@@ -1,4 +1,5 @@
-﻿using Raptor.Data.Models.Users;
+﻿using Raptor.Data.Models.Configuration;
+using Raptor.Data.Models.Users;
 using Raptor.Services.Authentication;
 
 namespace Raptor.Services.Helpers
@@ -29,5 +30,7 @@ namespace Raptor.Services.Helpers
         }
 
         public bool IsAdmin { get; set; }
+
+        public SettingValues Settings { get; set; }
     }
 }

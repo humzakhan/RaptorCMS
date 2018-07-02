@@ -69,5 +69,11 @@ namespace Raptor.Services.Configuration
         /// <param name="settingId">Id of the setting to be checked</param>
         /// <returns>True if the setting exists, otherwise false</returns>
         bool SettingExists(int settingId);
+
+        /// <summary>
+        /// Get all settings as a single class
+        /// </summary>
+        /// <returns>SettingValues class</returns>
+        SettingValues GetSettingValues();
     }
 }

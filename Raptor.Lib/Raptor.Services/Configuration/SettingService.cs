@@ -134,5 +134,28 @@ namespace Raptor.Services.Configuration
         public bool SettingExists(int settingId) {
             return _settingRepository.Any(settingId);
         }
+
+        /// <summary>
+        /// Get all settings as a single class
+        /// </summary>
+        /// <returns>SettingValues class</returns>
+        public SettingValues GetSettingValues()
+        {
+            var settings = GetAllSettings();
+            var settingValues = new SettingValues() {
+                SiteName = settings.First(s => s.Name == SettingsConstants.SiteName).Value,
+                SiteDescription = settings.First(s => s.Name == SettingsConstants.SiteDescription).Value,
+                IsRegistrationEnabled = Convert.ToBoolean(settings.First(s => s.Name == SettingsConstants.SiteRegistrationEnabled).Value),
+                IsCommentsEnabled = Convert.ToBoolean(settings.First(s => s.Name == SettingsConstants.SiteCommmentsEnabled).Value),
+                FacebookUrl = settings.First(s => s.Name == SettingsConstants.FacebookUrl).Value,
+                TwitterUrl = settings.First(s => s.Name == SettingsConstants.TwitterUrl).Value,
+                InstagramUrl = settings.First(s => s.Name == SettingsConstants.InstagramUrl).Value,
+                YoutubeUrl = settings.First(s => s.Name == SettingsConstants.YoutubeUrl).Value,
+                DefaultUserRoleId = int.Parse(settings.First(s => s.Name == SettingsConstants.DefaultUserRole).Value),
+                RaptorVersion = settings.First(s => s.Name == SettingsConstants.RaptorVersion).Value
+            };
+
+            return settingValues;
+        }
     }
 }

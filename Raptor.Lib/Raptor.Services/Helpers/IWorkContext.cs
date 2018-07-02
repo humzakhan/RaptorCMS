@@ -1,4 +1,5 @@
-﻿using Raptor.Data.Models.Users;
+﻿using Raptor.Data.Models.Configuration;
+using Raptor.Data.Models.Users;
 
 namespace Raptor.Services.Helpers
 {
@@ -13,5 +14,10 @@ namespace Raptor.Services.Helpers
         /// Whether the current user is admin or not
         /// </summary>
         bool IsAdmin { get; set; }
+
+        /// <summary>
+        /// Global settings for the web app
+        /// </summary>
+        SettingValues Settings { get; set; }
     }
 }
