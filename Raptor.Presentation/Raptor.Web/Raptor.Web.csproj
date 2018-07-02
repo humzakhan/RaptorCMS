@@ -16,6 +16,7 @@
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Auth\" />
     <Folder Include="wwwroot\admin-theme\overrides\" />
+    <Folder Include="wwwroot\themes\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />

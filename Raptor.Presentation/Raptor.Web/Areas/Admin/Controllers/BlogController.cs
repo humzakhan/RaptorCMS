@@ -83,6 +83,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 _logService.InsertLog(LogLevel.Error, $"Unable to add new blog post: {ex.Message}", ex.ToString());
             }
 
+            model.PageTitle = "Create Blog Post";
             return View(_blogPostView, model);
         }
 
