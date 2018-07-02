@@ -1,13 +1,178 @@
-﻿<!DOCTYPE html>
+﻿@using Raptor.Services.Configuration
+@using Raptor.Data.Models.Configuration
+@inject ISettingService settings
 
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title | @settings.GetSettingByKey(SettingsConstants.SiteName).Value</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/themes/balita/css/bootstrap.css">
+    <link rel="stylesheet" href="~/themes/balita/css/animate.css">
+    <link rel="stylesheet" href="~/themes/balita/css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="~/themes/balita/fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/themes/balita/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/themes/balita/fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="~/themes/balita/css/style.css">
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
+
+    <!-- HEADER -->
+    <header role="banner">
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9 social">
+                        <a href="@settings.GetSettingByKey(SettingsConstants.TwitterUrl).Value"><span class="fa fa-twitter"></span></a>
+                        <a href="@settings.GetSettingByKey(SettingsConstants.FacebookUrl).Value"><span class="fa fa-facebook"></span></a>
+                        <a href="@settings.GetSettingByKey(SettingsConstants.InstagramUrl).Value"><span class="fa fa-instagram"></span></a>
+                        <a href="@settings.GetSettingByKey(SettingsConstants.YoutubeUrl).Value"><span class="fa fa-youtube-play"></span></a>
+                    </div>
+                    <div class="col-3 search-top">
+                        <!-- <a href="#"><span class="fa fa-search"></span></a> -->
+                        <form action="#" class="search-top-form">
+                            <span class="icon fa fa-search"></span>
+                            <input type="text" id="s" placeholder="Type keyword to search...">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container logo-wrap">
+            <div class="row pt-5">
+                <div class="col-12 text-center">
+                    <a class="absolute-toggle d-block d-md-none" data-toggle="collapse" href="#navbarMenu" role="button" aria-expanded="false" aria-controls="navbarMenu"><span class="burger-lines"></span></a>
+                    <h1 class="site-logo"><a href="index.html">@settings.GetSettingByKey(SettingsConstants.SiteName).Value</a></h1>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-md  navbar-light bg-light">
+            <div class="container">
+
+
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-controller="Blog" asp-action="Index">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- /HEADER -->
+
+    <!-- BODY -->
+    @RenderBody()
+    <!-- /BODY -->
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-4">
+                    <h3>Latest Post</h3>
+                    <div class="post-entry-sidebar">
+                        <ul>
+                            <li>
+                                <a href="">
+                                    <div class="text">
+                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                                        <div class="post-meta">
+                                            <span class="mr-2">March 15, 2018 </span> &bullet;
+                                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <div class="text">
+                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                                        <div class="post-meta">
+                                            <span class="mr-2">March 15, 2018 </span> &bullet;
+                                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <div class="text">
+                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                                        <div class="post-meta">
+                                            <span class="mr-2">March 15, 2018 </span> &bullet;
+                                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="mb-5">
+                        <h3>Quick Links</h3>
+                        <ul class="list-unstyled">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Travel</a></li>
+                            <li><a href="#">Adventure</a></li>
+                            <li><a href="#">Courses</a></li>
+                            <li><a href="#">Categories</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-5">
+                        <h3>Social</h3>
+                        <ul class="list-unstyled footer-social">
+                            <li><a href="#"><span class="fa fa-twitter"></span> Twitter</a></li>
+                            <li><a href="#"><span class="fa fa-facebook"></span> Facebook</a></li>
+                            <li><a href="#"><span class="fa fa-instagram"></span> Instagram</a></li>
+                            <li><a href="#"><span class="fa fa-vimeo"></span> Vimeo</a></li>
+                            <li><a href="#"><span class="fa fa-youtube-play"></span> Youtube</a></li>
+                            <li><a href="#"><span class="fa fa-snapchat"></span> Snapshot</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    Powerwed by RaptorCMS. Theme by <a href="https://colorlib.com" target="_blank">Colorlib</a>.
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/ FOOTER -->
+
+    <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214" /></svg></div>
+
+    <script src="~/themes/balita/js/jquery-3.2.1.min.js"></script>
+    <script src="~/themes/balita/js/jquery-migrate-3.0.0.js"></script>
+    <script src="~/themes/balita/js/popper.min.js"></script>
+    <script src="~/themes/balita/js/bootstrap.min.js"></script>
+    <script src="~/themes/balita/js/owl.carousel.min.js"></script>
+    <script src="~/themes/balita/js/jquery.waypoints.min.js"></script>
+    <script src="~/themes/balita/js/jquery.stellar.min.js"></script>
+    <script src="~/themes/balita/js/main.js"></script>
 </body>
 </html>

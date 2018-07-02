@@ -108,7 +108,7 @@ namespace Raptor.Web
             // Enable Authentication
             app.UseAuthentication();
 
-            // Enable logger factor
+            // Enable logger factory
             loggerFactory.AddConsole();
 
             // Register the routes for areas
