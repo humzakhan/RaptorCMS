@@ -114,10 +114,13 @@ namespace Raptor.Services.Blog
             return _blogCommentsRepository.Include(c => c.Post).Select(c => c);
         }
 
-        public IEnumerable<BlogPost> GetBlogPosts(int categoryId = 0) {
+        public IEnumerable<BlogPost> GetBlogPosts(int categoryId = 0, int mostRecentCount = 0) {
             var blogPosts = categoryId == 0 ?
                 _blogPostsRepository.IncludeMultiple(b => b.PostCategory, b => b.CreatedBy).AsEnumerable().Select(b => b).ToList() :
                 _blogPostsRepository.IncludeMultiple(b => b.PostCategory, b => b.CreatedBy).Where(b => b.PostCategoryId == categoryId).ToList();
+
+            if (mostRecentCount != 0)
+                blogPosts = blogPosts.OrderBy(b => b.DateCreatedUtc).Take(mostRecentCount).ToList();
 
             return blogPosts;
         }

@@ -103,28 +103,6 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="">
-                                    <div class="text">
-                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                        <div class="post-meta">
-                                            <span class="mr-2">March 15, 2018 </span> &bullet;
-                                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <div class="text">
-                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                        <div class="post-meta">
-                                            <span class="mr-2">March 15, 2018 </span> &bullet;
-                                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -133,11 +111,11 @@
                     <div class="mb-5">
                         <h3>Quick Links</h3>
                         <ul class="list-unstyled">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Blog</a></li>
                             <li><a href="#">About Us</a></li>
-                            <li><a href="#">Travel</a></li>
-                            <li><a href="#">Adventure</a></li>
-                            <li><a href="#">Courses</a></li>
-                            <li><a href="#">Categories</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Project GitHub</a></li>
                         </ul>
                     </div>
                 </div>
@@ -145,12 +123,10 @@
                     <div class="mb-5">
                         <h3>Social</h3>
                         <ul class="list-unstyled footer-social">
-                            <li><a href="#"><span class="fa fa-twitter"></span> Twitter</a></li>
-                            <li><a href="#"><span class="fa fa-facebook"></span> Facebook</a></li>
-                            <li><a href="#"><span class="fa fa-instagram"></span> Instagram</a></li>
-                            <li><a href="#"><span class="fa fa-vimeo"></span> Vimeo</a></li>
-                            <li><a href="#"><span class="fa fa-youtube-play"></span> Youtube</a></li>
-                            <li><a href="#"><span class="fa fa-snapchat"></span> Snapshot</a></li>
+                            <li><a href="@settings.GetSettingByKey(SettingsConstants.TwitterUrl).Value"><span class="fa fa-twitter"></span> Twitter</a></li>
+                            <li><a href="@settings.GetSettingByKey(SettingsConstants.FacebookUrl).Value"><span class="fa fa-facebook"></span> Facebook</a></li>
+                            <li><a href="@settings.GetSettingByKey(SettingsConstants.InstagramUrl).Value"><span class="fa fa-instagram"></span> Instagram</a></li>
+                            <li><a href="@settings.GetSettingByKey(SettingsConstants.YoutubeUrl).Value"><span class="fa fa-youtube-play"></span> Youtube</a></li>
                         </ul>
                     </div>
                 </div>

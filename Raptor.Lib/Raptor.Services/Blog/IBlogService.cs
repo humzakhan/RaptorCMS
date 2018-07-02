@@ -12,7 +12,7 @@ namespace Raptor.Services.Blog
         void DeleteBlogPost(BlogPost blogPost);
         void CreateBlogPost(BlogPost blogPost);
         void UpdateBlogPost(BlogPost blogPost);
-        IEnumerable<BlogPost> GetBlogPosts(int categoryId = 0);
+        IEnumerable<BlogPost> GetBlogPosts(int categoryId = 0, int mostRecentCount = 0);
 
         #endregion
 
