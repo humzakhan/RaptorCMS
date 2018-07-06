@@ -77,7 +77,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 currentUser.FirstName = model.FirstName;
                 currentUser.MiddleName = model.MiddleName;
                 currentUser.LastName = model.LastName;
-                currentUser.DisplayName = model.DisplayName;
+                currentUser.DisplayName = $"{model.FirstName} {model.LastName}";
                 currentUser.EmailAddress = model.EmailAddress;
                 currentUser.Username = model.Username;
                 currentUser.About = model.About;
