@@ -22,7 +22,15 @@ namespace Raptor.Services.Blog
             if (blogPostId == 0)
                 return null;
 
-            return _blogPostsRepository.GetById(blogPostId);
+            return _blogPostsRepository
+                .IncludeMultiple(b => b.PostCategory, b => b.Comments, b => b.CreatedBy)
+                .SingleOrDefault(b => b.BlogPostId == blogPostId);
+        }
+
+        public BlogPost GetBlogPostByLink(string link){
+            return _blogPostsRepository
+                .IncludeMultiple(b => b.PostCategory, b => b.Comments, b => b.CreatedBy)
+                .SingleOrDefault(b => b.Link == link);
         }
 
         public IList<BlogPost> GetBlogPostByIds(int[] blogPostIds) {

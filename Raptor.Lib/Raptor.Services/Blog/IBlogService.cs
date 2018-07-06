@@ -8,6 +8,7 @@ namespace Raptor.Services.Blog
         #region Blog Posts
 
         BlogPost GetBlogPostById(int blogPostId);
+        BlogPost GetBlogPostByLink(string link);
         IList<BlogPost> GetBlogPostByIds(int[] blogPostIds);
         void DeleteBlogPost(BlogPost blogPost);
         void CreateBlogPost(BlogPost blogPost);
