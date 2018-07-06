@@ -23,22 +23,6 @@ namespace Raptor.Data.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
-            modelBuilder.Entity("Raptor.Data.Configuration.Setting", b =>
-                {
-                    b.Property<int>("SettingId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateModifiedUtc");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("SettingId");
-
-                    b.ToTable("Settings");
-                });
-
             modelBuilder.Entity("Raptor.Data.Models.Blog.BlogComment", b =>
                 {
                     b.Property<int>("CommentId")
@@ -88,6 +72,8 @@ namespace Raptor.Data.Migrations
                     b.Property<int>("CommentsCount");
 
                     b.Property<string>("Content");
+
+                    b.Property<string>("CoverImage");
 
                     b.Property<int>("CreatedById");
 
@@ -149,6 +135,22 @@ namespace Raptor.Data.Migrations
                     b.HasKey("PostCategoryId");
 
                     b.ToTable("BlogPostCategories");
+                });
+
+            modelBuilder.Entity("Raptor.Data.Models.Configuration.Setting", b =>
+                {
+                    b.Property<int>("SettingId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateModifiedUtc");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("SettingId");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("Raptor.Data.Models.Content.Taxonomy", b =>
@@ -388,6 +390,8 @@ namespace Raptor.Data.Migrations
                     b.Property<int>("BusinessEntityId");
 
                     b.Property<string>("About");
+
+                    b.Property<string>("Avatar");
 
                     b.Property<DateTime>("DateCreatedUtc");
 

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Http;
 
 namespace Raptor.Core.Helpers
 {
@@ -88,6 +90,20 @@ namespace Raptor.Core.Helpers
             var random = new Random();
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        /// <summary>
+        /// Returns image as byte array
+        /// </summary>
+        /// <param name="file">Image file</param>
+        /// <returns>byte array for the provided image file</returns>
+        public static byte[] GetByteArrayFromImage(IFormFile file)
+        {
+            using (var target = new MemoryStream())
+            {
+                file.CopyTo(target);
+                return target.ToArray();
+            }
         }
     }
 }

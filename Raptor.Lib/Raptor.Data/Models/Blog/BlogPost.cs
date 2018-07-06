@@ -46,6 +46,8 @@ namespace Raptor.Data.Models.Blog
         [ForeignKey("Person")]
         public int CreatedById { get; set; }
 
+        public string CoverImage { get; set; }
+
         public virtual BlogPostCategory PostCategory { get; set; }
 
         public virtual ICollection<BlogComment> Comments { get; set; }

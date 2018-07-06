@@ -85,7 +85,7 @@
                 <!-- PROFILE BOX -->
                 <div class="sidebar-box">
                     <div class="bio text-center">
-                        <img src="images/person_1.jpg" alt="Image Placeholder" class="img-fluid">
+                        <img src="@Model.BlogPost.CreatedBy.Avatar" alt="Image Placeholder" class="img-fluid">
                         <div class="bio-body">
                             <h2>@Model.BlogPost.CreatedBy.DisplayName</h2>
                             <p>@Model.BlogPost.CreatedBy.About</p>
@@ -168,4 +168,6 @@
 
 
 </section>
+
+
 

@@ -14,8 +14,8 @@ using System;
 namespace Raptor.Data.Migrations
 {
     [DbContext(typeof(RaptorDbContext))]
-    [Migration("20180129231227_AddForgotPassword")]
-    partial class AddForgotPassword
+    [Migration("20180706214224_AddImageFieldsToUserAndBlogPost")]
+    partial class AddImageFieldsToUserAndBlogPost
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,22 +23,6 @@ namespace Raptor.Data.Migrations
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
-
-            modelBuilder.Entity("Raptor.Data.Configuration.Setting", b =>
-                {
-                    b.Property<int>("SettingId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateModifiedUtc");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("SettingId");
-
-                    b.ToTable("Settings");
-                });
 
             modelBuilder.Entity("Raptor.Data.Models.Blog.BlogComment", b =>
                 {
@@ -84,29 +68,27 @@ namespace Raptor.Data.Migrations
                     b.Property<int>("BlogPostId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BlogPostCategoryId");
+                    b.Property<int?>("BusinessEntityId");
 
                     b.Property<int>("CommentsCount");
 
-                    b.Property<string>("CommentsStatus");
-
                     b.Property<string>("Content");
+
+                    b.Property<byte[]>("CoverImage");
 
                     b.Property<int>("CreatedById");
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime>("DateCreatedUtc");
 
-                    b.Property<DateTime>("DateCreatedGmt");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<DateTime>("DateModifiedGmt");
+                    b.Property<DateTime>("DateModifiedUtc");
 
                     b.Property<string>("Excerpt");
 
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("uuid_generate_v4()");
+
+                    b.Property<bool>("IsCommentsAllowed");
 
                     b.Property<string>("Link")
                         .HasMaxLength(255);
@@ -117,6 +99,8 @@ namespace Raptor.Data.Migrations
                     b.Property<string>("Password")
                         .HasMaxLength(20);
 
+                    b.Property<int>("PostCategoryId");
+
                     b.Property<int>("PostType");
 
                     b.Property<int>("Status");
@@ -125,9 +109,11 @@ namespace Raptor.Data.Migrations
 
                     b.HasKey("BlogPostId");
 
-                    b.HasIndex("BlogPostCategoryId");
+                    b.HasIndex("BusinessEntityId");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("PostCategoryId");
 
                     b.ToTable("BlogPosts");
                 });
@@ -150,6 +136,22 @@ namespace Raptor.Data.Migrations
                     b.HasKey("PostCategoryId");
 
                     b.ToTable("BlogPostCategories");
+                });
+
+            modelBuilder.Entity("Raptor.Data.Models.Configuration.Setting", b =>
+                {
+                    b.Property<int>("SettingId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateModifiedUtc");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("SettingId");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("Raptor.Data.Models.Content.Taxonomy", b =>
@@ -390,6 +392,8 @@ namespace Raptor.Data.Migrations
 
                     b.Property<string>("About");
 
+                    b.Property<byte[]>("Avatar");
+
                     b.Property<DateTime>("DateCreatedUtc");
 
                     b.Property<DateTime>("DateLastLoginUtc");
@@ -494,14 +498,18 @@ namespace Raptor.Data.Migrations
 
             modelBuilder.Entity("Raptor.Data.Models.Blog.BlogPost", b =>
                 {
-                    b.HasOne("Raptor.Data.Models.Blog.BlogPostCategory", "BlogPostCategory")
-                        .WithMany("Posts")
-                        .HasForeignKey("BlogPostCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Raptor.Data.Models.Users.BusinessEntity", "BusinessEntity")
                         .WithMany()
+                        .HasForeignKey("BusinessEntityId");
+
+                    b.HasOne("Raptor.Data.Models.Users.Person", "CreatedBy")
+                        .WithMany()
                         .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Raptor.Data.Models.Blog.BlogPostCategory", "PostCategory")
+                        .WithMany("Posts")
+                        .HasForeignKey("PostCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

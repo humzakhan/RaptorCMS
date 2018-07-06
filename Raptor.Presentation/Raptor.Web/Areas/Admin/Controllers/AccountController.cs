@@ -8,8 +8,11 @@ using Raptor.Services.Users;
 using Raptor.Web.Areas.Admin.ViewModels;
 using Raptor.Web.ViewModels;
 using System;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Raptor.Data.Models.Logging;
 
 namespace Raptor.Web.Areas.Admin.Controllers
 {
@@ -17,11 +20,13 @@ namespace Raptor.Web.Areas.Admin.Controllers
     [Area("admin")]
     public class AccountController : Controller
     {
+        private readonly ILogService _logService;
         private readonly IUserService _userService;
         private readonly IWorkContext _workContext;
         private readonly ICustomerActivityService _activityService;
 
-        public AccountController(IUserService userService, IWorkContext workContext, ICustomerActivityService activityService) {
+        public AccountController(ILogService logService, IUserService userService, IWorkContext workContext, ICustomerActivityService activityService) {
+            _logService = logService;
             _userService = userService;
             _workContext = workContext;
             _activityService = activityService;
@@ -41,7 +46,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Settings(UserViewModel model) {
+        public IActionResult Settings(UserViewModel model, IFormFile avatarSelect) {
             if (!ModelState.IsValid) return View(model);
 
             try {
@@ -74,6 +79,12 @@ namespace Raptor.Web.Areas.Admin.Controllers
                     }
                 }
 
+                // Uploaded avatar if any
+                if (avatarSelect != null) {
+                    currentUser.Avatar = $"data:{avatarSelect.ContentType};base64,{Convert.ToBase64String(CommonHelper.GetByteArrayFromImage(avatarSelect))}";
+                    model.Avatar = currentUser.Avatar;
+                }
+
                 currentUser.FirstName = model.FirstName;
                 currentUser.MiddleName = model.MiddleName;
                 currentUser.LastName = model.LastName;
@@ -87,10 +98,13 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 _userService.UpdateUser(currentUser);
                 _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateProfile, "Updated profile information.");
 
+                _workContext.CurrentUser = currentUser;
+
                 ViewBag.Status = "OK";
                 ViewBag.Message = "Your changes have been saved successfully.";
             }
             catch (Exception ex) {
+                _logService.InsertLog(LogLevel.Error, "Unable to update user account settings.", ex.ToString());
                 ModelState.AddModelError("", ex.ToString());
             }
 

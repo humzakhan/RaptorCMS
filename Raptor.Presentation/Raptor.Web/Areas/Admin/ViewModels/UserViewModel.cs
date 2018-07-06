@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Raptor.Web.Areas.Admin.ViewModels
 {
@@ -52,6 +53,8 @@ namespace Raptor.Web.Areas.Admin.ViewModels
         public string PhoneNumber { get; set; }
 
         public string Password { get; set; }
+
+        public string Avatar { get; set;  }
 
         [Display(Name = "Repeat Password")]
         [Compare(otherProperty: nameof(Password), ErrorMessage = "Passwords do not match")]

@@ -30,18 +30,31 @@ namespace Raptor.Data.Models.Users
 
         [StringLength(50)]
         public string EmailAddress { get; set; }
+
         public string About { get; set; }
+
         public string Website { get; set; }
+
         public bool IsDeleted { get; set; }
+
         public bool IsBlocked { get; set; }
+
         public bool IsEmailVerified { get; set; }
+
+        public string Avatar { get; set; }
+
         public DateTime DateCreatedUtc { get; set; }
+
         public DateTime DateModifiedUtc { get; set; }
+
         public DateTime DateLastLoginUtc { get; set; }
 
         public virtual BusinessEntity BusinessEntity { get; set; }
+
         public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
+
         public virtual ICollection<PersonRole> UserRoles { get; set; }
+
         public virtual Password Password { get; set; }
 
         public bool IsInRole(string systemKeyword) {
