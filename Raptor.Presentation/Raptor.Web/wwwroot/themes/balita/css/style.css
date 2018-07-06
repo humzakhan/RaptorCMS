@@ -1,6 +1,6 @@
 body {
   background: #fff;
-  font-family: "Josefin Sans", arial, sans-serif;
+  font-family: "Muli", arial, sans-serif;
   font-weight: 300;
   font-size: 18px;
   line-height: 1.9;
@@ -20,7 +20,7 @@ a:hover {
 
 h1, h2, h3, h4, h5 {
   color: #000;
-  font-family: "Josefin Sans", arial, sans-serif;
+  font-family: "Muli", arial, sans-serif;
 }
 
 header {
@@ -1019,7 +1019,7 @@ textarea.form-control {
 
 .box h2 {
   font-size: 18px;
-  font-family: "Josefin Sans", arial, sans-serif;
+  font-family: "Muli", arial, sans-serif;
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
