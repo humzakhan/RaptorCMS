@@ -1,8 +1,8 @@
 ﻿@using Raptor.Services.Blog
-@model BlogPost
+@model DisplayPostViewModel
 @inject IBlogService BlogService
 @{
-    ViewBag.Title = Model.Title;
+    ViewBag.Title = Model.BlogPost.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,14 +11,14 @@
 
         <div class="row blog-entries">
             <div class="col-md-12 col-lg-8 main-content">
-                <h1 class="mb-4">@Model.Title</h1>
+                <h1 class="mb-4">@Model.BlogPost.Title</h1>
                 <div class="post-meta">
-                    <span class="category text-bold">@BlogService.GetBlogPostCategoryById(Model.PostCategoryId).Name</span>
-                    <span class="mr-2">@Model.DateCreatedUtc.ToString("MMMM dd, yyyy")</span> &bullet;
-                    <span class="ml-2"><span class="fa fa-comments"></span> @Model.CommentsCount</span>
+                    <span class="category text-bold">@Model.PostCategoryName</span>
+                    <span class="mr-2">@Model.BlogPost.DateCreatedUtc.ToString("MMMM dd, yyyy")</span> &bullet;
+                    <span class="ml-2"><span class="fa fa-comments"></span> @Model.BlogPost.CommentsCount</span>
                 </div>
                 <div class="post-content-body">
-                    @Html.Raw(Model.Content)
+                    @Html.Raw(Model.BlogPost.Content)
                 </div>
 
                 <div class="pt-5">
@@ -151,9 +151,9 @@
                     <div class="bio text-center">
                         <img src="images/person_1.jpg" alt="Image Placeholder" class="img-fluid">
                         <div class="bio-body">
-                            <h2>@Model.CreatedBy.DisplayName</h2>
-                            <p>@Model.CreatedBy.About</p>
-                            <p><a href="@Model.CreatedBy.Website" class="btn btn-primary btn-sm" style="color: #fff;">Read More</a></p>
+                            <h2>@Model.BlogPost.CreatedBy.DisplayName</h2>
+                            <p>@Model.BlogPost.CreatedBy.About</p>
+                            <p><a href="@Model.BlogPost.CreatedBy.Website" class="btn btn-primary btn-sm" style="color: #fff;">Read More</a></p>
                             <p class="social">
                                 <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
                                 <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
@@ -168,42 +168,20 @@
                     <h3 class="heading">Popular Posts</h3>
                     <div class="post-entry-sidebar">
                         <ul>
-                            <li>
-                                <a href="">
-                                    <img src="images/img_1.jpg" alt="Image placeholder" class="mr-4">
-                                    <div class="text">
-                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                        <div class="post-meta">
-                                            <span class="mr-2">March 15, 2018 </span> &bullet;
-                                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                            @foreach (var post in Model.RecentPosts) {
+                                <li>
+                                    <a href="">
+                                        <img src="images/img_1.jpg" alt="Image placeholder" class="mr-4">
+                                        <div class="text">
+                                            <h4>@post.Title</h4>
+                                            <div class="post-meta">
+                                                <span class="mr-2">@post.DateCreatedUtc.ToString("MMM dd, yyyy")</span> &bullet;
+                                                <span class="ml-2"><span class="fa fa-comments"></span> @post.CommentsCount</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="images/img_1.jpg" alt="Image placeholder" class="mr-4">
-                                    <div class="text">
-                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                        <div class="post-meta">
-                                            <span class="mr-2">March 15, 2018 </span> &bullet;
-                                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="images/img_1.jpg" alt="Image placeholder" class="mr-4">
-                                    <div class="text">
-                                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                                        <div class="post-meta">
-                                            <span class="mr-2">March 15, 2018 </span> &bullet;
-                                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -253,42 +231,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-lg-4">
-                <a href="#" class="a-block d-flex align-items-center height-md" style="background-image: url('images/img_2.jpg'); ">
-                    <div class="text">
-                        <div class="post-meta">
-                            <span class="category">Lifestyle</span>
-                            <span class="mr-2">March 15, 2018 </span> &bullet;
-                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+            @foreach (var post in Model.RecentPosts) {
+                <div class="col-md-6 col-lg-4">
+                    <a href="#" class="a-block d-flex align-items-center height-md" style="background-image: url('images/img_2.jpg'); ">
+                        <div class="text">
+                            <div class="post-meta">
+                                <span class="category">@post.PostCategory.Name</span>
+                                <span class="mr-2">@post.DateCreatedUtc.ToString("MMM dd, yyyy") </span> &bullet;
+                                <span class="ml-2"><span class="fa fa-comments"></span> @post.CommentsCount</span>
+                            </div>
+                            <h3>@post.Title</h3>
                         </div>
-                        <h3>There’s a Cool New Way for Men to Wear Socks and Sandals</h3>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <a href="#" class="a-block d-flex align-items-center height-md" style="background-image: url('images/img_3.jpg'); ">
-                    <div class="text">
-                        <div class="post-meta">
-                            <span class="category">Travel</span>
-                            <span class="mr-2">March 15, 2018 </span> &bullet;
-                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                        </div>
-                        <h3>There’s a Cool New Way for Men to Wear Socks and Sandals</h3>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <a href="#" class="a-block d-flex align-items-center height-md" style="background-image: url('images/img_4.jpg'); ">
-                    <div class="text">
-                        <div class="post-meta">
-                            <span class="category">Food</span>
-                            <span class="mr-2">March 15, 2018 </span> &bullet;
-                            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-                        </div>
-                        <h3>There’s a Cool New Way for Men to Wear Socks and Sandals</h3>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            }
         </div>
     </div>
 

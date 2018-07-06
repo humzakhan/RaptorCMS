@@ -5,6 +5,7 @@ using Raptor.Data.Models.Logging;
 using Raptor.Services.Blog;
 using Raptor.Services.Logging;
 using Raptor.Web.Models;
+using Raptor.Web.ViewModels;
 
 namespace Raptor.Web.Controllers
 {
@@ -32,7 +33,15 @@ namespace Raptor.Web.Controllers
         public IActionResult BlogPost(string link){
             try {
                 var post = _blogService.GetBlogPostByLink(link);
-                if (post != null) return View(post);
+                if (post != null) {
+                    var model = new DisplayPostViewModel() {
+                        BlogPost = post,
+                        PostCategoryName = _blogService.GetBlogPostCategoryById(post.PostCategoryId).Name,
+                        RecentPosts = _blogService.GetBlogPosts(mostRecentCount: 3).ToList()
+                    };
+
+                    return View(model);
+                }
             }
             catch (Exception ex) {
                 _logService.InsertLog(LogLevel.Error, "Unable to load blog post", ex.ToString());
