@@ -37,7 +37,8 @@ namespace Raptor.Web.Controllers
                     var model = new DisplayPostViewModel() {
                         BlogPost = post,
                         PostCategoryName = _blogService.GetBlogPostCategoryById(post.PostCategoryId).Name,
-                        RecentPosts = _blogService.GetBlogPosts(mostRecentCount: 3).ToList()
+                        RecentPosts = _blogService.GetBlogPosts(mostRecentCount: 3).ToList(),
+                        Categories = _blogService.GetBlogPostCategories(includePosts: true).OrderByDescending(b => b.Posts.Count).Take(5).ToList()
                     };
 
                     return View(model);

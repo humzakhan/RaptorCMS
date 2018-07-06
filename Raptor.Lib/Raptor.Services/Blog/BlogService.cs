@@ -69,8 +69,8 @@ namespace Raptor.Services.Blog
             _blogCommentsRepository.DeleteRange(comments);
         }
 
-        public IList<BlogPostCategory> GetBlogPostCategories() {
-            return _blogPostCategoriesRepository.GetAll().ToList();
+        public IList<BlogPostCategory> GetBlogPostCategories(bool includePosts = false) {
+            return includePosts ? _blogPostCategoriesRepository.IncludeMultiple(b => b.Posts).ToList() : _blogPostCategoriesRepository.GetAll().ToList();
         }
 
         public int CountEntities(BlogEntityType entity) {

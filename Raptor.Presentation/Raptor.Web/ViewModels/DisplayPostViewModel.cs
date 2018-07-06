@@ -13,5 +13,7 @@ namespace Raptor.Web.ViewModels
         public string PostCategoryName { get; set; }
 
         public List<BlogPost> RecentPosts { get; set; }
+
+        public List<BlogPostCategory> Categories { get; set; }
     }
 }

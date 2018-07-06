@@ -1,6 +1,4 @@
-﻿@using Raptor.Services.Blog
-@model DisplayPostViewModel
-@inject IBlogService BlogService
+﻿@model DisplayPostViewModel
 @{
     ViewBag.Title = Model.BlogPost.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,8 +6,8 @@
 
 <section class="site-section py-lg">
     <div class="container">
-
         <div class="row blog-entries">
+            <!-- MAIN BLOG POST -->
             <div class="col-md-12 col-lg-8 main-content">
                 <h1 class="mb-4">@Model.BlogPost.Title</h1>
                 <div class="post-meta">
@@ -21,6 +19,7 @@
                     @Html.Raw(Model.BlogPost.Content)
                 </div>
 
+                <!--- BLOG COMMENTS -->
                 <div class="pt-5">
                     <h3 class="mb-5">6 Comments</h3>
                     <ul class="comment-list">
@@ -35,76 +34,9 @@
                                 <p><a href="#" class="reply">Reply</a></p>
                             </div>
                         </li>
-
-                        <li class="comment">
-                            <div class="vcard">
-                                <img src="images/person_1.jpg" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                                <h3>Jean Doe</h3>
-                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply">Reply</a></p>
-                            </div>
-
-                            <ul class="children">
-                                <li class="comment">
-                                    <div class="vcard">
-                                        <img src="images/person_1.jpg" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                        <h3>Jean Doe</h3>
-                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-
-
-                                    <ul class="children">
-                                        <li class="comment">
-                                            <div class="vcard">
-                                                <img src="images/person_1.jpg" alt="Image placeholder">
-                                            </div>
-                                            <div class="comment-body">
-                                                <h3>Jean Doe</h3>
-                                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                <p><a href="#" class="reply">Reply</a></p>
-                                            </div>
-
-                                            <ul class="children">
-                                                <li class="comment">
-                                                    <div class="vcard">
-                                                        <img src="images/person_1.jpg" alt="Image placeholder">
-                                                    </div>
-                                                    <div class="comment-body">
-                                                        <h3>Jean Doe</h3>
-                                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                        <p><a href="#" class="reply">Reply</a></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="comment">
-                            <div class="vcard">
-                                <img src="images/person_1.jpg" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                                <h3>Jean Doe</h3>
-                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply">Reply</a></p>
-                            </div>
-                        </li>
                     </ul>
-                    <!-- END comment-list -->
 
+                    <!-- POST COMMENT -->
                     <div class="comment-form-wrap pt-5">
                         <h3 class="mb-5">Leave a comment</h3>
                         <form action="#" class="p-5 bg-light">
@@ -131,13 +63,16 @@
 
                         </form>
                     </div>
+                    <!-- /POST COMMENT -->
                 </div>
+                <!--- /BLOG COMMENTS -->
 
             </div>
-
-            <!-- END main-content -->
-
+            <!-- /MAIN BLOG POST -->
+            
+            <!-- SIDEBAR -->
             <div class="col-md-12 col-lg-4 sidebar">
+                <!-- SEARCH BOX -->
                 <div class="sidebar-box search-form-wrap">
                     <form action="#" class="search-form">
                         <div class="form-group">
@@ -146,7 +81,8 @@
                         </div>
                     </form>
                 </div>
-                <!-- END sidebar-box -->
+                <!-- /SEARCH BOX -->
+                <!-- PROFILE BOX -->
                 <div class="sidebar-box">
                     <div class="bio text-center">
                         <img src="images/person_1.jpg" alt="Image Placeholder" class="img-fluid">
@@ -163,12 +99,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- END sidebar-box -->
+                <!-- /PROFILE BOX -->
+                <!-- POPULAR POSTS -->
                 <div class="sidebar-box">
                     <h3 class="heading">Popular Posts</h3>
                     <div class="post-entry-sidebar">
                         <ul>
-                            @foreach (var post in Model.RecentPosts) {
+                            @foreach (var post in Model.RecentPosts)
+                            {
                                 <li>
                                     <a href="">
                                         <img src="images/img_1.jpg" alt="Image placeholder" class="mr-4">
@@ -185,40 +123,20 @@
                         </ul>
                     </div>
                 </div>
-                <!-- END sidebar-box -->
-
+                <!-- /POPULAR POSTS -->
+                <!-- CATEGORIES -->
                 <div class="sidebar-box">
                     <h3 class="heading">Categories</h3>
                     <ul class="categories">
-                        <li><a href="#">Courses <span>(12)</span></a></li>
-                        <li><a href="#">News <span>(22)</span></a></li>
-                        <li><a href="#">Design <span>(37)</span></a></li>
-                        <li><a href="#">HTML <span>(42)</span></a></li>
-                        <li><a href="#">Web Development <span>(14)</span></a></li>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li><a href="#">@category.Name <span>(@category.Posts.Count)</span></a></li>
+                        }
                     </ul>
                 </div>
-                <!-- END sidebar-box -->
-
-                <div class="sidebar-box">
-                    <h3 class="heading">Tags</h3>
-                    <ul class="tags">
-                        <li><a href="#">Travel</a></li>
-                        <li><a href="#">Adventure</a></li>
-                        <li><a href="#">Food</a></li>
-                        <li><a href="#">Lifestyle</a></li>
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Freelancing</a></li>
-                        <li><a href="#">Travel</a></li>
-                        <li><a href="#">Adventure</a></li>
-                        <li><a href="#">Food</a></li>
-                        <li><a href="#">Lifestyle</a></li>
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Freelancing</a></li>
-                    </ul>
-                </div>
+                <!-- /CATEGORIES -->
             </div>
-            <!-- END sidebar -->
-
+            <!-- /SIDEBAR -->
         </div>
     </div>
 </section>

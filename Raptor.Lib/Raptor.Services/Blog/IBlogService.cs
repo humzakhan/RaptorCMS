@@ -36,7 +36,7 @@ namespace Raptor.Services.Blog
         void UpdateBlogPostCategory(BlogPostCategory category);
         BlogPostCategory GetBlogPostCategoryById(int id);
         BlogPostCategory GetBlogPostCategoryBySlug(string slug);
-        IList<BlogPostCategory> GetBlogPostCategories();
+        IList<BlogPostCategory> GetBlogPostCategories(bool includePosts = false);
         #endregion
     }
 
