@@ -108,7 +108,7 @@
                             @foreach (var post in Model.RecentPosts)
                             {
                                 <li>
-                                    <a href="">
+                                    <a href="@Url.Action("BlogPost", "Home", new { link = post.Link })">
                                         <img src="images/img_1.jpg" alt="Image placeholder" class="mr-4">
                                         <div class="text">
                                             <h4>@post.Title</h4>
@@ -151,7 +151,7 @@
         <div class="row">
             @foreach (var post in Model.RecentPosts) {
                 <div class="col-md-6 col-lg-4">
-                    <a href="#" class="a-block d-flex align-items-center height-md" style="background-image: url('images/img_2.jpg'); ">
+                    <a href="@Url.Action("BlogPost", "Home", new { link = post.Link })" class="a-block d-flex align-items-center height-md" style="background-image: url('images/img_2.jpg'); ">
                         <div class="text">
                             <div class="post-meta">
                                 <span class="category">@post.PostCategory.Name</span>
