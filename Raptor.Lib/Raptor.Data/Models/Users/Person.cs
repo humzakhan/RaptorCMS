@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Raptor.Data.Models.Blog;
 
 namespace Raptor.Data.Models.Users
 {
@@ -54,6 +55,8 @@ namespace Raptor.Data.Models.Users
         public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
 
         public virtual ICollection<PersonRole> UserRoles { get; set; }
+
+        public virtual ICollection<BlogComment> BlogComments { get; set; }
 
         public virtual Password Password { get; set; }
 

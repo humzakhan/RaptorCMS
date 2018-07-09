@@ -3,12 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Raptor.Data;
-using Raptor.Data.Models;
-using Raptor.Data.Models.Logging;
-using Raptor.Data.Models.Users;
 using System;
 
 namespace Raptor.Data.Migrations
@@ -33,17 +28,10 @@ namespace Raptor.Data.Migrations
 
                     b.Property<bool>("Approved");
 
-                    b.Property<string>("Author")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("AuthorEmail")
-                        .HasMaxLength(100);
-
                     b.Property<string>("AuthorIp")
                         .HasMaxLength(100);
 
-                    b.Property<string>("AuthorUrl")
-                        .HasMaxLength(200);
+                    b.Property<int>("BusinessEntityId");
 
                     b.Property<string>("Content");
 
@@ -57,14 +45,16 @@ namespace Raptor.Data.Migrations
 
                     b.HasKey("CommentId");
 
+                    b.HasIndex("BusinessEntityId");
+
                     b.HasIndex("PostId");
 
                     b.ToTable("BlogComments");
                 });
 
-            modelBuilder.Entity("Raptor.Data.Models.Blog.BlogPost", b =>
+            modelBuilder.Entity("Raptor.Data.Models.Blog.Post", b =>
                 {
-                    b.Property<int>("BlogPostId")
+                    b.Property<int>("PostId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("BusinessEntityId");
@@ -106,7 +96,7 @@ namespace Raptor.Data.Migrations
 
                     b.Property<string>("Title");
 
-                    b.HasKey("BlogPostId");
+                    b.HasKey("PostId");
 
                     b.HasIndex("BusinessEntityId");
 
@@ -489,13 +479,18 @@ namespace Raptor.Data.Migrations
 
             modelBuilder.Entity("Raptor.Data.Models.Blog.BlogComment", b =>
                 {
-                    b.HasOne("Raptor.Data.Models.Blog.BlogPost", "Post")
+                    b.HasOne("Raptor.Data.Models.Users.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("BusinessEntityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Raptor.Data.Models.Blog.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Raptor.Data.Models.Blog.BlogPost", b =>
+            modelBuilder.Entity("Raptor.Data.Models.Blog.Post", b =>
                 {
                     b.HasOne("Raptor.Data.Models.Users.BusinessEntity", "BusinessEntity")
                         .WithMany()

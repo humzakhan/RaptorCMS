@@ -34,11 +34,11 @@
                         @foreach (var comment in Model) {
                             <tr>
                                 <td>@comment.CommentId</td>
-                                <td>@comment.Author</td>
-                                <td>@comment.AuthorEmail</td>
+                                <td>@comment.Person.DisplayName</td>
+                                <td>@comment.Person.EmailAddress</td>
                                 <td>@comment.AuthorIp</td>
                                 <td>
-                                    <a href="@comment.Post.Link" class="small">@comment.Post.Title</a>
+                                    <a href="" class="small"></a> 
                                 </td>
                                 <td>@comment.DateCreated.ToString("MMMM dd, yyyy hh:mm tt")</td>
                                 <td>none</td>

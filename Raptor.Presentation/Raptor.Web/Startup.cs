@@ -90,12 +90,12 @@ namespace Raptor.Web
             services.AddTransient<IPermissionService, PermissionService>();
             services.AddTransient<IUserRegisterationService, UserRegistrationService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserAuthenticationService, CookieAuthenticationService>();
+            services.AddSingleton<IUserAuthenticationService, CookieAuthenticationService>();
             services.AddSingleton<IWorkContext, WebWorkContext>();
             services.AddTransient<IUserRolesService, UserRolesService>();
 
             // Configure AutoMapper
-            AutoMapper.Mapper.Initialize(x => {
+            Mapper.Initialize(x => {
                 x.CreateMap<Person, UserViewModel>(MemberList.None);
                 x.CreateMap<UserViewModel, Person>(MemberList.None)
                 .ForMember(entity => entity.Password, password => password.Ignore());

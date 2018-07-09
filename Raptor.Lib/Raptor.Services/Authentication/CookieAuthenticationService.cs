@@ -8,6 +8,7 @@ using Raptor.Services.Users;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Raptor.Services.Helpers;
 
 namespace Raptor.Services.Authentication
 {

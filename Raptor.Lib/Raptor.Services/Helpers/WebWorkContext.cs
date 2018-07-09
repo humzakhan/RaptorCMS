@@ -24,9 +24,7 @@ namespace Raptor.Services.Helpers
                 return _cachedUser;
             }
 
-            set {
-                _cachedUser = value;
-            }
+            set => _cachedUser = value;
         }
 
         public bool IsAdmin { get; set; }

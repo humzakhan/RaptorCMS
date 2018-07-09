@@ -63,9 +63,9 @@ namespace Raptor.Data.Migrations
                     b.ToTable("BlogComments");
                 });
 
-            modelBuilder.Entity("Raptor.Data.Models.Blog.BlogPost", b =>
+            modelBuilder.Entity("Raptor.Data.Models.Blog.Post", b =>
                 {
-                    b.Property<int>("BlogPostId")
+                    b.Property<int>("PostId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("BusinessEntityId");
@@ -107,7 +107,7 @@ namespace Raptor.Data.Migrations
 
                     b.Property<string>("Title");
 
-                    b.HasKey("BlogPostId");
+                    b.HasKey("PostId");
 
                     b.HasIndex("BusinessEntityId");
 
@@ -490,13 +490,13 @@ namespace Raptor.Data.Migrations
 
             modelBuilder.Entity("Raptor.Data.Models.Blog.BlogComment", b =>
                 {
-                    b.HasOne("Raptor.Data.Models.Blog.BlogPost", "Post")
+                    b.HasOne("Raptor.Data.Models.Blog.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Raptor.Data.Models.Blog.BlogPost", b =>
+            modelBuilder.Entity("Raptor.Data.Models.Blog.Post", b =>
                 {
                     b.HasOne("Raptor.Data.Models.Users.BusinessEntity", "BusinessEntity")
                         .WithMany()

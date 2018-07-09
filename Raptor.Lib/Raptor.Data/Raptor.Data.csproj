@@ -5,6 +5,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20180131144404_RenameCategoryColumnInBlogPosts.cs" />
     <Compile Remove="Migrations\20180131145126_BlogPostModelCategoryIdFix.cs" />
+    <Compile Remove="Migrations\20180709213607_AddPrimaryKeyToCommentsPost.cs" />
+    <Compile Remove="Migrations\20180709213819_AddForeignKeyToPostId.cs" />
   </ItemGroup>
   
   <ItemGroup>

@@ -26,6 +26,7 @@ namespace Raptor.Services.Blog
         int CountEntities(BlogEntityType entity);
         void DeleteBlogComment(BlogComment comment);
         void DeleteBlogComments(IList<BlogComment> comments);
+        void CreateBlogComent(BlogComment comment);
 
         #endregion
 

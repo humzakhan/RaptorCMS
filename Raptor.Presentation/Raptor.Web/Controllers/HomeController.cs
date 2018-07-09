@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Raptor.Data.Models.Blog;
 using Raptor.Data.Models.Logging;
 using Raptor.Services.Blog;
+using Raptor.Services.Helpers;
 using Raptor.Services.Logging;
 using Raptor.Web.Models;
 using Raptor.Web.ViewModels;
@@ -13,10 +15,12 @@ namespace Raptor.Web.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly ILogService _logService;
+        private readonly IWorkContext _workContext;
 
-        public HomeController(IBlogService blogService, ILogService logService){
+        public HomeController(IBlogService blogService, ILogService logService, IWorkContext workContext){
             _blogService = blogService;
             _logService = logService;
+            _workContext = workContext;
         }
 
         public IActionResult Index()
@@ -45,11 +49,41 @@ namespace Raptor.Web.Controllers
                 }
             }
             catch (Exception ex) {
-                _logService.InsertLog(LogLevel.Error, "Unable to load blog post", ex.ToString());
+                _logService.InsertLog(LogLevel.Error, "Unable to load blog post. " + ex.Message, ex.ToString());
 
             }
 
             return RedirectToAction("index", "home");
+        }
+        
+        [HttpPost]
+        [Route("/publish/comment")]
+        public IActionResult PublishComment(CommentViewModel model){
+            try {
+                var blogComment = new BlogComment() {
+                    PostId = model.BlogPostId,
+                    Content = model.CommentContent,
+                    BusinessEntityId = _workContext.CurrentUser.BusinessEntityId,
+                    AuthorIp = HttpContext.Connection.RemoteIpAddress.ToString(),
+                    Agent = HttpContext.Request.Headers["User-Agent"],
+                    Approved = true,
+                    DateCreatedGmt = DateTime.UtcNow,
+                    DateCreated = DateTime.Now
+                };
+
+                _blogService.CreateBlogComent(blogComment);
+
+                var blogPost = _blogService.GetBlogPostById(model.BlogPostId);
+
+                blogPost.CommentsCount++;
+                _blogService.UpdateBlogPost(blogPost);
+
+                return new JsonResult(new { Status = true, Message = "Your comment has been published successfully." });
+            }
+            catch (Exception ex) {
+                _logService.InsertLog(LogLevel.Error, "Unable to create new comment", ex.ToString());
+                return new JsonResult(new { Status = false, Message = ex.Message});
+            }
         }
     }
 }

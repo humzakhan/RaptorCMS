@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Raptor.Data.Models.Blog;
@@ -15,5 +16,8 @@ namespace Raptor.Web.ViewModels
         public List<BlogPost> RecentPosts { get; set; }
 
         public List<BlogPostCategory> Categories { get; set; }
+
+        [Required]
+        public string CommentContent { get; set; }
     }
 }

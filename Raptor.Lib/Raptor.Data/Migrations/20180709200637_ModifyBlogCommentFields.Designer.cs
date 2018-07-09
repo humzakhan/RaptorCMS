@@ -14,8 +14,8 @@ using System;
 namespace Raptor.Data.Migrations
 {
     [DbContext(typeof(RaptorDbContext))]
-    [Migration("20180706215520_AddContentTypeToImageFields")]
-    partial class AddContentTypeToImageFields
+    [Migration("20180709200637_ModifyBlogCommentFields")]
+    partial class ModifyBlogCommentFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,17 +34,10 @@ namespace Raptor.Data.Migrations
 
                     b.Property<bool>("Approved");
 
-                    b.Property<string>("Author")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("AuthorEmail")
-                        .HasMaxLength(100);
-
                     b.Property<string>("AuthorIp")
                         .HasMaxLength(100);
 
-                    b.Property<string>("AuthorUrl")
-                        .HasMaxLength(200);
+                    b.Property<int>("BusinessEntityId");
 
                     b.Property<string>("Content");
 
@@ -57,6 +50,8 @@ namespace Raptor.Data.Migrations
                     b.Property<int>("PostId");
 
                     b.HasKey("CommentId");
+
+                    b.HasIndex("BusinessEntityId");
 
                     b.HasIndex("PostId");
 
@@ -74,9 +69,7 @@ namespace Raptor.Data.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<byte[]>("CoverImage");
-
-                    b.Property<string>("CoverImageContentType");
+                    b.Property<string>("CoverImage");
 
                     b.Property<int>("CreatedById");
 
@@ -394,9 +387,7 @@ namespace Raptor.Data.Migrations
 
                     b.Property<string>("About");
 
-                    b.Property<byte[]>("Avatar");
-
-                    b.Property<string>("AvatarContentType");
+                    b.Property<string>("Avatar");
 
                     b.Property<DateTime>("DateCreatedUtc");
 
@@ -494,6 +485,11 @@ namespace Raptor.Data.Migrations
 
             modelBuilder.Entity("Raptor.Data.Models.Blog.BlogComment", b =>
                 {
+                    b.HasOne("Raptor.Data.Models.Users.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("BusinessEntityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Raptor.Data.Models.Blog.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")

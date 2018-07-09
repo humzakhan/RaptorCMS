@@ -29,7 +29,7 @@ namespace Raptor.Services.Blog
 
         public BlogPost GetBlogPostByLink(string link){
             return _blogPostsRepository
-                .IncludeMultiple(b => b.PostCategory, b => b.Comments, b => b.CreatedBy)
+                .IncludeMultiple(b => b.PostCategory, b => b.Comments, b => b.CreatedBy, b => b.Comments)
                 .SingleOrDefault(b => b.Link == link);
         }
 
@@ -67,6 +67,10 @@ namespace Raptor.Services.Blog
 
         public void DeleteBlogComments(IList<BlogComment> comments) {
             _blogCommentsRepository.DeleteRange(comments);
+        }
+
+        public void CreateBlogComent(BlogComment comment){
+            _blogCommentsRepository.Create(comment);
         }
 
         public IList<BlogPostCategory> GetBlogPostCategories(bool includePosts = false) {
@@ -119,7 +123,7 @@ namespace Raptor.Services.Blog
         }
 
         public IEnumerable<BlogComment> GetAllBlogComments() {
-            return _blogCommentsRepository.Include(c => c.Post).Select(c => c);
+            return _blogCommentsRepository.IncludeMultiple(c => c.Post, c => c.Person).Select(c => c);
         }
 
         public IEnumerable<BlogPost> GetBlogPosts(int categoryId = 0, int mostRecentCount = 0) {
