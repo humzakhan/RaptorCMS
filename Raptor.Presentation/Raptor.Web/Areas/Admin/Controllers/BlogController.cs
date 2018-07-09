@@ -11,6 +11,7 @@ using Raptor.Services.Logging;
 using Raptor.Web.Areas.Admin.ViewModels;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace Raptor.Web.Areas.Admin.Controllers
 {
@@ -51,7 +52,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("admin/blog/posts/create")]
-        public IActionResult Create(BlogPostViewModel model) {
+        public IActionResult Create(BlogPostViewModel model, IFormFile coverImage) {
             if (!ModelState.IsValid) return View(_blogPostView, model);
 
             try {
@@ -71,6 +72,11 @@ namespace Raptor.Web.Areas.Admin.Controllers
                     PostCategoryId = model.BlogPostCategoryId,
                     CreatedById = _workContext.CurrentUser.BusinessEntityId
                 };
+
+                if (coverImage != null) {
+                    blogPost.CoverImage = $"data:{coverImage.ContentType};base64,{Convert.ToBase64String(CommonHelper.GetByteArrayFromImage(coverImage))}";
+                    model.CoverImage = blogPost.CoverImage;
+                }
 
                 _blogService.CreateBlogPost(blogPost);
                 _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateBlogPost, "Created blog post: {0}", model.Title);
@@ -190,7 +196,8 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 Action = "Edit",
                 PageTitle = "Edit blog post",
                 BlogPostCategories = new SelectList(_blogService.GetBlogPostCategories().ToList(), "PostCategoryId", "Name"),
-                PostStatus = blogPost.Status
+                PostStatus = blogPost.Status,
+                CoverImage = blogPost.CoverImage
             };
 
             return View(_blogPostView, model);
@@ -198,7 +205,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(BlogPostViewModel model) {
+        public IActionResult Edit(BlogPostViewModel model, IFormFile coverImage) {
             if (!ModelState.IsValid) return View(_blogPostView, model);
 
             var blogPost = _blogService.GetBlogPostById(model.BlogPostId);
@@ -215,6 +222,14 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 blogPost.IsCommentsAllowed = model.IsCommentsAllowed;
                 blogPost.Password = model.Password;
                 blogPost.Status = model.PostStatus;
+
+                if (coverImage != null) {
+                    var postedCoverImage = $"data:{coverImage.ContentType};base64,{Convert.ToBase64String(CommonHelper.GetByteArrayFromImage(coverImage))}";
+                    if (blogPost.CoverImage != postedCoverImage) {
+                        blogPost.CoverImage = postedCoverImage;
+                        model.CoverImage = postedCoverImage;
+                    }
+                }
 
                 _blogService.UpdateBlogPost(blogPost);
                 _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateBlogPost, "Updated blog post, id: {0}, title: {1}", model.BlogPostId, model.Title);

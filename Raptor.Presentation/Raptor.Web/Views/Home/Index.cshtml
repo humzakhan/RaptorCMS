@@ -12,7 +12,7 @@
             @foreach (var post in Model.MostRecentPosts)
             {
                 <div class="col-md-6 col-lg-4">
-                    <a href="@Url.Action("BlogPost", "Home", new { link = post.Link })" class="a-block d-flex align-items-center height-md" style="background-image: url('~/themes/balita/images/default-blog.jpg'); ">
+                    <a href="@Url.Action("BlogPost", "Home", new { link = post.Link })" class="a-block d-flex align-items-center height-md" style="background-image: url('@post.CoverImage'); ">
                         <div class="text">
                             <div class="post-meta">
                                 <span class="category">@BlogService.GetBlogPostCategoryById(post.BlogPostId).Name</span>

@@ -27,6 +27,9 @@ namespace Raptor.Web.Areas.Admin.ViewModels
 
         public string Password { get; set; }
 
+        [Display(Name = "Cover Image")]
+        public string CoverImage { get; set; }
+
         public SelectList BlogPostCategories { get; set; }
     }
 }

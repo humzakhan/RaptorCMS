@@ -39,7 +39,7 @@
                             <tr>
                                 <td>@post.BlogPostId</td>
                                 <td>
-                                    <a href="@post.Link">@post.Title</a>
+                                    <a href="@Url.Action("BlogPost", "Home", new { area = "", link = post.Link })">@post.Title</a>
                                 </td>
                                 <td>@post.CreatedBy.DisplayName</td>
                                 <td>@post.PostCategoryId</td>
