@@ -234,6 +234,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 _blogService.UpdateBlogPost(blogPost);
                 _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateBlogPost, "Updated blog post, id: {0}, title: {1}", model.BlogPostId, model.Title);
 
+                model.PageTitle = "Edit blog post";
                 ViewBag.Status = "OK";
                 ViewBag.Message = "Your changes have been saved successfully.";
             }

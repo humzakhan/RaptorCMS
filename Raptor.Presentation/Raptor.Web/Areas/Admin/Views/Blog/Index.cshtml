@@ -1,4 +1,6 @@
+@using Raptor.Data.Models
 @model IEnumerable<BlogPost>
+@inject IBlogService BlogService
 @{
     ViewBag.Title = "Blog Posts";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -39,13 +41,26 @@
                             <tr>
                                 <td>@post.BlogPostId</td>
                                 <td>
-                                    <a href="@Url.Action("BlogPost", "Home", new { area = "", link = post.Link })">@post.Title</a>
+                                    <a target="_blank" href="@Url.Action("BlogPost", "Home", new { area = "", link = post.Link })">@post.Title</a>
                                 </td>
-                                <td>@post.CreatedBy.DisplayName</td>
-                                <td>@post.PostCategoryId</td>
-                                <td>@post.CommentsCount</td>
-                                <td>@post.Status.ToString()</td>
-                                <td>@post.DateCreatedUtc.ToString("MM/dd/yy hh:mm tt")</td>
+                                <td style="width: 80px;">@post.CreatedBy.DisplayName</td>
+                                <td class="text-center">@BlogService.GetBlogPostCategoryById(post.PostCategoryId).Name</td>
+                                <td class="text-center">@post.CommentsCount</td>
+                                <td>
+                                    @if (post.Status == PostStatus.Published)
+                                    {
+                                        <span class="badge badge-success">Published</span>
+                                    }
+                                    else if (post.Status == PostStatus.Draft)
+                                    {
+                                        <span class="badge badge-warning">Draft</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-default">Unknown</span>
+                                    }
+                                </td>
+                                <td style="width: 120px;">@post.DateCreatedUtc.ToString("MMM dd, yy HH:mm ")</td>
                                 <td>
                                     <a href="@Url.Action("Edit", "Blog", new {id = post.BlogPostId})" class="btn btn-secondary">
                                         <i class="fa fa-pencil position-left"></i>
