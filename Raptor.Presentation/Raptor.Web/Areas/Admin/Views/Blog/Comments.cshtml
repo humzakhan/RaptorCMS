@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<BlogComment>
+@inject IBlogService BlogService
 @{
     ViewBag.Title = "Blog Comments";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -25,6 +26,7 @@
                             <th>Email</th>
                             <th>IP Address</th>
                             <th>Post</th>
+                            <th>Comment</th>
                             <th>Date</th>
                             <th>Actions</th>
                         </tr>
@@ -38,8 +40,12 @@
                                 <td>@comment.Person.EmailAddress</td>
                                 <td>@comment.AuthorIp</td>
                                 <td>
-                                    <a href="" class="small"></a> 
+                                    @{ var blogPost = BlogService.GetBlogPostById(comment.BlogPostId); }
+                                    <a href="@Url.Action("BlogPost", "Home", new { area = "", link = blogPost.Link })" class="small" target="_blank">
+                                        @blogPost.Title
+                                    </a>
                                 </td>
+                                <td>@comment.Content</td>
                                 <td>@comment.DateCreated.ToString("MMMM dd, yyyy hh:mm tt")</td>
                                 <td>none</td>
                             </tr>
