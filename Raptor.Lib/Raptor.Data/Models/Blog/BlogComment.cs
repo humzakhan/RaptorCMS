@@ -11,8 +11,8 @@ namespace Raptor.Data.Models.Blog
         [Key]
         public int CommentId { get; set; }
         
-        [ForeignKey(nameof(Post))]
-        public int PostId { get; set; }
+        [ForeignKey(nameof(BlogPost))]
+        public int BlogPostId { get; set; }
 
         [ForeignKey(nameof(Person))]
         public int BusinessEntityId { get; set; }
@@ -33,8 +33,8 @@ namespace Raptor.Data.Models.Blog
         [StringLength(255)]
         public string Agent { get; set; }
 
-        public BlogPost Post { get; set; }
+        public virtual BlogPost BlogPost { get; set; }
 
-        public Person Person { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

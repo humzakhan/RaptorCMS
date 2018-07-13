@@ -23,8 +23,8 @@
 
                 <!--- BLOG COMMENTS -->
                 <div class="pt-5">
-                    <h3 class="mb-5">@Model.BlogPost.CommentsCount Comments</h3>
-                    <ul class="comment-list">
+                    <h3 class="mb-5"><span id="commentsCount">@Model.BlogPost.CommentsCount</span> Comments</h3>
+                    <ul class="comment-list" id="commentsList">
                         @if (Model.BlogPost.CommentsCount > 0) {
                             foreach (var comment in Model.BlogPost.Comments) {
                                  <li class="comment">
@@ -171,6 +171,23 @@
 
 @section scripts {
     <script type="text/javascript">
+        function commentHtml(content) {
+            var html = '<li class="comment">\
+                            <div class="vcard">\
+                                <img src="@WorkContext.CurrentUser.Avatar" alt="Image placeholder">\
+                            </div>\
+                            <div class="comment-body">\
+                                <h3>@WorkContext.CurrentUser.DisplayName</h3>\
+                            <div class="meta"></div>\
+                            <p>'+content+'</p>\
+                            <p><a href="#" class="reply">Reply</a></p>\
+                            </div>\
+                        </li>';
+
+            return html;
+        }
+    </script>
+    <script type="text/javascript">
         $(function() {
             $("#commentForm").submit(function(e) {
                 e.preventDefault();
@@ -179,14 +196,18 @@
                 var postUrl = '/publish/comment';
                 var postedValues = { CommentContent: comment, BlogPostId: @Model.BlogPost.BlogPostId };
 
-                $.post(postUrl, postedValues, function (result)
-                {
+                $.post(postUrl, postedValues, function(result) {
                     var report = JSON.parse(JSON.stringify(result));
 
                     if (report.status) {
                         alert('Comment published successfully!');
-                    }
-                    else {
+                        $('#commentsList').append(commentHtml(comment));
+
+                        var commentsCount = parseInt($('#commentsCount').text());
+                        commentsCount += 1;
+
+                        $('#commentsCount').text(commentsCount);
+                    } else {
                         alert('An error occurred when commenting: ' + report.message);
                     }
                 });

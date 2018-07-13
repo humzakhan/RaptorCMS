@@ -61,7 +61,7 @@ namespace Raptor.Web.Controllers
         public IActionResult PublishComment(CommentViewModel model){
             try {
                 var blogComment = new BlogComment() {
-                    PostId = model.BlogPostId,
+                    BlogPostId = model.BlogPostId,
                     Content = model.CommentContent,
                     BusinessEntityId = _workContext.CurrentUser.BusinessEntityId,
                     AuthorIp = HttpContext.Connection.RemoteIpAddress.ToString(),

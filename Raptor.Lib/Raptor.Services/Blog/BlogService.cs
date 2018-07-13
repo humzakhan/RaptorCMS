@@ -3,6 +3,7 @@ using Raptor.Data.Models.Blog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Raptor.Services.Blog
 {
@@ -50,15 +51,15 @@ namespace Raptor.Services.Blog
         }
 
         public IList<BlogComment> GetBlogCommentsById(int blogPostId) {
-            return _blogCommentsRepository.Find(c => c.PostId == blogPostId).ToList();
+            return _blogCommentsRepository.Find(c => c.BlogPostId == blogPostId).ToList();
         }
 
         public IList<BlogComment> GetBlogCommentsByIds(int[] blogPostIds) {
-            return _blogCommentsRepository.Find(c => blogPostIds.Contains(c.PostId)).ToList();
+            return _blogCommentsRepository.Find(c => blogPostIds.Contains(c.BlogPostId)).ToList();
         }
 
         public int GetBlogCommentsCount(int blogPostId, bool isApproved = true) {
-            return _blogCommentsRepository.Find(c => c.PostId == blogPostId && c.Approved == isApproved).Count();
+            return _blogCommentsRepository.Find(c => c.BlogPostId == blogPostId && c.Approved == isApproved).Count();
         }
 
         public void DeleteBlogComment(BlogComment comment) {
@@ -122,8 +123,8 @@ namespace Raptor.Services.Blog
             return _blogPostCategoriesRepository.SingleOrDefault(c => c.Slug == slug);
         }
 
-        public IEnumerable<BlogComment> GetAllBlogComments() {
-            return _blogCommentsRepository.IncludeMultiple(c => c.Post, c => c.Person).Select(c => c);
+        public IEnumerable<BlogComment> GetAllBlogComments(){
+            return _blogCommentsRepository.IncludeMultiple(c => c.BlogPost, c => c.Person).ToList();
         }
 
         public IEnumerable<BlogPost> GetBlogPosts(int categoryId = 0, int mostRecentCount = 0) {
