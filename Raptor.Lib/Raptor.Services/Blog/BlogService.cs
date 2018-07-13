@@ -30,7 +30,7 @@ namespace Raptor.Services.Blog
 
         public BlogPost GetBlogPostByLink(string link){
             return _blogPostsRepository
-                .IncludeMultiple(b => b.PostCategory, b => b.Comments, b => b.CreatedBy, b => b.Comments)
+                .IncludeMultiple(b => b.PostCategory, b => b.Comments, b => b.CreatedBy, b => b.CreatedBy.SocialProfile,b => b.Comments)
                 .SingleOrDefault(b => b.Link == link);
         }
 

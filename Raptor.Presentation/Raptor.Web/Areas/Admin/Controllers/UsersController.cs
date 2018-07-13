@@ -63,6 +63,12 @@ namespace Raptor.Web.Areas.Admin.Controllers
                         return View(_userAccountView, model);
                     }
                 }
+                
+                var socialProfile = new SocialProfile() {
+                    BusinessEntityId = user.BusinessEntityId
+                };
+
+                _userService.CreateSocialProfile(socialProfile);
 
                 model.Title = "Add Users";
                 ViewBag.Status = "OK";

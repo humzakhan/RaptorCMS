@@ -24,14 +24,14 @@
     </div>
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                Basic Information
-            </div>
-            <div class="card-block">
-                <form asp-controller="Account" asp-action="Settings" method="post" class="form-horizontal" enctype="multipart/form-data">
+<form asp-controller="Account" asp-action="Settings" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Basic Information
+                </div>
+                <div class="card-block">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
@@ -115,46 +115,98 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Social Profiles
+                </div>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="control-label text-bold col-md-4" asp-for="FacebookUrl"></label>
+                                <div class="col-md-8">
+                                    <input type="text" asp-for="FacebookUrl" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="control-label text-bold col-md-4" asp-for="TwitterUrl"></label>
+                                <div class="col-md-8">
+                                    <input type="text" asp-for="TwitterUrl" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="control-label text-bold col-md-4" asp-for="InstagramUrl"></label>
+                                <div class="col-md-8">
+                                    <input type="text" asp-for="InstagramUrl" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="control-label text-bold col-md-4" asp-for="YoutubeUrl"></label>
+                                <div class="col-md-8">
+                                    <input type="text" asp-for="YoutubeUrl" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-block">
                     <div class="pull-right">
                         <button class="btn btn-primary">
                             <i class="fa fa-arrow-right position-left"></i>
                             Save Changes
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
-@section scripts {
-    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.unobtrusive.min.js"></script>
-    <script type="text/javascript">
-        $('#avatar').change(myUploadOnChangeFunction);
+        @section scripts {
+            <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.min.js"></script>
+            <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.unobtrusive.min.js"></script>
+            <script type="text/javascript">
+                $('#avatar').change(myUploadOnChangeFunction);
 
-        function createObjectURL(object) {
-            return (window.URL) ? window.URL.createObjectURL(object) : window.webkitURL.createObjectURL(object);
-        }
+                function createObjectURL(object) {
+                    return (window.URL) ? window.URL.createObjectURL(object) : window.webkitURL.createObjectURL(object);
+                }
 
-        function revokeObjectURL(url) {
-            return (window.URL) ? window.URL.revokeObjectURL(url) : window.webkitURL.revokeObjectURL(url);
-        }
+                function revokeObjectURL(url) {
+                    return (window.URL) ? window.URL.revokeObjectURL(url) : window.webkitURL.revokeObjectURL(url);
+                }
 
-        function myUploadOnChangeFunction() {
-            if(this.files.length) {
-                for(var i in this.files) {
-                    if(this.files.hasOwnProperty(i)){
-                        console.log(i);
-                        var src = createObjectURL(this.files[i]);
-                        var image = new Image();
-                        image.src = src;
-                        $('#avatarImg').attr('src', src);
+                function myUploadOnChangeFunction() {
+                    if (this.files.length) {
+                        for (var i in this.files) {
+                            if (this.files.hasOwnProperty(i)) {
+                                console.log(i);
+                                var src = createObjectURL(this.files[i]);
+                                var image = new Image();
+                                image.src = src;
+                                $('#avatarImg').attr('src', src);
+                            }
+                        }
                     }
                 }
-            }
+            </script>
         }
-    </script> 
-}
 

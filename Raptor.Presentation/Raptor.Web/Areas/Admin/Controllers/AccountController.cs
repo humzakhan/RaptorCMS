@@ -41,6 +41,11 @@ namespace Raptor.Web.Areas.Admin.Controllers
             var currentUser = _userService.GetUserByEmail(emailClaim.Value);
             var userViewModel = AutoMapper.Mapper.Map<Person, UserViewModel>(currentUser);
 
+            userViewModel.FacebookUrl = currentUser.SocialProfile.FacebookUrl;
+            userViewModel.TwitterUrl = currentUser.SocialProfile.TwitterUrl;
+            userViewModel.YoutubeUrl = currentUser.SocialProfile.YoutubeUrl;
+            userViewModel.InstagramUrl = currentUser.SocialProfile.InstagramUrl;
+
             return View(userViewModel);
         }
 
@@ -95,9 +100,15 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 currentUser.Website = model.Website;
                 currentUser.DisplayName = !string.IsNullOrEmpty(model.MiddleName) ? $"{model.FirstName} {model.MiddleName} {model.LastName}" : $"{model.FirstName} {model.LastName}";
 
+                currentUser.SocialProfile.FacebookUrl = model.FacebookUrl;
+                currentUser.SocialProfile.InstagramUrl = model.InstagramUrl;
+                currentUser.SocialProfile.YoutubeUrl = model.YoutubeUrl;
+                currentUser.SocialProfile.TwitterUrl = model.TwitterUrl;
+
                 _userService.UpdateUser(currentUser);
                 _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateProfile, "Updated profile information.");
 
+                
                 _workContext.CurrentUser = currentUser;
 
                 ViewBag.Status = "OK";

@@ -80,6 +80,7 @@ namespace Raptor.Web
             services.AddTransient<IRepository<ActivityLogType>, Repository<ActivityLogType>>();
             services.AddTransient<IRepository<ForgotPasswordRequest>, Repository<ForgotPasswordRequest>>();
             services.AddTransient<IRepository<Setting>, Repository<Setting>>();
+            services.AddTransient<IRepository<SocialProfile>, Repository<SocialProfile>>();
 
             // Register our services
             services.AddTransient<IBlogService, BlogService>();

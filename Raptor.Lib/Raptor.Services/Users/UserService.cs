@@ -15,19 +15,22 @@ namespace Raptor.Services.Users
         private readonly IRepository<BusinessEntity> _businessEntityRepository;
         private readonly IRepository<Password> _passwordRepository;
         private readonly IRepository<ForgotPasswordRequest> _forgotPasswordRequestsRepository;
+        private readonly IRepository<SocialProfile> _socialProfileRepository;
         private readonly IList<Expression<Func<Person, object>>> _userProperties;
 
-        public UserService(IRepository<Person> peopleRepository, IRepository<BusinessEntity> businessEntityRepository, IRepository<Password> passwordRepository, IRepository<ForgotPasswordRequest> forgotPasswordRequestsRepository) {
+        public UserService(IRepository<Person> peopleRepository, IRepository<BusinessEntity> businessEntityRepository, IRepository<Password> passwordRepository, IRepository<ForgotPasswordRequest> forgotPasswordRequestsRepository, IRepository<SocialProfile> socialProfileRepository) {
             _peopleRepository = peopleRepository;
             _businessEntityRepository = businessEntityRepository;
             _passwordRepository = passwordRepository;
             _forgotPasswordRequestsRepository = forgotPasswordRequestsRepository;
+            _socialProfileRepository = socialProfileRepository;
 
             _userProperties = new List<Expression<Func<Person, object>>> {
                 u => u.Password,
                 u => u.PhoneNumbers,
                 u => u.UserRoles,
-                u => u.BusinessEntity
+                u => u.BusinessEntity,
+                u => u.SocialProfile
             };
 
         }
@@ -247,6 +250,23 @@ namespace Raptor.Services.Users
         /// <returns>Forgot Password Request</returns>
         public ForgotPasswordRequest GetForgotPasswordRequest(string link) {
             return _forgotPasswordRequestsRepository.SingleOrDefault(s => s.Link == link);
+        }
+
+        /// <summary>
+        /// Create social profile
+        /// </summary>
+        /// <param name="profile">Social profile object to create</param>
+        public void CreateSocialProfile(SocialProfile profile){
+            _socialProfileRepository.Create(profile);
+        }
+
+        /// <summary>
+        /// Find social profile by user id
+        /// </summary>
+        /// <param name="userId">Id of the user whos social profile to get</param>
+        /// <returns>SocialProfile of the user</returns>
+        public SocialProfile GetSocialProfileById(int userId){
+            return _socialProfileRepository.SingleOrDefault(p => p.BusinessEntityId == userId);
         }
 
         /// <summary>

@@ -58,6 +58,8 @@ namespace Raptor.Data.Models.Users
 
         public virtual ICollection<BlogComment> BlogComments { get; set; }
 
+        public virtual SocialProfile SocialProfile { get; set; }
+
         public virtual Password Password { get; set; }
 
         public bool IsInRole(string systemKeyword) {

@@ -125,5 +125,18 @@ namespace Raptor.Services.Users
         /// <param name="link">Link for which the request is to be fetched</param>
         /// <returns>Forgot Password Request</returns>
         ForgotPasswordRequest GetForgotPasswordRequest(string link);
+
+       /// <summary>
+       /// Create social profile
+       /// </summary>
+       /// <param name="profile">Social profile object to create</param>
+        void CreateSocialProfile(SocialProfile profile);
+
+        /// <summary>
+        /// Find social profile by user id
+        /// </summary>
+        /// <param name="userId">Id of the user whos social profile to get</param>
+        /// <returns>SocialProfile of the user</returns>
+        SocialProfile GetSocialProfileById(int userId);
     }
 }

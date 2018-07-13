@@ -1,6 +1,8 @@
 ﻿@using Raptor.Services.Helpers
+@using Raptor.Services.Users
 @model DisplayPostViewModel
 @inject IWorkContext WorkContext;
+@inject IUserService UserService;
 @{
     ViewBag.Title = Model.BlogPost.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -89,12 +91,13 @@
                         <div class="bio-body">
                             <h2>@Model.BlogPost.CreatedBy.DisplayName</h2>
                             <p>@Model.BlogPost.CreatedBy.About</p>
-                            <p><a href="@Model.BlogPost.CreatedBy.Website" class="btn btn-primary btn-sm" style="color: #fff;">Read More</a></p>
+                            <p><a target="_blank" href="@Model.BlogPost.CreatedBy.Website" class="btn btn-primary btn-sm" style="color: #fff;">Read More</a></p>
                             <p class="social">
-                                <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                                <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                                <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
-                                <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
+                                @{ var social = UserService.GetSocialProfileById(Model.BlogPost.CreatedById); }
+                                <a target="_blank" href="@social.FacebookUrl" class="p-2"><span class="fa fa-facebook"></span></a>
+                                <a target="_blank" href="@social.TwitterUrl" class="p-2"><span class="fa fa-twitter"></span></a>
+                                <a target="_blank" href="@social.InstagramUrl" class="p-2"><span class="fa fa-instagram"></span></a>
+                                <a target="_blank" href="@social.YoutubeUrl" class="p-2"><span class="fa fa-youtube-play"></span></a>
                             </p>
                         </div>
                     </div>
