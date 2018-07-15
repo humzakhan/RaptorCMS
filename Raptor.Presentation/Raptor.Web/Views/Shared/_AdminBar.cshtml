@@ -1,0 +1,59 @@
+﻿@inject IWorkContext WorkContext
+@model string
+
+<div id="adminbar">
+    <ul>
+        <li>
+            <a href="#">
+                <img src="~/admin-theme/assets/img/raptor-logo.png" alt="RaptorCMS" class="raptor-logo" />
+            </a>
+        </li>
+        <li>
+            @if (Model == "home")
+            {
+                <a href="@Url.Action("Index", "Home", new { area = "" })">
+                    <i class="fa fa-home"></i>
+                    <span style="margin-left: 7px;">
+                        @if (string.IsNullOrEmpty(ViewBag.SiteTitle)) {
+                            <span>RaptorCMS</span>
+                        }
+                        else {
+                            <span>@ViewBag.Title</span>
+                        }
+                        | Main Website
+                    </span>
+                </a>
+            }
+            else if (Model == "admin" ) 
+            { 
+                <a href="@Url.Action("Index", "Home", new { area = "admin" })">
+                    <i class="fa fa-tachometer"></i>
+                    <span style="margin-left: 7px;">@ViewBag.SiteTitle | Admin</span>
+                </a>
+            }
+        </li>
+        <li>
+            <a href="@Url.Action("Create", "Blog", new { area = "admin" })">
+                <i class="fa fa-plus"></i>
+                <span style="margin-left: 7px;">New</span>
+            </a>
+        </li>
+    </ul>
+
+    <ul  style="float: right; text-align: right;">
+        <li>
+            @if (WorkContext.CurrentUser != null) {
+                <a href="@Url.Action("Settings", "Account", new { area = "admin" })">
+                    <i class="fa fa-user"></i>
+                    <span style="margin-left: 7px;">Hello, @WorkContext.CurrentUser.LastName</span>
+                </a>
+            }
+            else {
+                <a href="@Url.Action("Login", "Auth")">
+                    <i class="fa fa-key"></i>
+                    <span style="margin-left: 7px;">Login / Register</span>
+                </a>
+            }
+        </li>
+    </ul>
+</div>

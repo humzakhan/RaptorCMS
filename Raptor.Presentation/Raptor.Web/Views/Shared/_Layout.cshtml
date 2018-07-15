@@ -1,11 +1,12 @@
-﻿@using Raptor.Services.Configuration
-@using Raptor.Data.Models.Configuration
-@inject ISettingService settings
+﻿@inject ISettingService settings
+@{
+    ViewBag.SiteTitle = settings.GetSettingByKey(SettingsConstants.SiteName).Value;
+}
 
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>@ViewBag.Title | @settings.GetSettingByKey(SettingsConstants.SiteName).Value</title>
+    <title>@ViewBag.Title | @ViewBag.SiteTitle</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -20,10 +21,12 @@
     <link rel="stylesheet" href="~/themes/balita/fonts/flaticon/font/flaticon.css">
 
     <link asp-append-version="true" rel="stylesheet" href="~/themes/balita/css/style.css">
+    <link asp-append-version="true" href="~/admin-theme/assets/css/admin.css" rel="stylesheet" />
 </head>
 <body>
 
     <!-- HEADER -->
+    @Html.Partial("_AdminBar", "admin")
     <header role="banner">
         <div class="top-bar">
             <div class="container">
@@ -138,6 +141,7 @@
     <script src="~/themes/balita/js/jquery.waypoints.min.js"></script>
     <script src="~/themes/balita/js/jquery.stellar.min.js"></script>
     <script src="~/themes/balita/js/main.js"></script>
+    <script src="~/admin-theme/assets/js/admin.js"></script>
 
     @RenderSection(name: "scripts", required: false)
     @RenderSection(name: "styles", required: false)

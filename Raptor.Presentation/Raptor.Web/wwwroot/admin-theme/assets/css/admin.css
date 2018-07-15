@@ -1,0 +1,71 @@
+﻿#adminbar {
+    direction: ltr;
+    color: #ccc;
+    height: 32px;
+    min-width: 600px;
+    z-index: 99999;
+    font-size: 14px;
+    background: #191717;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+}
+
+#adminbar * {
+    height: auto;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    position: static;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    border-radius: 0;
+    box-sizing: content-box;
+    transition: none;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+}
+
+#adminbar ul {
+    text-align: left;
+    background: 0 0;
+    clear: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-indent: 0;
+    z-index: 99999;
+}
+
+#adminbar ul li {
+    float: left;
+}
+
+    #adminbar ul li a {
+        color: #fff;
+        display: inline-block;
+        vertical-align: middle;
+        transition: background-color 0.5s ease;
+        padding: 3px 13px;
+    }
+
+        #adminbar ul li a:hover,
+        #adminbar ul li a:focus {
+            color: #00b9eb;
+            background: rgba(87, 88, 89, 0.25);
+            text-decoration: none;
+        }
+
+.raptor-logo {
+    height: 80px;
+    width: auto;
+}
+
+
+
