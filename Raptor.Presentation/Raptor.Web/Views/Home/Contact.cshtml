@@ -1,0 +1,54 @@
+﻿@model ContactViewModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<section class="site-section">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h1>Contact</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-8 main-content">
+                <form method="post" asp-controller="Home" asp-action="Contact">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label asp-for="Name"></label>
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                            <input type="text" class="form-control" asp-for="Name" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label asp-for="PhoneNumber"></label>
+                            <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            <input type="text" class="form-control" asp-for="PhoneNumber" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label asp-for="EmailAddress"></label>
+                            <span asp-validation-for="EmailAddress" class="text-danger small"></span>
+                            <input type="text" class="form-control" asp-for="EmailAddress" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label asp-for="Message"></label>
+                            <span asp-validation-for="Message" class="text-danger small"></span>
+                            <textarea asp-for="Message" class="form-control " cols="30" rows="8"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <input type="submit" value="Send Message" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/admin-theme/lib/js/jquery.validate.unobtrusive.min.js"></script>
+}

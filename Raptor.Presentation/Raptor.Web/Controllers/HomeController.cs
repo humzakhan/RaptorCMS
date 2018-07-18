@@ -85,5 +85,10 @@ namespace Raptor.Web.Controllers
                 return new JsonResult(new { Status = false, Message = ex.Message});
             }
         }
+
+        [Route("contact")]
+        public IActionResult Contact() {
+            return View();
+        }
     }
 }
