@@ -67,5 +67,10 @@
     width: auto;
 }
 
+.post-entry-horzontal a .text {
+    width: 75%;
+    border-left: solid;
+}
+
 
 

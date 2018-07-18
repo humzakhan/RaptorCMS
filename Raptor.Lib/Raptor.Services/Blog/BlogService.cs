@@ -105,6 +105,10 @@ namespace Raptor.Services.Blog
             _blogPostCategoriesRepository.Update(category);
         }
 
+        public bool BlogPostCategoryExists(int categoryId) {
+            return _blogPostCategoriesRepository.Any(categoryId);
+        }
+
         public void CreateBlogPostCategory(string name, string slug, string description) {
             var category = new BlogPostCategory() {
                 Name = name,
