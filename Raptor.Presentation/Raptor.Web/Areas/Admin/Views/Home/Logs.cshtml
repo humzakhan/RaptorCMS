@@ -80,7 +80,9 @@
                             <tr>
                                 <td>@log.LogId</td>
                                 <td>@log.LogLevel.ToString()</td>
-                                <td class="w-50">@log.ShortMessage</td>
+                                <td class="w-50">
+                                    <a href="@Url.Action("ViewLog", "Home", new { logId = log.LogId })">@log.ShortMessage</a>
+                                </td>
                                 <td>@log.DateCreatedUtc.ToString("MMM dd, yyyy hh:mm tt")</td>
                                 <td class="d-none"></td>
                                 <td class="d-none"></td>

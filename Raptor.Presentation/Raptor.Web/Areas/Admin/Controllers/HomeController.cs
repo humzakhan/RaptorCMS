@@ -99,6 +99,21 @@ namespace Raptor.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [Route("admin/logs/{logId}")]
+        public IActionResult ViewLog(int logId) {
+            try {
+                var logEntry = _logsFactory.GetLogById(logId);
+
+                if (logEntry == null) return RedirectToAction("Logs");
+
+                return View("LogView", logEntry);
+            }
+            catch (Exception ex) {
+                _logsFactory.InsertLog(LogLevel.Error, "An error occurred when tried to fetch log.", ex.Message);
+                return RedirectToAction("Logs");
+            }
+        }
+
         [HttpPost]
         public IActionResult QuickDraft(DashboardViewModel model) {
             try {
