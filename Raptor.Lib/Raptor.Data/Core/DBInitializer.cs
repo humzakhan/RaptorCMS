@@ -146,7 +146,8 @@ namespace Raptor.Data.Core
                 new ActivityLogType() { DisplayName = "View Roles", Enabled = true, SystemKeyword = "roles.view" },
                 new ActivityLogType() { DisplayName = "Edit Roles", Enabled = true, SystemKeyword = "roles.edit" },
                 new ActivityLogType() { DisplayName = "Delete Roles", Enabled = true, SystemKeyword = "roles.delete" },
-                new ActivityLogType() { DisplayName = "Update Settings", Enabled = true, SystemKeyword = "settings.update" }
+                new ActivityLogType() { DisplayName = "Update Settings", Enabled = true, SystemKeyword = "settings.update" },
+                new ActivityLogType() { DisplayName = "View Acitivty Logs", Enabled = true, SystemKeyword = "logs.activity.view"}
             };
 
             DbContext.ActivityLogTypes.AddRange(activityLogTypes);

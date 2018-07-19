@@ -204,7 +204,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                     ViewBag.Message = "Your changes have been saved successfully.";
 
                     _userRolesService.UpdateUserRole(role);
-                    _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.EditRoles, $"Edited user role: {role.SystemKeyword}");
+                    _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.EditRoles, $"Edited user role: {role.SystemKeyword}");
                 }
             }
             catch (Exception ex) {
@@ -242,7 +242,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 var role = AutoMapper.Mapper.Map<RoleViewModel, Role>(model);
 
                 _userRolesService.CreateUserRole(role);
-                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.CreateRole, $"Created user role: {role.SystemKeyword}");
+                _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.CreateRole, $"Created user role: {role.SystemKeyword}");
 
 
                 model.Title = "Create Role";

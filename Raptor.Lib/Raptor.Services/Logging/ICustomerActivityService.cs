@@ -45,7 +45,7 @@ namespace Raptor.Services.Logging
         /// <param name="comment">The activity comment</param>
         /// <param name="commentParams">The activity comment parameters for string.Format() function.</param>
         /// <returns>Activity log item</returns>
-        ActivityLog InsertActivity(BusinessEntity user, string systemKeyword, string comment = "", params object[] commentParams);
+        ActivityLog InsertActivity(Person user, string systemKeyword, string comment = "", params object[] commentParams);
 
         /// <summary>
         /// Gets an activity log item

@@ -48,7 +48,7 @@ namespace Raptor.Services.Authentication
                     IssuedUtc = DateTime.UtcNow
                 };
 
-                _activityTracker.InsertActivity(user.BusinessEntity, ActivityLogDefaults.LoggedIn, "User logged in");
+                _activityTracker.InsertActivity(user, ActivityLogDefaults.LoggedIn, "User logged in");
 
                 await _httpContextAccessor.HttpContext.SignInAsync(RaptorCookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authenticationProperties);
             }
@@ -63,8 +63,12 @@ namespace Raptor.Services.Authentication
         /// Signs out the currently logged in user
         /// </summary>
         public void SignOut() {
+            var tempUser = _cachedUser;
             _cachedUser = null;
             _httpContextAccessor.HttpContext.SignOutAsync(RaptorCookieAuthenticationDefaults.AuthenticationScheme);
+
+            _activityTracker.InsertActivity(tempUser, ActivityLogDefaults.LoggedOut, "User logged out");
+            tempUser = null;
         }
 
         /// <summary>

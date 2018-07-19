@@ -14,9 +14,10 @@ using System;
 namespace Raptor.Data.Migrations
 {
     [DbContext(typeof(RaptorDbContext))]
-    partial class RaptorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180719155222_AddForeignKeyToPersonsActivityLog")]
+    partial class AddForeignKeyToPersonsActivityLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

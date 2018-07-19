@@ -79,7 +79,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 }
 
                 _blogService.CreateBlogPost(blogPost);
-                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateBlogPost, "Created blog post: {0}", model.Title);
+                _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.UpdateBlogPost, "Created blog post: {0}", model.Title);
 
                 ViewBag.Status = "OK";
                 ViewBag.Message = $"Blog post published: {model.Title}";
@@ -110,7 +110,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
             try {
                 _blogService.CreateBlogPostCategory(model.Name, model.Slug, model.Description);
-                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.AddBlogPostCategory, "Created new blog post category: {0}", model.Name);
+                _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.AddBlogPostCategory, "Created new blog post category: {0}", model.Name);
 
                 ViewBag.Status = "OK";
                 ViewBag.Message = "New blog post category successfully added";
@@ -161,7 +161,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 category.Description = model.Description;
 
                 _blogService.UpdateBlogPostCategory(category);
-                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.EditBlogPostCategory, "Updated blog post category: {0} - {1}", model.CategoryId, model.Name);
+                _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.EditBlogPostCategory, "Updated blog post category: {0} - {1}", model.CategoryId, model.Name);
 
                 ViewBag.Status = "OK";
                 ViewBag.Message = "Your changes have been saved successfully.";
@@ -232,7 +232,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 }
 
                 _blogService.UpdateBlogPost(blogPost);
-                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateBlogPost, "Updated blog post, id: {0}, title: {1}", model.BlogPostId, model.Title);
+                _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.UpdateBlogPost, "Updated blog post, id: {0}, title: {1}", model.BlogPostId, model.Title);
 
                 model.PageTitle = "Edit blog post";
                 ViewBag.Status = "OK";

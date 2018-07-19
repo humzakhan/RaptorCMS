@@ -72,7 +72,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 _settingsService.SetSetting(SettingsConstants.YoutubeUrl, model.YoutubeUrl);
                 _settingsService.SetSetting(SettingsConstants.DefaultUserRole, model.DefaultUserRoleId.ToString());
 
-                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.UpdateSettings, "Updated the settings");
+                _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.UpdateSettings, "Updated the settings");
 
                 ViewBag.Status = "OK";
                 ViewBag.Message = "Your changes have been saved.";

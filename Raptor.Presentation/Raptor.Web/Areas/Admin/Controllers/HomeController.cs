@@ -52,6 +52,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
             catch (Exception ex) {
                 _logsFactory.InsertLog(LogLevel.Error, ex.Message, ex.ToString());
             }
+            
 
             return View(model);
         }
@@ -78,6 +79,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 Logs = _logsFactory.GetAllLogs().ToList()
             };
 
+            _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.ViewLogs, "Viewed app logs");
             return View(model);
         }
 
@@ -89,13 +91,13 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
             try {
                 model.Logs = _logsFactory.SearchLogs(DateTime.Parse(model.DateFrom), DateTime.Parse(model.DateTo), model.LogLevel).ToList();
-                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.ViewLogs, $"Viewed logs from {model.DateFrom} to {model.DateTo} for level {model.LogLevel}");
             }
             catch (Exception ex) {
                 ModelState.AddModelError("", $"An error occurred when searching for logs. {ex.Message}");
                 _logsFactory.InsertLog(LogLevel.Error, $"An error occurred when searching for logs. {ex.Message}", ex.ToString());
             }
 
+            _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.ViewLogs, $"Searched app logs from {model.DateFrom} to {model.DateTo} for level {model.LogLevel}");
             return View(model);
         }
 
@@ -106,6 +108,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
 
                 if (logEntry == null) return RedirectToAction("Logs");
 
+                _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.ViewLogs, $"Viewed app log entry id: {logId}");
                 return View("LogView", logEntry);
             }
             catch (Exception ex) {
@@ -138,7 +141,7 @@ namespace Raptor.Web.Areas.Admin.Controllers
                 };
 
                 _blogService.CreateBlogPost(blogPost);
-                _activityService.InsertActivity(_workContext.CurrentUser.BusinessEntity, ActivityLogDefaults.AddBlogPost, $"Created blog post: {model.DraftTitle}");
+                _activityService.InsertActivity(_workContext.CurrentUser, ActivityLogDefaults.AddBlogPost, $"Created blog post draft: {model.DraftTitle}");
 
             }
             catch (Exception ex) {

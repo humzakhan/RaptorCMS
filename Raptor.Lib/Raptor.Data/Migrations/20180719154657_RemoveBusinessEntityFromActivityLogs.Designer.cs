@@ -14,9 +14,10 @@ using System;
 namespace Raptor.Data.Migrations
 {
     [DbContext(typeof(RaptorDbContext))]
-    partial class RaptorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180719154657_RemoveBusinessEntityFromActivityLogs")]
+    partial class RemoveBusinessEntityFromActivityLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,13 +213,9 @@ namespace Raptor.Data.Migrations
 
                     b.Property<string>("IpAddress");
 
-                    b.Property<int>("PersonId");
-
                     b.HasKey("ActivityLogId");
 
                     b.HasIndex("ActivityLogTypeId");
-
-                    b.HasIndex("PersonId");
 
                     b.ToTable("ActivityLogs");
                 });
@@ -556,11 +553,6 @@ namespace Raptor.Data.Migrations
                     b.HasOne("Raptor.Data.Models.Logging.ActivityLogType", "ActivityLogType")
                         .WithMany()
                         .HasForeignKey("ActivityLogTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Raptor.Data.Models.Users.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -9,15 +9,20 @@ namespace Raptor.Data.Models.Logging
     {
         [Key]
         public int ActivityLogId { get; set; }
+
         public int ActivityLogTypeId { get; set; }
 
-        [ForeignKey("BusinesEntity")]
-        public int BusinessEntityId { get; set; }
         public string Comment { get; set; }
+
+        [ForeignKey("Person")]
+        public int PersonId { get; set; }
+
         public string IpAddress { get; set; }
+
         public DateTime DateCreatedUtc { get; set; }
 
         public virtual ActivityLogType ActivityLogType { get; set; }
-        public virtual BusinessEntity BusinessEntity { get; set; }
+
+        public virtual Person Person { get; set; }
     }
 }

@@ -76,5 +76,10 @@
         /// Update settings
         /// </summary>
         public static readonly string UpdateSettings = "settings.edit";
+
+        /// <summary>
+        /// View Activity Logs
+        /// </summary>
+        public static readonly string ViewActivityLogs = "logs.activity.view";
     }
 }

@@ -82,14 +82,14 @@ namespace Raptor.Services.Logging
         /// <param name="comment">The activity comment</param>
         /// <param name="commentParams">The activity comment parameters for string.Format() function.</param>
         /// <returns>Activity log item</returns>
-        public ActivityLog InsertActivity(BusinessEntity user, string systemKeyword, string comment = "",
+        public ActivityLog InsertActivity(Person user, string systemKeyword, string comment = "",
             params object[] commentParams) {
             if (user == null)
                 return null;
 
             var activityType = _activityLogTypeRepository.SingleOrDefault(a => a.SystemKeyword == systemKeyword);
-            if (activityType == null || !activityType.Enabled)
-                return null;
+            //if (activityType == null || !activityType.Enabled)
+                //return null;
 
             comment = CommonHelper.EnsureNotNull(comment);
             comment = string.Format(comment, commentParams);
@@ -97,7 +97,7 @@ namespace Raptor.Services.Logging
 
             var activityLog = new ActivityLog() {
                 ActivityLogTypeId = activityType.ActivityLogTypeId,
-                BusinessEntityId = user.BusinessEntityId,
+                PersonId = user.BusinessEntityId,
                 Comment = comment,
                 DateCreatedUtc = DateTime.UtcNow,
                 IpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -137,10 +137,10 @@ namespace Raptor.Services.Logging
         public IEnumerable<ActivityLog> GetActivityForUser(int userId, int recentLogsCount = 0) {
             var recentActivity = recentLogsCount != 0 ?
                 _customerActivityRepository
-                .Find(a => a.BusinessEntityId == userId)
+                .Find(a => a.PersonId == userId)
                 .OrderByDescending(a => a.DateCreatedUtc)
                 .Take(recentLogsCount) :
-                _customerActivityRepository.Find(a => a.BusinessEntityId == userId);
+                _customerActivityRepository.Find(a => a.PersonId == userId).OrderByDescending(a => a.DateCreatedUtc);
 
             return recentActivity;
         }
