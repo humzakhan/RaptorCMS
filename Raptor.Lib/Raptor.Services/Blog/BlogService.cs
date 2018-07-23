@@ -50,6 +50,10 @@ namespace Raptor.Services.Blog
             _blogPostsRepository.Update(blogPost);
         }
 
+        public IEnumerable<BlogPost> SearchBlogPosts(string query) {
+            return _blogPostsRepository.Find(b => b.Title.ToLower().Contains(query)).ToList();
+        }
+
         public IList<BlogComment> GetBlogCommentsById(int blogPostId) {
             return _blogCommentsRepository.Find(c => c.BlogPostId == blogPostId).ToList();
         }

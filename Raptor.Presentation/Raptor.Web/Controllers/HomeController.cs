@@ -16,6 +16,7 @@ namespace Raptor.Web.Controllers
         private readonly IBlogService _blogService;
         private readonly ILogService _logService;
         private readonly IWorkContext _workContext;
+        private readonly string _blogPostsListsView = "BlogPostsList";
 
         public HomeController(IBlogService blogService, ILogService logService, IWorkContext workContext){
             _blogService = blogService;
@@ -89,6 +90,21 @@ namespace Raptor.Web.Controllers
         [Route("contact")]
         public IActionResult Contact() {
             return View();
+        }
+
+        [Route("search")]
+        [HttpPost]
+        public IActionResult Search(string query) {
+            var results = _blogService.SearchBlogPosts(query);
+            var model = new BlogListViewModel()
+            {
+                RecentPosts = _blogService.GetBlogPosts(mostRecentCount: 3).ToList(),
+                AllPosts = results.ToList(),
+                Categories = _blogService.GetBlogPostCategories().ToList(),
+                Category = "Search Results for: " + query
+            };
+
+            return View("~/Views/Blog/BlogPostsList.cshtml", model);
         }
     }
 }
