@@ -40,6 +40,11 @@ To develop RaptorCMS, we recommend you to use:
 - Visual Studio 2017
 - ASP.NET Core 2.0
 
+## Contribution
+
+- For issues or suggestions, please start a new thread in the issues section.
+- The roadmap is available at our Trello board [RaptorCMS](https://trello.com/b/C1U5X4DB/raptorcms)
+
 ## License
 
 The RaptorCMS is open-sourced software under the [MIT License](http://opensource.org/licenses/MIT)
