@@ -8,7 +8,7 @@ namespace Raptor.Tests.Data.Core
         [Fact]
         public void TryInitializingDatabase() {
             // Should run smoothly wihout any exceptions.
-            DbInitializer.Seed();
+            //DbInitializer.Seed();
         }
     }
 }

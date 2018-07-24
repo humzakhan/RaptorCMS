@@ -10,10 +10,8 @@ namespace Raptor.Data
 {
     public class RaptorDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            if (!optionsBuilder.IsConfigured) {
-                optionsBuilder.UseNpgsql(@"Host=localhost;Database=RaptorCMS;Username=root;Password=klmn256;");
-            }
+        public RaptorDbContext(DbContextOptions options) : base(options) {
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

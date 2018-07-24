@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -33,15 +34,17 @@ namespace Raptor.Web
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile("appsettings.dev.json", optional: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services) {
 
             // Register our Database context
-            services.AddDbContext<RaptorDbContext>();
+            var connectionString = Configuration["ConnectionStrings:RaptorDbConnectionString"];
+            services.AddDbContext<RaptorDbContext>(o => o.UseNpgsql(connectionString));
 
             // Enable lowercases routes for urls
             services.AddRouting(options => options.LowercaseUrls = true);
