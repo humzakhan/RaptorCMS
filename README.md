@@ -8,8 +8,8 @@ Made with ASP.NET Core, Raptor is a cross-platform, feature rich and lightweight
   <a href="https://travis-ci.org/humzakhan/RaptorCMS">
     <img src="https://travis-ci.org/humzakhan/RaptorCMS.svg?branch=master" alt="Build" />
   </a>
-  <a href="http://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="LICENSE" /></a>
-  <a href="https://github.com/humzakhan/RaptorCMS/releases"><img src="https://img.shields.io/github/release/humzakhan/RaptorCMS.svg?style=flat-square" alt="LICENSE" /></a>
+  <a href="http://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="License" /></a>
+  <a href="https://github.com/humzakhan/RaptorCMS/releases"><img src="https://img.shields.io/github/release/humzakhan/RaptorCMS.svg?style=flat-square" alt="Release" /></a>
 </p>
 
 ## Installation

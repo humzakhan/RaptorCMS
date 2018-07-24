@@ -290,3 +290,6 @@ __pycache__/
 # Project files
 Raptor.Presentation/Raptor.Web/logs
 /Raptor.Presentation/Raptor.Web/appsettings.dev.json
+
+.vscode/
+.vs/
