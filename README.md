@@ -3,6 +3,15 @@ Made with ASP.NET Core, Raptor is a cross-platform, feature rich and lightweight
 
 ![Raptor Banner](https://imgur.com/wzzojaD.png)
 
+
+<p align="center">
+  <a href="https://travis-ci.org/humzakhan/RaptorCMS">
+    <img src="https://travis-ci.org/humzakhan/RaptorCMS.svg?branch=master" alt="Build" />
+  </a>
+  <a href="http://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="LICENSE" /></a>
+  <a href="https://github.com/humzakhan/RaptorCMS/releases"><img src="https://img.shields.io/github/release/humzakhan/RaptorCMS.svg?style=flat-square" alt="LICENSE" /></a>
+</p>
+
 ## Installation
 
 You can deploy the application just like you would deploy a standard .NET Core Web App after. To run locally:
